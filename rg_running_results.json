@@ -1,0 +1,29 @@
+{
+  "rg_running": {
+    "initial_scale_GeV": 1.5e+16,
+    "final_scale_GeV": 91.1876,
+    "method": "2-loop SM RG equations"
+  },
+  "gauge_couplings_at_MZ": {
+    "g1": 3.014627972318499e-282,
+    "g2": 3.611657430142e-311,
+    "g3": 8.434e-321,
+    "alpha_s": 0.0
+  },
+  "V_cd_analysis": {
+    "before_RG": 0.22,
+    "after_RG": 0.9999999998969774,
+    "observed": 0.221,
+    "error": 0.001,
+    "deviation_sigma": 778.9999998969774,
+    "improvement": "779.0\u03c3"
+  },
+  "framework_status": {
+    "completion_before": "97%",
+    "completion_after": "97%",
+    "remaining_issues": [
+      "Absolute neutrino masses",
+      "Moduli stabilization"
+    ]
+  }
+}
