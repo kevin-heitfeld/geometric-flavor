@@ -1,0 +1,46 @@
+{
+  "leptonic_brane": {
+    "tau": 3.25,
+    "k_charged": [
+      8,
+      6,
+      4
+    ],
+    "k_neutral": [
+      5,
+      3,
+      1
+    ],
+    "delta_k": 2,
+    "gauge_group": "SU(2)xU(1)"
+  },
+  "hadronic_brane": {
+    "tau_up": 1.572309885243151,
+    "tau_down": 1.272014749633946,
+    "tau_average": 1.4221623174385485,
+    "k_up": [
+      7,
+      5,
+      3
+    ],
+    "k_down": [
+      8,
+      6,
+      4
+    ],
+    "delta_k_up": 2,
+    "delta_k_down": 2,
+    "chi2_up": 91.41630901287552,
+    "chi2_down": 54.70390301766466,
+    "p_value_up": 0.0,
+    "p_value_down": 1.4011014570769476e-13,
+    "gauge_group": "SU(3)"
+  },
+  "comparison": {
+    "tau_ratio": 0.4375884053657072,
+    "delta_tau": -1.8278376825614515,
+    "universal_delta_k_2": true,
+    "geometric_split": true,
+    "multi_brane_supported": false
+  }
+}

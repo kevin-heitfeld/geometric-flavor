@@ -30,13 +30,6 @@ ENV/
 Thumbs.db
 desktop.ini
 
-# Results that may be large or machine-specific
-*.json
-!falsification_results_v2.json
-!critical_tests_results.json
-!dynamical_test_results.json
-!hnr_*.json
-
 # Temporary files
 *.tmp
 *.bak

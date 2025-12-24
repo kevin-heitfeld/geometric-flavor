@@ -1,0 +1,33 @@
+{
+  "geometric": {
+    "tau_leptonic": 3.25,
+    "tau_hadronic": 1.422,
+    "tau_ratio": 0.43753846153846154,
+    "delta_tau": 1.828
+  },
+  "gauge_couplings_MZ": {
+    "alpha_3": 0.1184,
+    "alpha_2": 0.0337,
+    "alpha_ratio": 3.513353115727003,
+    "g_ratio": 1.87439406628569
+  },
+  "best_match": {
+    "type": "1/(\u03b1_3/\u03b1_2)",
+    "scale_GeV": 14628.837745895224,
+    "deviation": 4.61166536069868e-07,
+    "match_quality": "excellent"
+  },
+  "at_GUT_scale": {
+    "scale_GeV": 2e+16,
+    "alpha_ratio": 1.023905769648872,
+    "g_ratio": 1.0118822904117217,
+    "tau_ratio": 0.43753846153846154,
+    "deviation_alpha": 0.5863673081104105,
+    "deviation_g": 0.5743438288732602
+  },
+  "interpretation": {
+    "masses_forces_unified": true,
+    "geometric_distance_encodes_forces": true,
+    "scale_interpretation": "Planck scale"
+  }
+}
