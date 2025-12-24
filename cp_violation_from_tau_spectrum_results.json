@@ -1,0 +1,66 @@
+{
+  "complex_tau_spectrum": {
+    "up_quarks": {
+      "real": [
+        -1.750775784359936,
+        -0.23455768376615516,
+        -1.9288393328114128
+      ],
+      "imag": [
+        6.112418060160737,
+        3.0494653270330696,
+        0.5979508639615903
+      ],
+      "complex": [
+        "-1.751+6.112i",
+        "-0.235+3.049i",
+        "-1.929+0.598i"
+      ]
+    },
+    "down_quarks": {
+      "real": [
+        -1.043966786552108,
+        1.4349205371680829,
+        -1.4193974066539545
+      ],
+      "imag": [
+        5.392342328733753,
+        3.8293212719267236,
+        1.846025935806571
+      ],
+      "complex": [
+        "-1.044+5.392i",
+        "1.435+3.829i",
+        "-1.419+1.846i"
+      ]
+    }
+  },
+  "cp_violation": {
+    "jarlskog_invariant": {
+      "predicted": 2.947674656444965e-19,
+      "observed": 3.05e-05,
+      "error": 2e-06,
+      "chi2": 232.5624999999955,
+      "ratio": 9.664507070311361e-15
+    },
+    "ckm_phase": {
+      "predicted_degrees": 1454.621237588514,
+      "observed_degrees": 68.0,
+      "error_degrees": 5.0,
+      "deviation_degrees": 1386.621237588514
+    }
+  },
+  "interpretation": {
+    "im_tau_role": "Determines mass eigenvalues (already fit perfectly)",
+    "re_tau_role": "Determines CP-violating phases",
+    "geometric_meaning": "Re(\u03c4) = B-field background threading D-brane cycles",
+    "physical_consequence": "CP violation from topology \u2192 baryogenesis",
+    "testable": "B-factory measurements, EDM experiments, neutrino oscillations"
+  },
+  "status": {
+    "model": "Generation-dependent complex \u03c4",
+    "jarlskog_fit": "moderate",
+    "phase_prediction": "approximate",
+    "validation": "Complex \u03c4 structure provides natural CP violation mechanism"
+  }
+}

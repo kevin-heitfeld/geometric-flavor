@@ -1,0 +1,52 @@
+{
+  "problem": {
+    "simple_model_J": 2.947674656444965e-19,
+    "observed_J": 3.05e-05,
+    "discrepancy_orders_of_magnitude": 14
+  },
+  "diagnosis": {
+    "wrong_phase_formula": "Used arg(E4) instead of proper overlap Im[(\u03c4\u1d62-\u03c4\u2c7c)*]",
+    "missing_ckm_structure": "Geometric overlap gives magnitudes, not phase interferences",
+    "eigenvalue_not_eigenvector": "\u03c4 spectrum for masses, need modular group for mixing",
+    "scale_mismatch": "Geometric phases O(1), need hierarchical suppression",
+    "missing_cp_odd": "Need explicit CP-odd terms in Yukawa couplings"
+  },
+  "proper_calculation": {
+    "phase_matrix": [
+      [
+        -3.0596209297970463,
+        -15.475117159705434,
+        5.4439728372664105
+      ],
+      [
+        1.9187251914628025,
+        -5.273937153081335,
+        3.895403609196854
+      ],
+      [
+        -9.776721137679514,
+        -8.244157462179576,
+        -2.711957528760138
+      ]
+    ],
+    "J_from_overlap": 2.4610941958029768e-05,
+    "J_with_group_factor": 7.38328258740893e-05,
+    "group_factor_estimate": 3.0,
+    "ratio_to_observed": 2.420748389314403
+  },
+  "missing_ingredients": [
+    "Modular group structure (\u0393\u2080(3) or \u0393\u2080(4))",
+    "Worldsheet instanton corrections",
+    "Full overlap integral with phases",
+    "RG evolution from string to EW scale",
+    "K\u00e4hler moduli mixing with complex structure"
+  ],
+  "key_insights": [
+    "Geometry alone explains masses (eigenvalues) perfectly",
+    "CP phases need group theory + instantons",
+    "Cabibbo angle suggests \u0393\u2080(4) for quarks",
+    "Full J requires modular group enhancement",
+    "Framework incomplete without group structure"
+  ],
+  "next_step": "Identify modular group \u0393\u2080(N) and compute Clebsch-Gordan factors"
+}
