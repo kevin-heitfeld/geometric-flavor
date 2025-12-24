@@ -1,0 +1,70 @@
+{
+  "tau_hadronic": 1.422,
+  "structure": "Eisenstein E\u2084",
+  "up_quarks": {
+    "k_pattern": [
+      0.5084103924442145,
+      2.917707380577917,
+      0.6044053600761483
+    ],
+    "delta_k": [
+      2.4092969881337023,
+      -2.3133020205017685
+    ],
+    "delta_k_avg": 0.04799748381596691,
+    "m0_GeV": 0.0021599999795823294,
+    "alpha": 8.441431885195449,
+    "chi2": 1.3670051714480546e-16,
+    "masses_observed_GeV": [
+      0.00216,
+      1.27,
+      172.5
+    ],
+    "masses_predicted_GeV": [
+      0.0021600000004532187,
+      1.2699999996592852,
+      172.49999999356706
+    ],
+    "residuals_sigma": [
+      -1.0491171894056934e-09,
+      8.942645399343302e-09,
+      7.458482655963144e-09
+    ]
+  },
+  "down_quarks": {
+    "k_pattern": [
+      0.6815352006836362,
+      0.559216536662495,
+      4.1209785716885765
+    ],
+    "delta_k": [
+      -0.12231866402114111,
+      3.5617620350260815
+    ],
+    "delta_k_avg": 1.7197216855024702,
+    "m0_GeV": 0.004670000003275864,
+    "alpha": 6.783203293761364,
+    "chi2": 2.5485563620593e-17,
+    "masses_observed_GeV": [
+      0.00467,
+      0.0934,
+      4.18
+    ],
+    "masses_predicted_GeV": [
+      0.004670000003276637,
+      0.09339999999520417,
+      4.179999999931243
+    ],
+    "residuals_sigma": [
+      -4.67756979553065e-09,
+      1.711574018370196e-09,
+      8.224468421560503e-10
+    ]
+  },
+  "physical_interpretation": {
+    "leptons": "Pure modular \u03b7(\u03c4) - conformal field theory",
+    "quarks": "Quasi-modular E\u2084(\u03c4) - QCD with RG running",
+    "key_insight": "Mathematical structure encodes gauge theory physics",
+    "E4_property": "Contains logarithmic derivatives \u2194 \u03b2-functions"
+  }
+}

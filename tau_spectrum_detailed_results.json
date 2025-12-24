@@ -1,0 +1,53 @@
+{
+  "up_quarks": {
+    "tau_spectrum": [
+      6.112418060160737,
+      3.0494653270330696,
+      0.5979508639615903
+    ],
+    "tau_avg": 3.2532780837184654,
+    "tau_std": 2.255879997448135,
+    "tau_spread": -5.5144671961991465,
+    "k": 7.952150884701309,
+    "m0_GeV": 726.0376924200541,
+    "chi2": 2.4307130606151518e-17,
+    "delta_tau": [
+      -3.062952733127667,
+      -2.4515144630714794
+    ]
+  },
+  "down_quarks": {
+    "tau_spectrum": [
+      5.392342328733753,
+      3.8293212719267236,
+      1.846025935806571
+    ],
+    "tau_avg": 3.6892298454890162,
+    "tau_std": 1.4511625673937039,
+    "tau_spread": -3.5463163929271824,
+    "k": 7.320985434416164,
+    "m0_GeV": 143.81477685152618,
+    "chi2": 8.282878252635408e-18,
+    "delta_tau": [
+      -1.5630210568070297,
+      -1.9832953361201526
+    ]
+  },
+  "geometric": {
+    "tau_hadronic": 1.422,
+    "tau_leptonic": 3.25,
+    "tau_ratio": 0.43753846153846154,
+    "combined_avg": 3.471253964603741,
+    "combined_harmonic": 2.2109560079870656
+  },
+  "interpretation": {
+    "picture": "Multi-brane configuration with generation-dependent positions",
+    "geometric_tau": "Center of mass of quark brane stack",
+    "mass_hierarchy": "Distance from CM correlates with mass",
+    "predictions": [
+      "CKM mixing from tau separations",
+      "FCNC suppression from geometric separation",
+      "KK modes at M ~ 1/\u0394\u03c4"
+    ]
+  }
+}

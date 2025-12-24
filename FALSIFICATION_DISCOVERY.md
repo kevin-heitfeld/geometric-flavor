@@ -67,7 +67,7 @@
 ### 5. τ-Ratio Discovery (GEMINI'S BREAKTHROUGH)
 **Gemini's Insight**: "The falsification is NOT failure—test if τ-ratio encodes force strengths!"
 
-**Hypothesis**: 
+**Hypothesis**:
 - τ_leptonic = 3.25i (SU(2)×U(1) brane)
 - τ_hadronic = 1.42i (SU(3) color brane)
 - τ_ratio = 0.4375 = 7/16
@@ -125,7 +125,7 @@
 
 **Test**: Fit neutrino masses, bootstrap analysis (100 samples)
 
-**Result**: 
+**Result**:
 - Free fit: Δk = 2.81 ± 1.07
 - Constrained fit (Δk=2): Δχ² = 0 (NO cost!)
 - Statistical test: **p = 0.439** (cannot reject)
@@ -312,7 +312,7 @@ This is **classic scientific method**:
 
 **YES**: Geometric unification of fermion masses with gauge forces
 
-**Achievement**: 
+**Achievement**:
 - Complete leptonic unification (Δk=2, τ=3.25i)
 - Geometric quark decoupling (τ=1.42i)
 - Mass-force connection (τ-ratio = α₂/α₃ at 14.6 TeV)
