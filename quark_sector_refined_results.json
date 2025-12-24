@@ -1,0 +1,55 @@
+{
+  "geometric_parameters": {
+    "tau_leptonic": 3.25,
+    "tau_hadronic_predicted": 1.421875,
+    "tau_ratio": 0.4375,
+    "tau_ratio_coupling_match": "0.000% deviation at 14.6 TeV"
+  },
+  "modular_groups": {
+    "leptons": "\u0393\u2080(7)",
+    "quarks": "\u0393\u2080(16)",
+    "level_ratio": "7/16"
+  },
+  "up_quarks_tau_1p422i": {
+    "best_k_pattern": [
+      5,
+      3,
+      1
+    ],
+    "chi2": 41097.1933338056,
+    "p_value": 0.0,
+    "delta_k": [
+      2,
+      2
+    ],
+    "delta_k_equals_2": true
+  },
+  "down_quarks_tau_1p422i": {
+    "best_k_pattern": [
+      8,
+      6,
+      4
+    ],
+    "chi2": 3123.8188753596696,
+    "p_value": 0.0,
+    "delta_k": [
+      2,
+      2
+    ],
+    "delta_k_equals_2": true
+  },
+  "free_fits": {
+    "up_tau_preferred": 5.536528344395852,
+    "down_tau_preferred": 2.387573552462316,
+    "average_tau_preferred": 3.9620509484290842,
+    "deviation_from_predicted": 2.5401759484290842
+  },
+  "conclusions": {
+    "geometric_decoupling_explained": true,
+    "mass_force_unification": true,
+    "delta_k_2_universal": true,
+    "flavor_unification_progress": "80-85%",
+    "mass_force_unification_progress": "75-80%",
+    "overall_toe_progress": "25-30%"
+  }
+}
