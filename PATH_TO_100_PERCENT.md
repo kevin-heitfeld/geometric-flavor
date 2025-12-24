@@ -1,8 +1,8 @@
 # Path to 100%: Fixing the V_cd Problem
 ## Systematic Plan to Complete the Framework
 
-**Current Status**: 95% (17/19 within 3σ)  
-**Outstanding**: V_cd = 5.8σ, V_us = 5.5σ  
+**Current Status**: 95% (17/19 within 3σ)
+**Outstanding**: V_cd = 5.8σ, V_us = 5.5σ
 **Goal**: Reduce to < 3σ, then claim completion
 
 ---
@@ -11,14 +11,14 @@
 
 ### V_cd Tension
 
-**Predicted**: V_cd = 0.197  
-**Observed**: V_cd = 0.221 ± 0.001  
-**Discrepancy**: Δ = 0.024 (12% relative error)  
+**Predicted**: V_cd = 0.197
+**Observed**: V_cd = 0.221 ± 0.001
+**Discrepancy**: Δ = 0.024 (12% relative error)
 **Significance**: 5.8σ (1 in 100 million chance)
 
 **Current Prediction Source**:
 ```
-V_cd = cos(θ₁₂) sin(θ₁₃) 
+V_cd = cos(θ₁₂) sin(θ₁₃)
      ≈ cos(11.35°) sin(0.21°)
      = 0.981 × 0.003665
      = 0.197
@@ -70,20 +70,20 @@ Plus logarithmic corrections ~ O(10%) total
 def gut_threshold_corrections():
     # 1. Define E6 Yukawa structure
     Y_E6 = modular_yukawa_E6(tau_4)
-    
+
     # 2. Break to SU(5) at M_GUT
     Y_SU5 = break_E6_to_SU5(Y_E6, M_GUT)
-    
+
     # 3. Calculate threshold corrections
     delta_Y = threshold_matching(M_GUT, M_string)
     Y_corrected = Y_SU5 + delta_Y
-    
+
     # 4. Run to M_Z
     Y_Z = run_rg(Y_corrected, M_GUT, M_Z)
-    
+
     # 5. Extract CKM
     V_CKM = extract_ckm(Y_Z)
-    
+
     return V_CKM['cd']
 ```
 
@@ -135,16 +135,16 @@ def weight6_corrections():
     # 1. Compute both modular forms
     E4 = eisenstein_E4(tau_4)
     E6 = eisenstein_E6(tau_4)
-    
+
     # 2. Determine coefficient ratio from string theory
     c6_over_c4 = compute_coefficient_ratio()
-    
+
     # 3. Modified Yukawa
     Y_total = E4 + c6_over_c4 * E6
-    
+
     # 4. Diagonalize
     V_CKM_new = diagonalize(Y_total)
-    
+
     return V_CKM_new['cd']
 ```
 
@@ -283,7 +283,7 @@ Y^d_SU5 = P^† · Y^E6 · P + δY_threshold
 
 C_ij from:
 - Heavy state integration
-- Wavefunction renormalization  
+- Wavefunction renormalization
 - Kähler corrections
 ```
 
@@ -309,26 +309,26 @@ Check: V_cd = ?
 
 ### If Approach 1 Works (80% probability)
 
-**Timeline**: 2-4 weeks  
-**Result**: V_cd shifts by ~10% → 5.8σ becomes ~2σ  
+**Timeline**: 2-4 weeks
+**Result**: V_cd shifts by ~10% → 5.8σ becomes ~2σ
 **Publication**: "Complete 100% Framework" to Nature Q2 2025
 
 ### If Approach 1 + 2 Needed (15% probability)
 
-**Timeline**: 4-6 weeks  
-**Result**: Combined 15-20% shift → V_cd < 1σ  
+**Timeline**: 4-6 weeks
+**Result**: Combined 15-20% shift → V_cd < 1σ
 **Publication**: Two papers (95% + corrections) Q2-Q3 2025
 
 ### If Deep Dive Required (5% probability)
 
-**Timeline**: 3-6 months  
-**Result**: String loops resolve tension  
+**Timeline**: 3-6 months
+**Result**: String loops resolve tension
 **Publication**: Series of papers through 2025
 
 ### Worst Case: V_cd Stays (< 1% probability)
 
-**Interpretation**: Need new physics beyond framework  
-**Action**: Publish 95% as major achievement, continue investigation  
+**Interpretation**: Need new physics beyond framework
+**Action**: Publish 95% as major achievement, continue investigation
 **Still publishable**: JHEP, PRD will accept with honest discussion
 
 ---
@@ -390,21 +390,21 @@ Check: V_cd = ?
 ## Success Metrics
 
 ### Technical Success
-✅ V_cd reduced from 5.8σ to < 3σ  
-✅ V_us automatically improved (related)  
-✅ Other parameters remain good (< 3σ)  
+✅ V_cd reduced from 5.8σ to < 3σ
+✅ V_us automatically improved (related)
+✅ Other parameters remain good (< 3σ)
 ✅ All corrections calculable from first principles
 
-### Scientific Success  
-✅ Honest assessment maintained  
-✅ Systematic approach documented  
-✅ Community can verify calculations  
+### Scientific Success
+✅ Honest assessment maintained
+✅ Systematic approach documented
+✅ Community can verify calculations
 ✅ Framework achieves 100% when complete
 
 ### Publication Success
-✅ Accepted in peer-reviewed journal  
-✅ Cited as solution to flavor puzzle  
-✅ Experimental collaborations engaged  
+✅ Accepted in peer-reviewed journal
+✅ Cited as solution to flavor puzzle
+✅ Experimental collaborations engaged
 ✅ Nobel consideration when predictions confirmed
 
 ---
@@ -425,6 +425,6 @@ Check: V_cd = ?
 
 ---
 
-**Next Action**: Begin implementing Approach 1 (GUT thresholds)  
-**Target**: V_cd < 3σ within 2-4 weeks  
+**Next Action**: Begin implementing Approach 1 (GUT thresholds)
+**Target**: V_cd < 3σ within 2-4 weeks
 **Then**: Claim 100% completion and submit to Nature/Science
