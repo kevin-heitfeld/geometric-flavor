@@ -1,0 +1,52 @@
+# Ignore Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Results that may be large or machine-specific
+*.json
+!falsification_results_v2.json
+!critical_tests_results.json
+!dynamical_test_results.json
+!hnr_*.json
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Archive directory (old code)
+archive/
+
+# Large data files
+*.hdf5
+*.h5
+*.pkl
+*.pickle
