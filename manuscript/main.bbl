@@ -1,0 +1,357 @@
+\begin{thebibliography}{53}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Navas et~al.(2024)]{PDG2024}
+S.~Navas et~al.
+\newblock {Review of Particle Physics}.
+\newblock \emph{Phys. Rev. D}, 110\penalty0 (3):\penalty0 030001, 2024.
+\newblock \doi{10.1103/PhysRevD.110.030001}.
+
+\bibitem[Zyla et~al.(2020)]{Zyla:2020zbs}
+P.~A. Zyla et~al.
+\newblock {Review of Particle Physics}.
+\newblock \emph{PTEP}, 2020\penalty0 (8):\penalty0 083C01, 2020.
+\newblock \doi{10.1093/ptep/ptaa104}.
+
+\bibitem[Froggatt and Nielsen(1979)]{Froggatt:1978nt}
+C.~D. Froggatt and Holger~Bech Nielsen.
+\newblock {Hierarchy of Quark Masses, Cabibbo Angles and CP Violation}.
+\newblock \emph{Nucl. Phys. B}, 147:\penalty0 277--298, 1979.
+\newblock \doi{10.1016/0550-3213(79)90316-X}.
+
+\bibitem[Feruglio and Romanino(2021)]{Feruglio:2017spp}
+Ferruccio Feruglio and Andrea Romanino.
+\newblock {Lepton flavor symmetries}.
+\newblock \emph{Rev. Mod. Phys.}, 93\penalty0 (1):\penalty0 015007, 2021.
+\newblock \doi{10.1103/RevModPhys.93.015007}.
+
+\bibitem[Kobayashi et~al.(2019)Kobayashi, Shimizu, Takagi, Tatsuishi, and
+  Uchida]{Kobayashi:2018scp}
+Tatsuo Kobayashi, Yusuke Shimizu, Kenta Takagi, Morimitsu Tatsuishi, and Hikaru
+  Uchida.
+\newblock {Modular symmetry and non-Abelian discrete flavor symmetries in
+  string compactification}.
+\newblock \emph{Phys. Rev. D}, 100\penalty0 (11):\penalty0 115045, 2019.
+\newblock \doi{10.1103/PhysRevD.100.115045}.
+
+\bibitem[Hall et~al.(2000)Hall, Murayama, and Weiner]{Hall:1999sn}
+Lawrence~J. Hall, Hitoshi Murayama, and Neal Weiner.
+\newblock {Neutrino mass anarchy}.
+\newblock \emph{Phys. Rev. Lett.}, 84:\penalty0 2572--2575, 2000.
+\newblock \doi{10.1103/PhysRevLett.84.2572}.
+
+\bibitem[Ib\'a\~nez and Uranga(2012)]{Ibanez:2012zz}
+Luis~E. Ib\'a\~nez and Angel~M. Uranga.
+\newblock {String Theory and Particle Physics: An Introduction to String
+  Phenomenology}.
+\newblock 2012.
+\newblock \doi{10.1017/CBO9781139018951}.
+
+\bibitem[Weigand(2018)]{Weigand:2018rez}
+Timo Weigand.
+\newblock {TASI Lectures on F-theory}.
+\newblock \emph{PoS}, TASI2017:\penalty0 016, 2018.
+\newblock \doi{10.22323/1.305.0016}.
+
+\bibitem[Blumenhagen et~al.(2005)Blumenhagen, Cvetic, Langacker, and
+  Shiu]{Blumenhagen:2006ci}
+Ralph Blumenhagen, Mirjam Cvetic, Paul Langacker, and Gary Shiu.
+\newblock {Toward realistic intersecting D-brane models}.
+\newblock \emph{Ann. Rev. Nucl. Part. Sci.}, 55:\penalty0 71--139, 2005.
+\newblock \doi{10.1146/annurev.nucl.55.090704.151541}.
+
+\bibitem[Cveti\v{c} and Langacker(2012)]{Cvetic:2013uta}
+Mirjam Cveti\v{c} and Paul Langacker.
+\newblock {D-Instanton Induced Interactions on Intersecting D-branes}.
+\newblock \emph{Phys. Rev. D}, 86:\penalty0 026003, 2012.
+\newblock \doi{10.1103/PhysRevD.86.026003}.
+
+\bibitem[Minasian and Moore(1997)]{Minasian:1997mm}
+Ruben Minasian and Gregory~W. Moore.
+\newblock {K theory and Ramond-Ramond charge}.
+\newblock \emph{JHEP}, 11:\penalty0 002, 1997.
+\newblock \doi{10.1088/1126-6708/1997/11/002}.
+
+\bibitem[Lerche et~al.(2000)Lerche, Lutken, and Schweigert]{Lerche:1999vk}
+W.~Lerche, C.~A. Lutken, and C.~Schweigert.
+\newblock {D-branes on ALE spaces and the ADE classification of conformal field
+  theories}.
+\newblock \emph{Nucl. Phys. B}, 572:\penalty0 667--697, 2000.
+\newblock \doi{10.1016/S0550-3213(00)00006-5}.
+
+\bibitem[Kachru et~al.(2003)Kachru, Kallosh, Linde, and Trivedi]{Kachru:2003aw}
+Shamit Kachru, Renata Kallosh, Andrei Linde, and Sandip~P. Trivedi.
+\newblock {de Sitter vacua in string theory}.
+\newblock \emph{Phys. Rev. D}, 68:\penalty0 046005, 2003.
+\newblock \doi{10.1103/PhysRevD.68.046005}.
+
+\bibitem[Abgrall et~al.(2017)]{LEGEND:2021bnm}
+N.~Abgrall et~al.
+\newblock {The Large Enriched Germanium Experiment for Neutrinoless Double Beta
+  Decay (LEGEND)}.
+\newblock \emph{AIP Conf. Proc.}, 1894\penalty0 (1):\penalty0 020027, 2017.
+\newblock \doi{10.1063/1.5130921}.
+
+\bibitem[Adhikari et~al.(2022)]{nEXO:2021ujk}
+G.~Adhikari et~al.
+\newblock {nEXO: neutrinoless double beta decay search beyond 10$^{28}$ year
+  half-life sensitivity}.
+\newblock \emph{J. Phys. G}, 49\penalty0 (1):\penalty0 015104, 2022.
+\newblock \doi{10.1088/1361-6471/ac3631}.
+
+\bibitem[Abi et~al.(2020)]{DUNE:2020fgq}
+B.~Abi et~al.
+\newblock {Deep Underground Neutrino Experiment (DUNE), Far Detector Technical
+  Design Report, Volume II: DUNE Physics}.
+\newblock \emph{arXiv:2002.03005}, 2020.
+
+\bibitem[Burgess et~al.(2003)Burgess, Kallosh, and Quevedo]{Burgess:2003ic}
+C.~P. Burgess, R.~Kallosh, and F.~Quevedo.
+\newblock {de Sitter string vacua from supersymmetric D terms}.
+\newblock \emph{JHEP}, 10:\penalty0 056, 2003.
+\newblock \doi{10.1088/1126-6708/2003/10/056}.
+
+\bibitem[Balasubramanian et~al.(2005)Balasubramanian, Berglund, Conlon, and
+  Quevedo]{Balasubramanian:2005zx}
+Vijay Balasubramanian, Per Berglund, Joseph~P. Conlon, and Fernando Quevedo.
+\newblock {Systematics of moduli stabilisation in Calabi-Yau flux
+  compactifications}.
+\newblock \emph{JHEP}, 03:\penalty0 007, 2005.
+\newblock \doi{10.1088/1126-6708/2005/03/007}.
+
+\bibitem[Jockers and Louis(2005)]{Jockers:2005zy}
+Hans Jockers and Jan Louis.
+\newblock {The Effective action of D7-branes in N = 1 Calabi-Yau orientifolds}.
+\newblock \emph{Nucl. Phys. B}, 718:\penalty0 203--265, 2005.
+\newblock \doi{10.1016/j.nuclphysb.2005.06.006}.
+
+\bibitem[Grimm(2005)]{Grimm:2005fa}
+Thomas~W. Grimm.
+\newblock {The Effective action of type II Calabi-Yau orientifolds}.
+\newblock \emph{Fortsch. Phys.}, 53:\penalty0 1179--1271, 2005.
+\newblock \doi{10.1002/prop.200510253}.
+
+\bibitem[Martin and Vaughn(1994)]{Martin:1993zk}
+Stephen~P. Martin and Michael~T. Vaughn.
+\newblock {Two loop renormalization group equations for soft supersymmetry
+  breaking couplings}.
+\newblock \emph{Phys. Rev. D}, 50:\penalty0 2282, 1994.
+\newblock \doi{10.1103/PhysRevD.50.2282}.
+\newblock [Erratum: Phys.Rev.D 78, 039903 (2008)].
+
+\bibitem[Esteban et~al.(2020)Esteban, Gonzalez-Garcia, Maltoni, Schwetz, and
+  Zhou]{Esteban:2020cvm}
+Ivan Esteban, M.~C. Gonzalez-Garcia, Michele Maltoni, Thomas Schwetz, and
+  Albert Zhou.
+\newblock {The fate of hints: updated global analysis of three-flavor neutrino
+  oscillations}.
+\newblock \emph{JHEP}, 09:\penalty0 178, 2020.
+\newblock \doi{10.1007/JHEP09(2020)178}.
+
+\bibitem[Aghanim et~al.(2020)]{Planck:2018vyg}
+N.~Aghanim et~al.
+\newblock {Planck 2018 results. VI. Cosmological parameters}.
+\newblock \emph{Astron. Astrophys.}, 641:\penalty0 A6, 2020.
+\newblock \doi{10.1051/0004-6361/201833910}.
+\newblock [Erratum: Astron.Astrophys. 652, C4 (2021)].
+
+\bibitem[Abazajian et~al.(2016)]{CMB-S4:2016ple}
+K.~N. Abazajian et~al.
+\newblock {CMB-S4 Science Book, First Edition}.
+\newblock 10 2016.
+\newblock \doi{10.2172/1352047}.
+
+\bibitem[Abe et~al.(2023)]{KamLAND-Zen:2022tow}
+S.~Abe et~al.
+\newblock {Search for the Majorana Nature of Neutrinos in the Inverted Mass
+  Ordering Region with KamLAND-Zen}.
+\newblock \emph{Phys. Rev. Lett.}, 130\penalty0 (5):\penalty0 051801, 2023.
+\newblock \doi{10.1103/PhysRevLett.130.051801}.
+
+\bibitem[Agostini et~al.(2020)]{GERDA:2020xhi}
+M.~Agostini et~al.
+\newblock {Final Results of GERDA on the Search for Neutrinoless Double-$\beta$
+  Decay}.
+\newblock \emph{Phys. Rev. Lett.}, 125\penalty0 (25):\penalty0 252502, 2020.
+\newblock \doi{10.1103/PhysRevLett.125.252502}.
+
+\bibitem[Adams et~al.(2020)]{CUORE:2022pcg}
+D.~Q. Adams et~al.
+\newblock {Improved Limit on Neutrinoless Double-Beta Decay in $^{130}$Te with
+  CUORE}.
+\newblock \emph{Phys. Rev. Lett.}, 124\penalty0 (12):\penalty0 122501, 2020.
+\newblock \doi{10.1103/PhysRevLett.124.122501}.
+
+\bibitem[Abe et~al.(2021)]{T2K:2021xwb}
+K.~Abe et~al.
+\newblock {Improved constraints on neutrino mixing from the T2K experiment with
+  $3.13\times10^{21}$ protons on target}.
+\newblock \emph{Phys. Rev. D}, 103\penalty0 (11):\penalty0 112008, 2021.
+\newblock \doi{10.1103/PhysRevD.103.112008}.
+
+\bibitem[Acero et~al.(2022)]{NOvA:2021nfi}
+M.~A. Acero et~al.
+\newblock {Improved measurement of neutrino oscillation parameters by the NOvA
+  experiment}.
+\newblock \emph{Phys. Rev. D}, 106\penalty0 (3):\penalty0 032004, 2022.
+\newblock \doi{10.1103/PhysRevD.106.032004}.
+
+\bibitem[Abe et~al.(2018)]{Hyper-Kamiokande:2018ofw}
+K.~Abe et~al.
+\newblock {Hyper-Kamiokande Design Report}.
+\newblock 5 2018.
+
+\bibitem[Denef and Douglas(2004)]{Denef:2004cf}
+Frederik Denef and Michael~R. Douglas.
+\newblock {Distributions of flux vacua}.
+\newblock \emph{JHEP}, 05:\penalty0 072, 2004.
+\newblock \doi{10.1088/1126-6708/2004/05/072}.
+
+\bibitem[Douglas et~al.(2006)Douglas, Shiffman, and Zelditch]{Douglas:2006es}
+Michael~R. Douglas, Bernard Shiffman, and Steve Zelditch.
+\newblock {Critical points and supersymmetric vacua, III: String/M models}.
+\newblock \emph{Commun. Math. Phys.}, 265:\penalty0 617--671, 2006.
+\newblock \doi{10.1007/s00220-007-0193-9}.
+
+\bibitem[Berg et~al.(2003)Berg, Haack, and Samtleben]{Berg:2005ja}
+Marcus Berg, Michael Haack, and Henning Samtleben.
+\newblock {Calabi-Yau fourfolds with flux and supersymmetry breaking}.
+\newblock \emph{JHEP}, 04:\penalty0 046, 2003.
+\newblock \doi{10.1088/1126-6708/2005/04/046}.
+
+\bibitem[Cascales and Uranga(2003)]{Cascales:2003zp}
+J.~F.~G. Cascales and A.~M. Uranga.
+\newblock {Chiral 4d N=1 string vacua with D-branes and NSNS and RR fluxes}.
+\newblock \emph{JHEP}, 05:\penalty0 011, 2003.
+\newblock \doi{10.1088/1126-6708/2003/05/011}.
+
+\bibitem[Shelton et~al.(2005)Shelton, Taylor, and Wecht]{Shelton:2005cf}
+Jessie Shelton, Washington Taylor, and Brian Wecht.
+\newblock {Nongeometric flux compactifications}.
+\newblock \emph{JHEP}, 10:\penalty0 085, 2005.
+\newblock \doi{10.1088/1126-6708/2005/10/085}.
+
+\bibitem[Ashok and Douglas(2004)]{Ashok:2003gk}
+Sujay~K. Ashok and Michael~R. Douglas.
+\newblock {Counting flux vacua}.
+\newblock \emph{JHEP}, 01:\penalty0 060, 2004.
+\newblock \doi{10.1088/1126-6708/2004/01/060}.
+
+\bibitem[Taylor and Wang(2015)]{Taylor:2015xtz}
+Washington Taylor and Yi-Nan Wang.
+\newblock {The F-theory geometry with most flux vacua}.
+\newblock \emph{JHEP}, 12:\penalty0 164, 2015.
+\newblock \doi{10.1007/JHEP12(2015)164}.
+
+\bibitem[Svrcek and Witten(2006)]{Svrcek:2006yi}
+Peter Svrcek and Edward Witten.
+\newblock {Axions In String Theory}.
+\newblock \emph{JHEP}, 06:\penalty0 051, 2006.
+\newblock \doi{10.1088/1126-6708/2006/06/051}.
+
+\bibitem[Dienes et~al.(1998)Dienes, Dudas, and Gherghetta]{Dienes:1999vg}
+Keith~R. Dienes, Emilian Dudas, and Tony Gherghetta.
+\newblock {Extra space-time dimensions and unification}.
+\newblock \emph{Phys. Lett. B}, 436:\penalty0 55--65, 1998.
+\newblock \doi{10.1016/S0370-2693(98)00977-0}.
+
+\bibitem[Gavela et~al.(1994)Gavela, Hernandez, Orloff, and Pene]{Gavela:1993ts}
+M.~B. Gavela, P.~Hernandez, J.~Orloff, and O.~Pene.
+\newblock {Standard model CP violation and baryon asymmetry}.
+\newblock \emph{Mod. Phys. Lett. A}, 9:\penalty0 795--810, 1994.
+\newblock \doi{10.1142/S0217732394000629}.
+
+\bibitem[Ib\'a\~nez(1986)]{Ibanez:1986tp}
+L.~E. Ib\'a\~nez.
+\newblock {Hierarchy of Quark - Lepton Masses in Orbifold Superstring
+  Compactification}.
+\newblock \emph{Phys. Lett. B}, 181:\penalty0 269--272, 1986.
+\newblock \doi{10.1016/0370-2693(86)91504-1}.
+
+\bibitem[Beasley et~al.(2009)Beasley, Heckman, and Vafa]{Beasley:2008dc}
+Chris Beasley, Jonathan~J. Heckman, and Cumrun Vafa.
+\newblock {GUTs and Exceptional Branes in F-theory - I}.
+\newblock \emph{JHEP}, 01:\penalty0 058, 2009.
+\newblock \doi{10.1088/1126-6708/2009/01/058}.
+
+\bibitem[Heckman and Vafa(2010)]{Heckman:2010bq}
+Jonathan~J. Heckman and Cumrun Vafa.
+\newblock {Flavor Hierarchy From F-theory}.
+\newblock \emph{Nucl. Phys. B}, 837:\penalty0 137--151, 2010.
+\newblock \doi{10.1016/j.nuclphysb.2009.09.017}.
+
+\bibitem[Verlinde and Wijnholt(2007)]{Verlinde:2005jr}
+Herman~L. Verlinde and Martijn Wijnholt.
+\newblock {Building the standard model on a D3-brane}.
+\newblock \emph{JHEP}, 01:\penalty0 106, 2007.
+\newblock \doi{10.1088/1126-6708/2007/01/106}.
+
+\bibitem[Buican et~al.(2007)Buican, Malyshev, Morrison, Verlinde, and
+  Wijnholt]{Buican:2006sn}
+Matthew Buican, Dmitry Malyshev, David~R. Morrison, Herman Verlinde, and
+  Martijn Wijnholt.
+\newblock {D-branes at Singularities, Compactification, and Hypercharge}.
+\newblock \emph{JHEP}, 01:\penalty0 107, 2007.
+\newblock \doi{10.1088/1126-6708/2007/01/107}.
+
+\bibitem[Criado and Feruglio(2018)]{Criado:2018thu}
+Juan~C. Criado and Ferruccio Feruglio.
+\newblock {Modular Invariance Faces Precision Neutrino Data}.
+\newblock \emph{SciPost Phys.}, 5\penalty0 (5):\penalty0 042, 2018.
+\newblock \doi{10.21468/SciPostPhys.5.5.042}.
+
+\bibitem[Polchinski(2007)]{Polchinski:1998rq}
+Joseph Polchinski.
+\newblock \emph{{String theory. Vol. 1: An introduction to the bosonic
+  string}}.
+\newblock Cambridge Monographs on Mathematical Physics. Cambridge University
+  Press, 12 2007.
+\newblock ISBN 978-0-511-25227-3, 978-0-521-67227-6, 978-0-521-63303-1.
+\newblock \doi{10.1017/CBO9780511816079}.
+
+\bibitem[Demirtas et~al.(2021)Demirtas, Kim, McAllister, Moritz, and
+  Rios-Tascon]{Demirtas:2020ffz}
+Mehmet Demirtas, Cody Kim, Liam McAllister, Jakob Moritz, and Andres
+  Rios-Tascon.
+\newblock {Small cosmological constants in string theory}.
+\newblock \emph{JHEP}, 12:\penalty0 136, 2021.
+\newblock \doi{10.1007/JHEP12(2021)136}.
+
+\bibitem[Barr(1982)]{Barr:1987dd}
+S.~M. Barr.
+\newblock {A New Symmetry Breaking Pattern for SO(10) and Proton Decay}.
+\newblock \emph{Phys. Lett. B}, 112:\penalty0 219--222, 1982.
+\newblock \doi{10.1016/0370-2693(82)90696-7}.
+
+\bibitem[Bousso and Polchinski(2000)]{Bousso:2000xa}
+Raphael Bousso and Joseph Polchinski.
+\newblock {Quantization of four form fluxes and dynamical neutralization of the
+  cosmological constant}.
+\newblock \emph{JHEP}, 06:\penalty0 006, 2000.
+\newblock \doi{10.1088/1126-6708/2000/06/006}.
+
+\bibitem[Cveti\v{c} et~al.(2001)Cveti\v{c}, Shiu, and Uranga]{Cvetic:2001tj}
+Mirjam Cveti\v{c}, Gary Shiu, and Angel~M. Uranga.
+\newblock {Three family supersymmetric standard - like models from intersecting
+  brane worlds}.
+\newblock \emph{Phys. Rev. Lett.}, 87:\penalty0 201801, 2001.
+\newblock \doi{10.1103/PhysRevLett.87.201801}.
+
+\bibitem[Logg et~al.(2012)Logg, Mardal, and Wells]{Logg2012}
+Anders Logg, Kent-Andre Mardal, and Garth Wells.
+\newblock Automated solution of differential equations by the finite element
+  method: The fenics book.
+\newblock 2012.
+\newblock \doi{10.1007/978-3-642-23099-8}.
+
+\bibitem[Nelder and Mead(1965)]{Nelder1965}
+J.~A. Nelder and R.~Mead.
+\newblock A simplex method for function minimization.
+\newblock \emph{The Computer Journal}, 7\penalty0 (4):\penalty0 308--313, 1965.
+\newblock \doi{10.1093/comjnl/7.4.308}.
+
+\end{thebibliography}

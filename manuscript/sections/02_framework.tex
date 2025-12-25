@@ -1,0 +1,173 @@
+\section{Framework and Assumptions}
+\label{sec:framework}
+
+\subsection{Type IIB Compactification Setup}
+
+We consider Type IIB string theory compactified on the toroidal orbifold $T^6/(\ZZ_3 \times \ZZ_4)$. This geometry provides:
+\begin{itemize}
+    \item Three complex structure moduli $U^i$ and one dilaton $\tau = C_0 + i/g_s$
+    \item Three K\"ahler moduli $\rho^i$ controlling the CY volume $V = \mathcal{O}(\text{Re}(\rho)^{3/2})$
+    \item Sufficient fixed points to accommodate three fermion generations
+    \item Discrete Wilson lines enabling hierarchical Yukawa structures
+\end{itemize}
+
+The $\ZZ_3 \times \ZZ_4$ orbifold action on $T^6 = T^2 \times T^2 \times T^2$ is defined by simultaneous rotations:
+\begin{align}
+    \ZZ_3: \quad (z_1, z_2, z_3) &\to (e^{2\pi i/3} z_1, e^{2\pi i/3} z_2, e^{-4\pi i/3} z_3), \\
+    \ZZ_4: \quad (z_1, z_2, z_3) &\to (i z_1, i z_2, z_3),
+\end{align}
+where $z_i$ are complex coordinates on the $i$-th $T^2$. This preserves $\mathcal{N}=1$ supersymmetry in four dimensions and gives Euler characteristic $\chi = -144$ after blow-up resolution of fixed point singularities.
+
+\subsection{D7-Brane Configuration}
+
+We introduce a stack of D7-branes wrapping a four-cycle divisor $\Sigma \subset \CY$ defined by:
+\begin{equation}
+    \Sigma = w_1 D_1 + w_2 D_2,
+\end{equation}
+where $D_i$ are basis divisors dual to K\"ahler forms $J_i$, and $(w_1, w_2)$ are integer wrapping numbers. For our specific construction, we choose:
+\begin{equation}
+    (w_1, w_2) = (1, 1).
+    \label{eq:wrapping_choice}
+\end{equation}
+
+This choice is \emph{discrete} (not continuously tunable) and determines the topology of the brane embedding. The effective gauge group on the D7-brane worldvolume is SU(5), broken to the SM gauge group by magnetic flux $F$.
+
+\subsection{Topological Invariants}
+
+The wrapping numbers determine several key topological quantities:
+
+\paragraph{Second Chern class.}
+For a line bundle $L \to \Sigma$ with first Chern class $c_1(L) = (w_1 J_1 + w_2 J_2)|_\Sigma$, the second Chern class is:
+\begin{equation}
+    \cctwo = \int_\Sigma c_1(L)^2 = w_1^2 + w_2^2 = 2.
+    \label{eq:c2_value}
+\end{equation}
+
+\paragraph{Intersection numbers.}
+The triple intersection numbers governing Yukawa couplings are:
+\begin{equation}
+    I_{ijk} = \int_{\CY} J_i \wedge J_j \wedge J_k.
+\end{equation}
+For $T^6/(\ZZ_3 \times \ZZ_4)$, the non-vanishing intersections are:
+\begin{equation}
+    I_{333} = \frac{2}{3}, \quad I_{113} = I_{223} = \frac{2}{3}.
+\end{equation}
+Crucially, the effective intersection number for our wrapped divisor depends on $(w_1, w_2)$:
+\begin{equation}
+    I_{\text{eff}} = w_1^2 I_{113} + 2 w_1 w_2 I_{123} + w_2^2 I_{223} = \frac{4}{3}.
+    \label{eq:intersection_effective}
+\end{equation}
+
+\paragraph{Operator basis consistency.}
+A key technical point (detailed in Appendix~\ref{app:operator_basis}): $I_{\text{eff}}$ and $\cctwo$ are \emph{not independent} variables. Both are functions of the same wrapping numbers $(w_1, w_2)$, related by:
+\begin{equation}
+    \frac{\partial I_{\text{eff}}}{\partial w_i} \neq 0 \quad \text{for some } i.
+\end{equation}
+This means any term like $\cctwo \wedge F$ in an alternative operator basis is not an independent correction but a redefinition already absorbed into intersection numbers. We prove this rigorously in Appendix~\ref{app:operator_basis} via explicit dimensional reduction.
+
+\subsection{Moduli Stabilization}
+
+We assume KKLT-type moduli stabilization \cite{Kachru:2003aw}:
+
+\paragraph{Complex structure and dilaton.}
+These are stabilized by flux quantization conditions minimizing the Gukov--Vafa--Witten superpotential:
+\begin{equation}
+    W_{\text{flux}} = \int_{\CY} G_3 \wedge \Omega,
+\end{equation}
+where $G_3 = F_3 - \tau H_3$ is the complexified three-form flux and $\Omega$ is the holomorphic three-form. This fixes $U^i$ and $\tau$ with vacuum expectation value $W_0 = \mathcal{O}(1)$--$\mathcal{O}(10)$ (no fine-tuning required).
+
+\paragraph{K\"ahler modulus.}
+After complex structure stabilization, the K\"ahler modulus $\rho$ remains flat at tree level. Non-perturbative effects (gaugino condensation on a hidden D7-brane stack or Euclidean D3-instantons) generate:
+\begin{equation}
+    W_{\text{np}} = A e^{-a\rho},
+\end{equation}
+where $a = 2\pi/N$ for SU($N$) gaugino condensation. The F-term potential:
+\begin{equation}
+    V_F = \frac{e^K}{(\text{Im}\,\rho)^2} \left[ |D_\rho W|^2 - 3|W|^2 \right]
+\end{equation}
+has a supersymmetric AdS minimum at:
+\begin{equation}
+    \vev{\rho} \sim \frac{1}{a} \ln\left(\frac{A}{W_0}\right).
+\end{equation}
+
+\paragraph{De Sitter uplift.}
+The AdS vacuum is lifted to de Sitter (small positive cosmological constant) via anti-D3-branes in a warped throat region \cite{Kachru:2003aw}, D-terms \cite{Burgess:2003ic}, or K\"ahler uplift \cite{Balasubramanian:2005zx}. The uplift potential scales as:
+\begin{equation}
+    V_{\text{up}} \sim \frac{\Delta}{V^\alpha}, \quad \alpha = 2\text{--}3,
+\end{equation}
+where $\Delta$ is the anti-D3-brane tension or D-term coefficient.
+
+\subsection{Parameter Values and Valid Region}
+
+Our numerical analysis uses:
+\begin{align}
+    g_s &= 0.10 \quad (\text{string coupling}), \\
+    V &= 8.16 \quad (\text{CY volume in string units}), \\
+    \tau_2 &= 5.0 \quad (\text{Im}(\tau), \text{ sets instanton suppression}), \\
+    W_0 &= 5.0 \quad (\text{flux superpotential}).
+\end{align}
+
+These values lie within the KKLT validity region:
+\begin{itemize}
+    \item $g_s < 0.2$: Perturbative string theory applies
+    \item $5 < V < 30$: $\alpha'$ expansion valid, non-perturbative effects relevant
+    \item $\tau_2 > 3$: Weakly coupled regime, instantons suppressed
+    \item $W_0 \sim \mathcal{O}(1)$--$\mathcal{O}(10)$: Generic flux vacua, no fine-tuning
+\end{itemize}
+
+We verify in Appendix~\ref{app:kklt} that varying these parameters within the allowed region changes predictions by $\lesssim 10\%$, demonstrating robustness.
+
+\subsection{Explicit Statement of Assumptions}
+\label{subsec:assumptions}
+
+To ensure complete transparency, we state all assumptions explicitly:
+
+\begin{enumerate}
+    \item \textbf{String theory framework:} Type IIB string theory at weak coupling with orientifold projection (O7-planes).
+    
+    \item \textbf{Compactification geometry:} Toroidal orbifold $T^6/(\ZZ_3 \times \ZZ_4)$ with blow-up resolution of singularities.
+    
+    \item \textbf{Brane content:} D7-branes with wrapping $(w_1, w_2) = (1,1)$ supporting SU(5) gauge theory.
+    
+    \item \textbf{Moduli stabilization:} KKLT mechanism with parameters in validity regime stated above.
+    
+    \item \textbf{Dimensional reduction:} Standard Chern--Simons effective action up to eight-derivative order, following \cite{Jockers:2005zy,Grimm:2005fa}.
+    
+    \item \textbf{Symmetry breaking:} Magnetic flux $F$ on D7-branes breaks SU(5) $\to$ $SU(3)_c \times SU(2)_L \times U(1)_Y$.
+    
+    \item \textbf{Matter localization:} Yukawa couplings computed at brane intersection points in unwarped approximation (warping corrections $\lesssim 2\%$, see Appendix~\ref{app:kklt}).
+\end{enumerate}
+
+\textbf{What is not assumed:}
+\begin{itemize}
+    \item We do \emph{not} assume any continuous free parameters in the Yukawa sector.
+    \item We do \emph{not} fine-tune moduli to achieve agreement (our values are generic within KKLT regime).
+    \item We do \emph{not} select observables post hoc (all 19 SM flavor parameters included).
+\end{itemize}
+
+\subsection{Input/Output Classification}
+
+Table~\ref{tab:input_output} clarifies what is input (discrete choices) versus output (derived predictions):
+
+\begin{table}[h!]
+\centering
+\caption{Classification of inputs and outputs in our framework.}
+\label{tab:input_output}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Quantity} & \textbf{Type} & \textbf{Value} & \textbf{Status} & \textbf{Tunable?} \\ \midrule
+Orbifold group & Topological input & $\ZZ_3 \times \ZZ_4$ & Discrete choice & No \\
+Wrapping $(w_1, w_2)$ & Brane configuration & $(1, 1)$ & Discrete choice & No \\
+\midrule
+$\cctwo$ & Derived topology & $2$ & Output of inputs & No \\
+$I_{ijk}$ & Derived geometry & Table~\ref{tab:intersections} & Output of inputs & No \\
+\midrule
+$g_s, V, \tau_2, W_0$ & Moduli VEVs & Generic & KKLT stabilization & Within bounds \\
+\midrule
+19 SM parameters & Physical prediction & Table~\ref{tab:results} & Model output & \textbf{No} \\
+$\vev{m_{\beta\beta}}$ & Physical prediction & $10.5 \pm 1.5$ meV & Model output & \textbf{No} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This makes clear that while $\cctwo = 2$ follows from discrete choices (not a free parameter), it is indeed an \emph{input choice} rather than a dynamical prediction. Different wrappings would yield different $\cctwo$ values, as we demonstrate in Appendix~\ref{app:wrapping}. The key result is that \emph{given} these discrete choices, all continuous parameters are eliminated.

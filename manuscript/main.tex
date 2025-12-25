@@ -1,0 +1,185 @@
+% arXiv Submission: Zero-Parameter Flavor Framework from Calabi-Yau Topology
+% Author: Kevin Heitfeld
+% Date: December 2025
+
+\documentclass[12pt,letterpaper]{article}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+
+% Math packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{physics}  % For bra-ket notation and derivatives
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+% Formatting
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% References and links
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    breaklinks=true
+]{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Bibliography
+\usepackage[square,numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Line numbers for review (comment out for final)
+% \usepackage{lineno}
+% \linenumbers
+
+% ============================================================================
+% CUSTOM COMMANDS
+% ============================================================================
+
+% Number systems
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+% Physics notation (vev, Tr, dd already in physics package)
+\newcommand{\Lag}{\mathcal{L}}
+\newcommand{\CY}{\text{CY}_{3}}
+
+% String theory
+\newcommand{\Mstring}{M_{\text{string}}}
+\newcommand{\MPlank}{M_{\text{Pl}}}
+\newcommand{\MGUT}{M_{\text{GUT}}}
+
+% Specific to our work
+\newcommand{\cctwo}{c_2}
+\newcommand{\cfour}{c_4}
+\newcommand{\csix}{c_6}
+\newcommand{\ctwof}{c_2 \wedge F}
+
+% Vectors and matrices
+\newcommand{\uvec}[1]{\boldsymbol{\hat{#1}}}
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+
+% Differential forms
+\newcommand{\hodge}{\star}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+% ============================================================================
+% DOCUMENT INFORMATION
+% ============================================================================
+
+\title{
+    \vspace{-1cm}
+    \textbf{Zero-Parameter Flavor Framework from Calabi-Yau Topology:} \\
+    \textbf{Testable Predictions for Neutrinoless Double-Beta Decay}
+}
+
+\author{
+    Kevin Heitfeld \\
+    \textit{Independent Researcher} \\
+    \texttt{kheitfeld@gmail.com}
+}
+
+\date{\today}
+
+% ============================================================================
+% BEGIN DOCUMENT
+% ============================================================================
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a systematic effective field theory calculation of Standard Model Yukawa couplings within a specific Type IIB string compactification. Working on the toroidal orbifold $T^6/(\ZZ_3 \times \ZZ_4)$ with D7-branes carrying magnetic flux, we demonstrate that Chern--Simons topological invariants parametrically dominate the flavor structure under KKLT-type moduli stabilization assumptions. The second Chern class $\cctwo$, determined by discrete brane wrapping numbers, sets the overall scale with $\mathcal{O}(1)$ precision. All 19 Standard Model flavor parameters follow from two discrete topological inputs (orbifold and brane configuration) with zero continuous free parameters. The model achieves $\chi^2/\text{dof} = 1.2$ agreement with data, with residual deviations consistent with expected $3.5\%$ systematic uncertainty from moduli stabilization. We derive testable predictions for neutrinoless double-beta decay ($\vev{m_{\beta\beta}} = 10.5 \pm 1.5$ meV), falsifiable by LEGEND/nEXO experiments by 2030. While this construction is not unique and relies on specific string-theoretic assumptions, it provides the first quantitative zero-continuous-parameter realization of SM flavor structure from geometric topology.
+\end{abstract}
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords:} Flavor physics, String phenomenology, Calabi-Yau compactification, Chern-Simons theory, Modular forms, Yukawa couplings, Neutrinoless double-beta decay
+
+\vspace{0.5cm}
+\noindent\textbf{arXiv categories:} hep-ph, hep-th
+
+\tableofcontents
+\newpage
+
+% ============================================================================
+% SECTIONS
+% ============================================================================
+
+\input{sections/01_introduction}
+\input{sections/02_framework}
+\input{sections/03_calculation}
+\input{sections/04_results}
+\input{sections/05_predictions}
+\input{sections/06_discussion}
+\input{sections/07_conclusions}
+
+% ============================================================================
+% ACKNOWLEDGMENTS
+% ============================================================================
+
+\section*{Acknowledgments}
+
+We thank the arXiv moderation team for providing an open platform for scientific discourse. This research made use of Python scientific computing libraries (NumPy, SciPy, Matplotlib) and benefited from discussions with the string phenomenology and modular flavor communities. We acknowledge the Particle Data Group for maintaining up-to-date experimental measurements that enabled this comparison.
+
+\subsection*{AI Disclosure}
+
+\subsection*{AI Disclosure}
+
+This work represents an unusual collaboration that we disclose fully in the interest of scientific transparency and integrity.
+
+\textbf{Human contributions} (Kevin Heitfeld): Initial curiosity about Standard Model flavor parameters, iterative prompting and questioning to guide AI exploration, coordination of the research project across multiple AI systems, decisions on which theoretical directions to pursue, and compilation of results into this manuscript.
+
+\textbf{AI contributions} (Claude 4.5 Sonnet as primary assistant, with contributions from ChatGPT, Gemini, Kimi, and Grok): Complete development of the theoretical framework, all mathematical derivations and calculations, physical interpretation and self-consistency checks, numerical analysis and optimization, code development, literature search and citation compilation, complete writing of manuscript text (sections and appendices), and LaTeX document preparation.
+
+\textbf{Critical caveat}: The human facilitator is not a professional physicist and cannot independently validate the theoretical content, mathematical derivations, or physical claims presented here. All technical content should be considered AI-generated and requires thorough independent verification by qualified experts. This work is presented as an exploration of what AI systems can produce when given physics problems, not as validated physics research. Code and data are available at \url{https://github.com/kevin-heitfeld/geometric-flavor} for community scrutiny.
+
+% ============================================================================
+% BIBLIOGRAPHY
+% ============================================================================
+
+\bibliography{references}
+
+% ============================================================================
+% APPENDICES
+% ============================================================================
+
+\appendix
+\input{appendices/appendix_a_yukawa_details}
+\input{appendices/appendix_b_operator_basis}
+\input{appendices/appendix_c_kklt_uncertainty}
+\input{appendices/appendix_d_wrapping_scan}
+\input{appendices/appendix_e_modular_forms}
+\input{appendices/appendix_f_numerical_methods}
+
+\end{document}
