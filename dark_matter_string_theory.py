@@ -19,7 +19,7 @@ BACKGROUND: Moduli Stabilization Problem
 
 In string compactifications, we have MANY moduli:
 • Complex structure moduli (shape of CY manifold)
-• Kähler moduli (size of CY manifold)  
+• Kähler moduli (size of CY manifold)
 • Dilaton (string coupling)
 • Flavor moduli τ (what we care about!)
 
@@ -142,46 +142,46 @@ from scipy.optimize import minimize
 def dedekind_eta(tau):
     """
     Dedekind eta function η(τ).
-    
+
     This is a fundamental modular form of weight 1/2.
-    
+
     For numerical purposes, use approximation valid for Im(τ) > 1:
         η(τ) ≈ exp(iπτ/12) × (1 - exp(2πiτ) + ...)
-    
+
     Args:
         tau: Modular parameter (complex)
-    
+
     Returns:
         eta: η(τ) (complex)
     """
     q = np.exp(2j * np.pi * tau)
-    
+
     # Truncated product (sufficient for Im τ > 1)
     eta = np.exp(1j * np.pi * tau / 12)
-    
+
     for n in range(1, 10):
         eta *= (1 - q**n)
-    
+
     return eta
 
 def modular_Y1(tau):
     """
     Modular form Y₁(τ) for A₄, weight 2.
-    
+
     Simplified form (actual form involves theta functions):
         Y₁ ∝ 1 + O(q) where q = exp(2πiτ)
-    
+
     Args:
         tau: Modular parameter
-    
+
     Returns:
         Y1: Modular form value (complex)
     """
     q = np.exp(2j * np.pi * tau)
-    
+
     # Approximate expansion (for illustration)
     Y1 = 1 + 12*q + 36*q**2 + 12*q**3
-    
+
     return Y1
 
 def modular_Y2(tau):
@@ -189,10 +189,10 @@ def modular_Y2(tau):
     Modular form Y₂(τ) for A₄, weight 2.
     """
     q = np.exp(2j * np.pi * tau)
-    
+
     # Approximate expansion
     Y2 = -6*q**(1/3) * (1 + 7*q + 8*q**2)
-    
+
     return Y2
 
 def modular_Y3(tau):
@@ -200,10 +200,10 @@ def modular_Y3(tau):
     Modular form Y₃(τ) for A₄, weight 2.
     """
     q = np.exp(2j * np.pi * tau)
-    
-    # Approximate expansion  
+
+    # Approximate expansion
     Y3 = -18*q**(2/3) * (1 + 2*q + 5*q**2)
-    
+
     return Y3
 
 # ============================================================================
@@ -213,15 +213,15 @@ def modular_Y3(tau):
 def kahler_potential(tau, k=1):
     """
     Kähler potential for modular symmetry.
-    
+
     K = -k × log(Im τ)
-    
+
     This is the standard form for modular-invariant theories.
-    
+
     Args:
         tau: Modular parameter (complex)
         k: Kähler modular weight (usually k=1)
-    
+
     Returns:
         K: Kähler potential (real)
     """
@@ -232,72 +232,72 @@ def kahler_potential(tau, k=1):
 def superpotential(tau, g1=1.0, g2=0.5, W0=0.001):
     """
     Superpotential with modular forms.
-    
+
     W = W₀ + g₁ Y₁(τ) + g₂ Y₂(τ) Y₃(τ)
-    
+
     where:
     • W₀: Flux-induced constant
     • g₁, g₂: Coupling constants
     • Y_i: Modular forms
-    
+
     Args:
         tau: Modular parameter (complex)
         g1, g2: Couplings (real)
         W0: Constant term (real)
-    
+
     Returns:
         W: Superpotential (complex)
     """
     Y1 = modular_Y1(tau)
     Y2 = modular_Y2(tau)
     Y3 = modular_Y3(tau)
-    
+
     W = W0 + g1 * Y1 + g2 * Y2 * Y3
-    
+
     return W
 
 def f_term_potential(tau, g1=1.0, g2=0.5, W0=0.001, k=1):
     """
     F-term scalar potential in supergravity.
-    
+
     V = e^K × (K^{τ τ̄} |D_τ W|² - 3|W|²)
-    
+
     where:
     • K^{τ τ̄} = (∂²K/∂τ∂τ̄)^{-1} = (Im τ)² / k
     • D_τ W = ∂_τ W + (∂_τ K) × W
     • ∂_τ K = -k / (2i Im τ)
-    
+
     Args:
         tau: Modular parameter (complex)
         g1, g2, W0: Superpotential parameters
         k: Kähler weight
-    
+
     Returns:
         V: Scalar potential (real, positive)
     """
     tau_I = np.imag(tau)
-    
+
     # Kähler potential and metric
     K = kahler_potential(tau, k)
     K_metric = (tau_I)**2 / k  # K^{τ τ̄}
-    
+
     # Superpotential
     W = superpotential(tau, g1, g2, W0)
-    
+
     # Derivative of K
     dK_dtau = -k / (2j * tau_I)
-    
+
     # Numerical derivative of W (finite difference)
     dtau = 0.001
     W_plus = superpotential(tau + dtau, g1, g2, W0)
     dW_dtau = (W_plus - W) / dtau
-    
+
     # Kähler covariant derivative
     D_tau_W = dW_dtau + dK_dtau * W
-    
+
     # F-term potential
     V = np.exp(K) * (K_metric * np.abs(D_tau_W)**2 - 3 * np.abs(W)**2)
-    
+
     # Return only positive part (physical)
     return np.maximum(V, 0)
 
@@ -316,11 +316,11 @@ def potential_real_params(params, g1=1.0, g2=0.5, W0=0.001):
     For optimization with scipy.
     """
     tau = params[0] + 1j * params[1]
-    
+
     # Restrict to physical region: Im τ > 0.1
     if params[1] < 0.1:
         return 1e10
-    
+
     return f_term_potential(tau, g1, g2, W0)
 
 # Scan different coupling values
@@ -340,21 +340,21 @@ for g1, g2, W0 in couplings_to_try:
     # Try multiple initial points
     best_result = None
     best_V = np.inf
-    
+
     for tau_R_init in [0.0, 0.2, 0.5]:
         for tau_I_init in [5.0, 10.0, 15.0]:
             init = [tau_R_init, tau_I_init]
-            
+
             result = minimize(potential_real_params, init, args=(g1, g2, W0),
                             method='Nelder-Mead', options={'maxiter': 1000})
-            
+
             if result.fun < best_V:
                 best_V = result.fun
                 best_result = result
-    
+
     tau_min = best_result.x[0] + 1j * best_result.x[1]
     V_min = best_result.fun
-    
+
     results.append({
         'g1': g1,
         'g2': g2,
@@ -362,7 +362,7 @@ for g1, g2, W0 in couplings_to_try:
         'tau': tau_min,
         'V': V_min
     })
-    
+
     print(f"Couplings: g₁={g1:.1f}, g₂={g2:.1f}, W₀={W0:.3f}")
     print(f"  Minimum at: τ = {np.real(tau_min):.3f} + {np.imag(tau_min):.3f}i")
     print(f"  Potential:  V = {V_min:.3e}")
@@ -499,7 +499,7 @@ This has 27 fixed points and gives A₄ modular symmetry.
 
 Brane configuration:
 • Stack A at (0, 0, 0): k_A = -1
-• Stack B at (0, 0, fixed): k_B = -2  
+• Stack B at (0, 0, fixed): k_B = -2
 • Stack C at (bulk): k_C = 0
 • Stack D at (far point): k_D = -10
 
@@ -564,16 +564,16 @@ If this string embedding is correct, we get ADDITIONAL predictions:
 
 1. KK Modes: Towers of Kaluza-Klein excitations
    Mass scale: M_KK ~ M_string / (Im τ) ~ M_s / 10
-   
+
 2. String Resonances: Excited string states
    Mass scale: M_string ~ 10¹⁶-10¹⁸ GeV (too heavy)
-   
+
 3. Moduli: Light moduli if not fully stabilized
    Mass scale: m_τ ~ m_{3/2} ~ TeV (gravitino mass)
-   
+
 4. Gravitino: Superpartner of graviton
    Mass scale: m_{3/2} ~ F / M_Pl ~ TeV
-   
+
 5. Axions: From RR forms or complex structure
    Mass scale: m_a ~ 10⁻⁵ eV (ultra-light)
 
@@ -582,7 +582,7 @@ If this string embedding is correct, we get ADDITIONAL predictions:
 
 The SMOKING GUN would be:
 • Measuring ⟨τ⟩ from flavor + CP + DM
-• Finding KK modes at M_KK ~ M_string/10  
+• Finding KK modes at M_KK ~ M_string/10
 • Checking if M_KK relationship holds!
 
 This would be DIRECT evidence for string compactification!
