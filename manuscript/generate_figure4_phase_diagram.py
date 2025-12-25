@@ -24,8 +24,8 @@ def plot_kklt_phase_diagram():
     TAU_RE, TAU_IM = np.meshgrid(tau_re, tau_im)
 
     # Compute chi^2 landscape (simplified model)
-    # Minimum at tau = 1.2 + 0.8i
-    tau_0_re, tau_0_im = 1.2, 0.8
+    # Physical vacuum at tau* = 2.69i (pure imaginary)
+    tau_0_re, tau_0_im = 0.0, 2.69
     chi2 = 18 * ((TAU_RE - tau_0_re)**2 / 0.3**2 + (TAU_IM - tau_0_im)**2 / 0.25**2)
     chi2 += 5 * np.exp(-((TAU_RE - 0.8)**2 + (TAU_IM - 1.2)**2) / 0.2)  # Secondary minimum
     chi2 += 3 * np.exp(-((TAU_RE - 1.8)**2 + (TAU_IM - 0.5)**2) / 0.15)  # Another minimum
@@ -173,7 +173,7 @@ def plot_kklt_phase_diagram():
 
     # Overall title
     fig.suptitle('KKLT Moduli Stabilization: Valid Parameter Space\n' +
-                 r'Baseline: $\tau = 1.2 + 0.8i$, $\rho = 1.0 + 0.5i$ (Gold Star)',
+                 r'Physical Vacuum: $\tau^* = 2.69i$ (Gold Star), Illustrative $\rho = 1.0 + 0.5i$',
                  fontsize=16, weight='bold', y=1.00)
 
     plt.tight_layout(rect=[0, 0, 1, 0.97])
