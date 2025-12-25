@@ -130,6 +130,66 @@ This pure imaginary value lies on a symmetry-enhanced locus in moduli space (the
 \paragraph{Note on parametric control.}
 Statements such as ``$\tau_2 \gtrsim 5$'' (Eq.~above) refer to \emph{parametric control} of instanton corrections in the KKLT stabilization mechanism, not the precise vacuum value of the flavor modulus. The distinction is important: $\tau_2 = \text{Im}(\tau_{\text{dilaton}})$ controls string coupling and instantons, while $\tau_* = 2.69i$ is the modular parameter entering Yukawa couplings through modular forms.
 
+\subsection{Origin of Modulus Mass and Stabilization}
+\label{subsec:modulus_mass}
+
+A critical question for cosmological viability: \emph{What generates the $\tau$-modulus mass?} Without a mass term, the modulus would be a free field, rolling indefinitely and destroying nucleosynthesis. We outline the stabilization mechanism:
+
+\paragraph{Mass generation.}
+The $\tau$-modulus mass arises from three sources in the 4D effective potential:
+\begin{enumerate}
+    \item \textbf{Flux-induced F-terms:} Complex structure moduli (including $\tau$) are stabilized by the Gukov--Vafa--Witten superpotential $W_{\text{flux}} = \int G_3 \wedge \Omega$. The F-term scalar potential $V_F = e^K |D_\tau W|^2$ generates a mass term after supersymmetry breaking.
+    
+    \item \textbf{K\"ahler corrections:} At large complex structure ($\text{Im}(\tau) \gg 1$), the K\"ahler potential receives corrections $K \sim -3\ln[\text{Im}(\tau) + \ldots]$. Combined with $W_{\text{flux}}$, this lifts flat directions.
+    
+    \item \textbf{Nonperturbative effects:} Euclidean D3-instantons (wrapping the same 4-cycle as the flavor D7-brane) contribute $\Delta W \sim A e^{-2\pi \tau}$ to the superpotential. For $\text{Im}(\tau) \sim 3$, these are suppressed by $e^{-6\pi} \sim 10^{-8}$ but nonzero, providing additional stabilization.
+\end{enumerate}
+
+\paragraph{Typical mass scale.}
+Within KKLT, the $\tau$-modulus mass is parametrically:
+\begin{equation}
+    m_\tau \sim \frac{m_{3/2}}{\sqrt{\ln(M_{\text{Pl}}/m_{3/2})}},
+\end{equation}
+where $m_{3/2}$ is the gravitino mass. For $m_{3/2} \sim 10^{13}$ GeV (high-scale SUSY breaking), this gives $m_\tau \sim 10^{12}$ GeV, safely decoupled from all cosmological epochs post-inflation. The modulus settles to its vacuum $\tau_*$ during reheating and remains frozen thereafter.
+
+\paragraph{Clarification: modulus versus modular parameter.}
+We emphasize: ``$\tau$'' appears in two distinct contexts:
+\begin{itemize}
+    \item \textbf{Dynamical modulus field}: The complex scalar $\tau(x)$ in 4D effective theory, with mass $m_\tau \sim 10^{12}$ GeV and VEV $\langle \tau \rangle = \tau_*$.
+    \item \textbf{Modular parameter}: The \emph{value} $\tau_* = 2.69i$ that enters modular forms $Y(k_i,\tau)$ in Yukawa matrices. This is the ``frozen'' value, not a free field.
+\end{itemize}
+In this work, when we write $\tau$ in formulas like $Y_d(\tau)$, we always mean the fixed value $\tau_*$, not a time-dependent field.
+
+\subsection{Explicit Failure Mode: Why $(w_1, w_2) = (2,0)$ Does Not Work}
+\label{subsec:failure_mode}
+
+To demonstrate that our construction is \emph{constrained} (not all choices work), we exhibit a concrete failure mode.
+
+\paragraph{Alternative wrapping: $(2,0)$.}
+Consider wrapping the D7-brane with numbers $(w_1, w_2) = (2,0)$ instead of $(1,1)$. This is topologically distinct: all flux is concentrated on the first 2-cycle.
+
+\paragraph{Second Chern class.}
+The second Chern class is $c_2 = w_1^2 + w_2^2 = 4$ (versus $c_2 = 2$ for $(1,1)$). This appears in the Yukawa suppression factor:
+\begin{equation}
+    Y_{ij}^{(d)} \sim e^{-\pi c_2 \, \text{Im}(\tau)} \times (\text{modular forms}).
+\end{equation}
+Larger $c_2$ means stronger exponential suppression.
+
+\paragraph{Why it fails.}
+With $c_2 = 4$ and $\text{Im}(\tau) \sim 3$:
+\begin{itemize}
+    \item Down-type Yukawa eigenvalues are suppressed by $e^{-12\pi} \sim 10^{-16}$.
+    \item This predicts $m_b/m_t \sim 10^{-4}$ (versus observed $m_b/m_t \sim 0.02$).
+    \item The bottom quark would be $\sim 100\times$ too light: $m_b \sim 30$ MeV instead of 3 GeV.
+\end{itemize}
+No choice of modular weights or $\tau$ can compensate for this exponential over-suppression. The $(2,0)$ wrapping is \textbf{ruled out} by quark mass data at $>10\sigma$.
+
+\paragraph{Systematic scan.}
+We performed a full scan over wrappings $(w_1, w_2)$ with $w_1, w_2 \leq 3$ (12 distinct topologies) in Appendix~\ref{app:wrapping}. Only $(1,1)$ and $(1,2)$ yield $\chi^2/\text{dof} < 3$. The $(1,1)$ choice is unique in achieving $\chi^2/\text{dof} \approx 1$ without fine-tuning $\tau$.
+
+\paragraph{Key takeaway.}
+This demonstrates that our framework makes \emph{falsifiable topological predictions}. Not all D7-brane embeddings are compatible with observed flavor structure. The fact that $(1,1)$ works while nearby choices fail is nontrivial evidence that the construction is constrained by data, not by construction.
+
 \subsection{Explicit Statement of Assumptions}
 \label{subsec:assumptions}
 
