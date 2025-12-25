@@ -1,243 +1,252 @@
 \contentsline {section}{\numberline {1}Introduction}{5}{section.1}%
+\contentsline {paragraph}{Methodological Note}{7}{paragraph*.1}%
 \contentsline {section}{\numberline {2}Framework and Assumptions}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Type IIB Compactification Setup}{7}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}D7-Brane Configuration}{7}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Topological Invariants}{7}{subsection.2.3}%
-\contentsline {paragraph}{Second Chern class.}{8}{paragraph*.1}%
-\contentsline {paragraph}{Intersection numbers.}{8}{paragraph*.2}%
-\contentsline {paragraph}{Operator basis consistency.}{8}{paragraph*.3}%
+\contentsline {subsection}{\numberline {2.3}Topological Invariants}{8}{subsection.2.3}%
+\contentsline {paragraph}{Second Chern class.}{8}{paragraph*.2}%
+\contentsline {paragraph}{Intersection numbers.}{8}{paragraph*.3}%
+\contentsline {paragraph}{Operator basis consistency.}{8}{paragraph*.4}%
 \contentsline {subsection}{\numberline {2.4}Moduli Stabilization}{8}{subsection.2.4}%
-\contentsline {paragraph}{Complex structure and dilaton.}{8}{paragraph*.4}%
-\contentsline {paragraph}{K\"ahler modulus.}{9}{paragraph*.5}%
-\contentsline {paragraph}{De Sitter uplift.}{9}{paragraph*.6}%
+\contentsline {paragraph}{Complex structure and dilaton.}{8}{paragraph*.5}%
+\contentsline {paragraph}{K\"ahler modulus.}{9}{paragraph*.6}%
+\contentsline {paragraph}{De Sitter uplift.}{9}{paragraph*.7}%
 \contentsline {subsection}{\numberline {2.5}Parameter Values and Valid Region}{9}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Explicit Statement of Assumptions}{10}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Input/Output Classification}{10}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.6}Modular Parameter: Physical Vacuum Value}{10}{subsection.2.6}%
+\contentsline {paragraph}{Note on parametric control.}{10}{paragraph*.8}%
+\contentsline {subsection}{\numberline {2.7}Explicit Statement of Assumptions}{10}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Input/Output Classification}{11}{subsection.2.8}%
 \contentsline {section}{\numberline {3}Calculation Methodology}{11}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Chern--Simons Action and Yukawa Couplings}{11}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Dimensional Reduction to Four Dimensions}{11}{subsection.3.2}%
-\contentsline {paragraph}{Step 1: Integration over wrapped divisor.}{12}{paragraph*.7}%
-\contentsline {paragraph}{Step 2: Poincar\'e duality.}{12}{paragraph*.8}%
-\contentsline {paragraph}{Step 3: Kaluza--Klein decomposition.}{12}{paragraph*.9}%
-\contentsline {paragraph}{Step 4: Yukawa coefficient extraction.}{12}{paragraph*.10}%
-\contentsline {subsection}{\numberline {3.3}The $c_6/c_4$ Ratio and Topological Dominance}{12}{subsection.3.3}%
-\contentsline {paragraph}{Fourth Chern class $c_4$.}{13}{paragraph*.11}%
-\contentsline {paragraph}{Sixth Chern class $c_6$.}{13}{paragraph*.12}%
-\contentsline {subsection}{\numberline {3.4}Modular Form Dependence and Flavor Structure}{13}{subsection.3.4}%
-\contentsline {paragraph}{Modular weight determination.}{13}{paragraph*.13}%
-\contentsline {paragraph}{Hierarchical structure from modular weights.}{14}{paragraph*.14}%
-\contentsline {subsection}{\numberline {3.5}Neutrino Mass Generation via Type-I Seesaw}{14}{subsection.3.5}%
-\contentsline {paragraph}{Texture structure.}{14}{paragraph*.15}%
+\contentsline {subsection}{\numberline {3.2}Dimensional Reduction to Four Dimensions}{12}{subsection.3.2}%
+\contentsline {paragraph}{Step 1: Integration over wrapped divisor.}{12}{paragraph*.9}%
+\contentsline {paragraph}{Step 2: Poincar\'e duality.}{12}{paragraph*.10}%
+\contentsline {paragraph}{Step 3: Kaluza--Klein decomposition.}{12}{paragraph*.11}%
+\contentsline {paragraph}{Step 4: Yukawa coefficient extraction.}{13}{paragraph*.12}%
+\contentsline {subsection}{\numberline {3.3}The $c_6/c_4$ Ratio and Topological Dominance}{13}{subsection.3.3}%
+\contentsline {paragraph}{Fourth Chern class $c_4$.}{13}{paragraph*.13}%
+\contentsline {paragraph}{Sixth Chern class $c_6$.}{13}{paragraph*.14}%
+\contentsline {subsection}{\numberline {3.4}Modular Form Dependence and Flavor Structure}{14}{subsection.3.4}%
+\contentsline {paragraph}{Modular weight determination.}{14}{paragraph*.15}%
+\contentsline {paragraph}{Hierarchical structure from modular weights.}{14}{paragraph*.16}%
+\contentsline {subsection}{\numberline {3.5}Neutrino Mass Generation via Type-I Seesaw}{15}{subsection.3.5}%
+\contentsline {paragraph}{Texture structure.}{15}{paragraph*.17}%
 \contentsline {subsection}{\numberline {3.6}Operator Basis Consistency: $c_2\wedge F$ Resolution}{15}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Systematic Corrections and Uncertainties}{15}{subsection.3.7}%
-\contentsline {paragraph}{$\alpha '$ corrections.}{15}{paragraph*.16}%
-\contentsline {paragraph}{String loop corrections.}{15}{paragraph*.17}%
-\contentsline {paragraph}{Non-perturbative instantons.}{15}{paragraph*.18}%
-\contentsline {paragraph}{Moduli stabilization uncertainty.}{16}{paragraph*.19}%
-\contentsline {paragraph}{Summary of corrections.}{16}{paragraph*.20}%
-\contentsline {subsection}{\numberline {3.8}Computational Implementation}{16}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.7}Systematic Corrections and Uncertainties}{16}{subsection.3.7}%
+\contentsline {paragraph}{$\alpha '$ corrections.}{16}{paragraph*.18}%
+\contentsline {paragraph}{String loop corrections.}{16}{paragraph*.19}%
+\contentsline {paragraph}{Non-perturbative instantons.}{16}{paragraph*.20}%
+\contentsline {paragraph}{Moduli stabilization uncertainty.}{16}{paragraph*.21}%
+\contentsline {paragraph}{Summary of corrections.}{16}{paragraph*.22}%
+\contentsline {subsection}{\numberline {3.8}Computational Implementation}{17}{subsection.3.8}%
 \contentsline {section}{\numberline {4}Results and Comparison with Data}{17}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Quark Sector}{17}{subsection.4.1}%
-\contentsline {paragraph}{Mass ratios.}{17}{paragraph*.21}%
-\contentsline {subsection}{\numberline {4.2}Charged Lepton Sector}{17}{subsection.4.2}%
+\contentsline {paragraph}{Mass ratios.}{18}{paragraph*.23}%
+\contentsline {subsection}{\numberline {4.2}Charged Lepton Sector}{18}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}CKM Quark Mixing Matrix}{18}{subsection.4.3}%
-\contentsline {paragraph}{Unitarity test.}{18}{paragraph*.22}%
-\contentsline {paragraph}{CP violation phase.}{19}{paragraph*.23}%
+\contentsline {paragraph}{Unitarity test.}{19}{paragraph*.24}%
+\contentsline {paragraph}{CP violation phase.}{19}{paragraph*.25}%
 \contentsline {subsection}{\numberline {4.4}Neutrino Sector}{19}{subsection.4.4}%
-\contentsline {paragraph}{Mass-squared differences.}{19}{paragraph*.24}%
-\contentsline {paragraph}{Absolute neutrino masses.}{19}{paragraph*.25}%
-\contentsline {subsection}{\numberline {4.5}PMNS Neutrino Mixing Matrix}{19}{subsection.4.5}%
+\contentsline {paragraph}{Mass-squared differences.}{19}{paragraph*.26}%
+\contentsline {paragraph}{Absolute neutrino masses.}{20}{paragraph*.27}%
+\contentsline {subsection}{\numberline {4.5}PMNS Neutrino Mixing Matrix}{20}{subsection.4.5}%
 \contentsline {subsection}{\numberline {4.6}Statistical Summary}{20}{subsection.4.6}%
-\contentsline {paragraph}{Interpretation.}{20}{paragraph*.26}%
-\contentsline {subsection}{\numberline {4.7}Deviation Analysis}{22}{subsection.4.7}%
-\contentsline {subsection}{\numberline {4.8}Robustness: Moduli Variation}{22}{subsection.4.8}%
-\contentsline {subsection}{\numberline {4.9}Comparison with Other Approaches}{22}{subsection.4.9}%
-\contentsline {subsection}{\numberline {4.10}Key Takeaways}{23}{subsection.4.10}%
-\contentsline {section}{\numberline {5}Testable Predictions and Falsifiability}{23}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Neutrinoless Double-Beta Decay}{23}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Theoretical Prediction}{23}{subsubsection.5.1.1}%
-\contentsline {paragraph}{Uncertainty estimate.}{24}{paragraph*.27}%
-\contentsline {subsubsection}{\numberline {5.1.2}Experimental Status and Timeline}{25}{subsubsection.5.1.2}%
-\contentsline {paragraph}{LEGEND (Large Enriched Germanium Experiment for $0\nu \beta \beta $ Decay).}{25}{paragraph*.28}%
-\contentsline {paragraph}{nEXO (next-generation Enriched Xenon Observatory).}{25}{paragraph*.29}%
-\contentsline {paragraph}{Falsification criterion.}{25}{paragraph*.30}%
-\contentsline {subsection}{\numberline {5.2}Neutrino CP Violation Phase}{26}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Theoretical Prediction}{26}{subsubsection.5.2.1}%
-\contentsline {paragraph}{Uncertainty estimate.}{26}{paragraph*.31}%
-\contentsline {subsubsection}{\numberline {5.2.2}Experimental Status and Timeline}{26}{subsubsection.5.2.2}%
-\contentsline {paragraph}{DUNE (Deep Underground Neutrino Experiment).}{27}{paragraph*.32}%
-\contentsline {paragraph}{Hyper-Kamiokande.}{27}{paragraph*.33}%
-\contentsline {subsection}{\numberline {5.3}Sum of Neutrino Masses from Cosmology}{27}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}Theoretical Prediction}{27}{subsubsection.5.3.1}%
-\contentsline {paragraph}{Uncertainty estimate.}{27}{paragraph*.34}%
-\contentsline {subsubsection}{\numberline {5.3.2}Experimental Status and Timeline}{28}{subsubsection.5.3.2}%
-\contentsline {paragraph}{CMB-S4 (CMB Stage-4).}{28}{paragraph*.35}%
-\contentsline {paragraph}{Euclid and LSST.}{28}{paragraph*.36}%
-\contentsline {subsection}{\numberline {5.4}Summary: Three Independent Tests by 2030}{28}{subsection.5.4}%
-\contentsline {paragraph}{Correlation between predictions.}{29}{paragraph*.37}%
-\contentsline {subsection}{\numberline {5.5}Falsifiability: How to Kill This Theory}{29}{subsection.5.5}%
-\contentsline {paragraph}{Definitive falsification (>5$\sigma $):}{29}{paragraph*.38}%
-\contentsline {paragraph}{Strong tension (3--5$\sigma $):}{29}{paragraph*.39}%
-\contentsline {paragraph}{What would \emph {not} falsify the framework:}{30}{paragraph*.40}%
-\contentsline {subsection}{\numberline {5.6}Implications of Confirmation}{30}{subsection.5.6}%
-\contentsline {subsection}{\numberline {5.7}Timeline for Verdict}{30}{subsection.5.7}%
-\contentsline {section}{\numberline {6}Discussion: Robustness, Limitations, and Model Dependence}{30}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Robustness to Moduli Variations}{31}{subsection.6.1}%
-\contentsline {paragraph}{Scanning Procedure.}{31}{paragraph*.41}%
-\contentsline {paragraph}{Statistical Analysis.}{31}{paragraph*.42}%
-\contentsline {paragraph}{Moduli Stabilization Consistency.}{32}{paragraph*.43}%
-\contentsline {subsection}{\numberline {6.2}Alternative Flux Stabilization Mechanisms}{32}{subsection.6.2}%
-\contentsline {paragraph}{Large-Volume Scenarios (LVS).}{32}{paragraph*.44}%
-\contentsline {paragraph}{K\"ahler Uplifting.}{33}{paragraph*.45}%
-\contentsline {paragraph}{Non-Geometric Fluxes.}{33}{paragraph*.46}%
-\contentsline {subsection}{\numberline {6.3}Dependence on Calabi--Yau Geometry}{33}{subsection.6.3}%
-\contentsline {paragraph}{Topological Universality.}{33}{paragraph*.47}%
-\contentsline {paragraph}{Landscape Perspective.}{33}{paragraph*.48}%
-\contentsline {subsection}{\numberline {6.4}What the Framework Does Not Explain}{34}{subsection.6.4}%
-\contentsline {paragraph}{Why Three Generations?}{34}{paragraph*.49}%
-\contentsline {paragraph}{Strong CP Problem.}{34}{paragraph*.50}%
-\contentsline {paragraph}{Fermion Mass Scales.}{34}{paragraph*.51}%
-\contentsline {paragraph}{Dark Matter and Neutrino Masses.}{34}{paragraph*.52}%
-\contentsline {paragraph}{Cosmological Constant.}{34}{paragraph*.53}%
-\contentsline {paragraph}{Baryon Asymmetry.}{34}{paragraph*.54}%
-\contentsline {subsection}{\numberline {6.5}Comparison with Other String Approaches}{34}{subsection.6.5}%
-\contentsline {paragraph}{Heterotic Orbifold Models.}{35}{paragraph*.55}%
-\contentsline {paragraph}{F-theory GUTs.}{35}{paragraph*.56}%
-\contentsline {paragraph}{Local Model Building.}{35}{paragraph*.57}%
-\contentsline {paragraph}{Modular Flavor Symmetries.}{36}{paragraph*.58}%
-\contentsline {subsection}{\numberline {6.6}Open Questions and Future Directions}{36}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Summary of Robustness}{37}{subsection.6.7}%
-\contentsline {section}{\numberline {7}Conclusions}{37}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Key Achievements}{37}{subsection.7.1}%
-\contentsline {paragraph}{1. Zero-Parameter Predictions.}{37}{paragraph*.59}%
-\contentsline {paragraph}{2. Topological Origin of Hierarchies.}{38}{paragraph*.60}%
-\contentsline {paragraph}{3. Neutrino Sector from Seesaw Mechanism.}{38}{paragraph*.61}%
-\contentsline {paragraph}{4. Falsifiable Predictions.}{38}{paragraph*.62}%
-\contentsline {paragraph}{5. Robustness to Moduli Variations.}{38}{paragraph*.63}%
-\contentsline {subsection}{\numberline {7.2}Broader Implications}{38}{subsection.7.2}%
-\contentsline {paragraph}{String Theory as a Predictive Framework.}{38}{paragraph*.64}%
-\contentsline {paragraph}{Flavor as a Window into Compactification Geometry.}{39}{paragraph*.65}%
-\contentsline {paragraph}{Unification of Quark and Lepton Sectors.}{39}{paragraph*.66}%
-\contentsline {paragraph}{Neutrino Mass Generation Beyond Weinberg Operator.}{39}{paragraph*.67}%
-\contentsline {subsection}{\numberline {7.3}Limitations and Open Questions}{39}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Experimental Outlook}{40}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}Philosophical Reflection}{40}{subsection.7.5}%
-\contentsline {subsection}{\numberline {7.6}Final Remarks}{40}{subsection.7.6}%
-\contentsline {section}{\numberline {A}Complete Yukawa Coupling Derivation}{45}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Chern--Simons Action and Dimensional Reduction}{45}{subsection.A.1}%
-\contentsline {paragraph}{Decomposition of RR Potentials.}{46}{paragraph*.68}%
-\contentsline {paragraph}{Gauge Field Strength and Zero Modes.}{46}{paragraph*.69}%
-\contentsline {paragraph}{Dimensional Reduction of $C_4 \wedge F \wedge F$ Term.}{46}{paragraph*.70}%
-\contentsline {paragraph}{Dimensional Reduction of $C_6 \wedge F$ Term.}{47}{paragraph*.71}%
-\contentsline {subsection}{\numberline {A.2}Explicit Calculation for $\mathbb {P}_{11226}[12]$}{47}{subsection.A.2}%
-\contentsline {paragraph}{Wave Function Overlap Integrals.}{47}{paragraph*.72}%
-\contentsline {paragraph}{Moduli Dependence.}{48}{paragraph*.73}%
-\contentsline {subsection}{\numberline {A.3}Hierarchies from Chern Class Ratios}{48}{subsection.A.3}%
-\contentsline {subsection}{\numberline {A.4}Neutrino Yukawas and Seesaw Formula}{48}{subsection.A.4}%
-\contentsline {paragraph}{Numerical Example.}{49}{paragraph*.74}%
-\contentsline {subsection}{\numberline {A.5}K\"ahler Corrections and Higher-Order Terms}{49}{subsection.A.5}%
-\contentsline {subsection}{\numberline {A.6}Summary of Yukawa Calculation}{50}{subsection.A.6}%
-\contentsline {section}{\numberline {B}Operator Basis Analysis and Chern Class Dominance}{50}{appendix.B}%
-\contentsline {subsection}{\numberline {B.1}Complete Operator Classification}{50}{subsection.B.1}%
-\contentsline {paragraph}{Power Counting.}{51}{paragraph*.75}%
-\contentsline {subsection}{\numberline {B.2}Leading-Order Operators}{51}{subsection.B.2}%
-\contentsline {paragraph}{Operator 1: Direct Chern--Simons Coupling.}{51}{paragraph*.76}%
-\contentsline {paragraph}{Operator 2: Curvature-Corrected Coupling.}{51}{paragraph*.77}%
-\contentsline {paragraph}{Operator 3: Higher Chern Classes.}{51}{paragraph*.78}%
-\contentsline {subsection}{\numberline {B.3}Relative Magnitudes and Dominance}{52}{subsection.B.3}%
-\contentsline {paragraph}{Chern Classes of $\Sigma _4$.}{52}{paragraph*.79}%
-\contentsline {paragraph}{Dimensional Reduction.}{52}{paragraph*.80}%
-\contentsline {paragraph}{Conclusion: $c_2$ Dominance.}{52}{paragraph*.81}%
-\contentsline {subsection}{\numberline {B.4}Proof of Theorem~\ref {thm:operator_basis}}{52}{subsection.B.4}%
-\contentsline {subsection}{\numberline {B.5}Numerical Verification}{53}{subsection.B.5}%
-\contentsline {paragraph}{Computation Method.}{54}{paragraph*.82}%
-\contentsline {paragraph}{Results.}{54}{paragraph*.83}%
-\contentsline {subsection}{\numberline {B.6}Implications for Hierarchies}{54}{subsection.B.6}%
-\contentsline {subsection}{\numberline {B.7}Comparison with Alternative Approaches}{55}{subsection.B.7}%
-\contentsline {paragraph}{F-theory GUTs.}{55}{paragraph*.84}%
-\contentsline {paragraph}{Heterotic Orbifolds.}{55}{paragraph*.85}%
-\contentsline {subsection}{\numberline {B.8}Summary}{55}{subsection.B.8}%
-\contentsline {section}{\numberline {C}KKLT Moduli Stabilization and Uncertainty Budget}{56}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}KKLT Stabilization Mechanism}{56}{subsection.C.1}%
-\contentsline {paragraph}{Step 1: Flux Stabilization of Complex Structure.}{56}{paragraph*.86}%
-\contentsline {paragraph}{Step 2: Supersymmetric AdS Minimum.}{56}{paragraph*.87}%
-\contentsline {paragraph}{Step 3: K\"ahler Moduli Stabilization via Gaugino Condensation.}{57}{paragraph*.88}%
-\contentsline {paragraph}{Step 4: Uplifting to de Sitter.}{57}{paragraph*.89}%
-\contentsline {subsection}{\numberline {C.2}Flux Choice and Tadpole Constraints}{57}{subsection.C.2}%
-\contentsline {paragraph}{Tadpole Constraint.}{57}{paragraph*.90}%
-\contentsline {subsection}{\numberline {C.3}Quantum Fluctuations and Uncertainty Budget}{58}{subsection.C.3}%
-\contentsline {paragraph}{Mass Eigenvalues.}{58}{paragraph*.91}%
-\contentsline {paragraph}{Zero-Point Fluctuations.}{58}{paragraph*.92}%
-\contentsline {paragraph}{Finite-Temperature Corrections.}{58}{paragraph*.93}%
-\contentsline {paragraph}{Cosmological Relaxation.}{58}{paragraph*.94}%
-\contentsline {subsection}{\numberline {C.4}Propagation to Flavor Observables}{59}{subsection.C.4}%
-\contentsline {paragraph}{Procedure.}{59}{paragraph*.95}%
-\contentsline {paragraph}{Results.}{59}{paragraph*.96}%
-\contentsline {paragraph}{Interpretation.}{59}{paragraph*.97}%
-\contentsline {subsection}{\numberline {C.5}Comparison with Large-Volume Scenarios}{59}{subsection.C.5}%
-\contentsline {paragraph}{Scaling Relations.}{60}{paragraph*.98}%
-\contentsline {subsection}{\numberline {C.6}Anthropic Considerations}{60}{subsection.C.6}%
-\contentsline {paragraph}{Anthropic Selection.}{60}{paragraph*.99}%
-\contentsline {paragraph}{Dynamical Selection.}{60}{paragraph*.100}%
-\contentsline {subsection}{\numberline {C.7}Summary of Uncertainty Analysis}{60}{subsection.C.7}%
-\contentsline {section}{\numberline {D}Alternative Wrapping Configurations and Chirality Scan}{61}{appendix.D}%
-\contentsline {subsection}{\numberline {D.1}Classification of Wrapping Numbers}{61}{subsection.D.1}%
-\contentsline {paragraph}{Constraints on Wrapping Numbers.}{61}{paragraph*.101}%
-\contentsline {subsection}{\numberline {D.2}Systematic Scan Over Wrapping Numbers}{62}{subsection.D.2}%
-\contentsline {paragraph}{Results: Viable Configurations.}{62}{paragraph*.102}%
-\contentsline {paragraph}{Interpretation.}{63}{paragraph*.103}%
-\contentsline {subsection}{\numberline {D.3}Chirality as a Selection Criterion}{63}{subsection.D.3}%
-\contentsline {paragraph}{Diophantine Equation.}{63}{paragraph*.104}%
-\contentsline {paragraph}{Resolution: Non-Simply-Connected Cycles.}{63}{paragraph*.105}%
-\contentsline {subsection}{\numberline {D.4}Flavor Structure for Alternative Wrappings}{63}{subsection.D.4}%
-\contentsline {paragraph}{Case 1: $(2,0)$ Wrapping.}{64}{paragraph*.106}%
-\contentsline {paragraph}{Case 2: $(3,1)$ Wrapping.}{64}{paragraph*.107}%
-\contentsline {paragraph}{Case 3: $(1,1)$ Wrapping (Baseline).}{64}{paragraph*.108}%
-\contentsline {subsection}{\numberline {D.5}Moduli Dependence for Different Wrappings}{64}{subsection.D.5}%
-\contentsline {paragraph}{Results.}{64}{paragraph*.109}%
-\contentsline {subsection}{\numberline {D.6}Connection to F-theory GUT Models}{66}{subsection.D.6}%
-\contentsline {subsection}{\numberline {D.7}Summary of Wrapping Scan}{66}{subsection.D.7}%
-\contentsline {section}{\numberline {E}Modular Forms and Wave Function Calculation}{66}{appendix.E}%
-\contentsline {subsection}{\numberline {E.1}Modular Transformations and String Compactifications}{66}{subsection.E.1}%
-\contentsline {paragraph}{Modular Group Action.}{67}{paragraph*.110}%
-\contentsline {paragraph}{Modular Forms.}{67}{paragraph*.111}%
-\contentsline {subsection}{\numberline {E.2}Wave Functions as Modular Forms}{67}{subsection.E.2}%
-\contentsline {paragraph}{Theta Function Representation.}{67}{paragraph*.112}%
-\contentsline {paragraph}{Explicit Formula for Three Generations.}{68}{paragraph*.113}%
-\contentsline {subsection}{\numberline {E.3}Determining Modular Form Coefficients}{68}{subsection.E.3}%
-\contentsline {paragraph}{Solution via Fourier Expansion.}{68}{paragraph*.114}%
-\contentsline {paragraph}{Numerical Values.}{68}{paragraph*.115}%
-\contentsline {subsection}{\numberline {E.4}Yukawa Couplings from Modular Forms}{69}{subsection.E.4}%
-\contentsline {paragraph}{Modular Weight Consistency.}{69}{paragraph*.116}%
-\contentsline {subsection}{\numberline {E.5}Connection to Modular Flavor Symmetries}{69}{subsection.E.5}%
-\contentsline {paragraph}{Comparison with Our Approach.}{69}{paragraph*.117}%
-\contentsline {paragraph}{Do We Have Modular Symmetry?}{70}{paragraph*.118}%
-\contentsline {subsection}{\numberline {E.6}Generalization to Complex Structure Moduli $\rho , U_i$}{70}{subsection.E.6}%
-\contentsline {subsection}{\numberline {E.7}Summary of Modular Analysis}{70}{subsection.E.7}%
-\contentsline {section}{\numberline {F}Numerical Methods and Computational Implementation}{71}{appendix.F}%
-\contentsline {subsection}{\numberline {F.1}Discretization of the Four-Cycle $\Sigma _4$}{71}{subsection.F.1}%
-\contentsline {paragraph}{Coordinate System.}{71}{paragraph*.119}%
-\contentsline {paragraph}{Mesh Generation.}{71}{paragraph*.120}%
-\contentsline {subsection}{\numberline {F.2}Solving the Laplace Equation for Wave Functions}{72}{subsection.F.2}%
-\contentsline {paragraph}{Finite Element Method.}{72}{paragraph*.121}%
-\contentsline {paragraph}{Boundary Conditions.}{72}{paragraph*.122}%
-\contentsline {paragraph}{Eigenvalue Problem.}{72}{paragraph*.123}%
-\contentsline {paragraph}{Numerical Results.}{72}{paragraph*.124}%
-\contentsline {subsection}{\numberline {F.3}Computing Yukawa Overlap Integrals}{72}{subsection.F.3}%
-\contentsline {paragraph}{Localized Yukawa Form.}{73}{paragraph*.125}%
-\contentsline {paragraph}{Numerical Integration.}{73}{paragraph*.126}%
-\contentsline {paragraph}{Convergence Test.}{73}{paragraph*.127}%
-\contentsline {subsection}{\numberline {F.4}Moduli Optimization and Fitting Procedure}{73}{subsection.F.4}%
-\contentsline {paragraph}{Optimization Algorithm.}{74}{paragraph*.128}%
-\contentsline {paragraph}{Global vs. Local Minima.}{74}{paragraph*.129}%
-\contentsline {paragraph}{Uncertainty Estimation.}{74}{paragraph*.130}%
-\contentsline {subsection}{\numberline {F.5}Parallelization and Performance}{74}{subsection.F.5}%
-\contentsline {paragraph}{Parallel Implementation.}{75}{paragraph*.131}%
-\contentsline {paragraph}{Memory Usage.}{75}{paragraph*.132}%
-\contentsline {subsection}{\numberline {F.6}Code Availability and Reproducibility}{75}{subsection.F.6}%
-\contentsline {subsection}{\numberline {F.7}Validation and Cross-Checks}{75}{subsection.F.7}%
-\contentsline {paragraph}{1. Analytical Limits.}{76}{paragraph*.133}%
-\contentsline {paragraph}{2. Gauge Invariance.}{76}{paragraph*.134}%
-\contentsline {paragraph}{3. Moduli Symmetries.}{76}{paragraph*.135}%
-\contentsline {paragraph}{4. Comparison with CYTools.}{76}{paragraph*.136}%
-\contentsline {subsection}{\numberline {F.8}Summary of Numerical Methods}{76}{subsection.F.8}%
+\contentsline {paragraph}{Interpretation.}{20}{paragraph*.28}%
+\contentsline {subsection}{\numberline {4.7}Deviation Analysis}{21}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Robustness: Moduli Variation}{21}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Comparison with Other Approaches}{23}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Determination of the Physical Vacuum Modular Parameter}{23}{subsection.4.10}%
+\contentsline {paragraph}{Phenomenological determination.}{23}{paragraph*.29}%
+\contentsline {paragraph}{Cross-sector consistency.}{23}{paragraph*.30}%
+\contentsline {paragraph}{Analytic formula.}{24}{paragraph*.31}%
+\contentsline {paragraph}{Pure imaginary property.}{24}{paragraph*.32}%
+\contentsline {paragraph}{Relation to KKLT.}{24}{paragraph*.33}%
+\contentsline {subsection}{\numberline {4.11}Key Takeaways}{24}{subsection.4.11}%
+\contentsline {section}{\numberline {5}Testable Predictions and Falsifiability}{25}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Neutrinoless Double-Beta Decay}{25}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Theoretical Prediction}{25}{subsubsection.5.1.1}%
+\contentsline {paragraph}{Uncertainty estimate.}{25}{paragraph*.34}%
+\contentsline {subsubsection}{\numberline {5.1.2}Experimental Status and Timeline}{26}{subsubsection.5.1.2}%
+\contentsline {paragraph}{LEGEND (Large Enriched Germanium Experiment for $0\nu \beta \beta $ Decay).}{26}{paragraph*.35}%
+\contentsline {paragraph}{nEXO (next-generation Enriched Xenon Observatory).}{26}{paragraph*.36}%
+\contentsline {paragraph}{Falsification criterion.}{27}{paragraph*.37}%
+\contentsline {subsection}{\numberline {5.2}Neutrino CP Violation Phase}{27}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Theoretical Prediction}{27}{subsubsection.5.2.1}%
+\contentsline {paragraph}{Uncertainty estimate.}{27}{paragraph*.38}%
+\contentsline {subsubsection}{\numberline {5.2.2}Experimental Status and Timeline}{28}{subsubsection.5.2.2}%
+\contentsline {paragraph}{DUNE (Deep Underground Neutrino Experiment).}{28}{paragraph*.39}%
+\contentsline {paragraph}{Hyper-Kamiokande.}{28}{paragraph*.40}%
+\contentsline {subsection}{\numberline {5.3}Sum of Neutrino Masses from Cosmology}{28}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Theoretical Prediction}{28}{subsubsection.5.3.1}%
+\contentsline {paragraph}{Uncertainty estimate.}{29}{paragraph*.41}%
+\contentsline {subsubsection}{\numberline {5.3.2}Experimental Status and Timeline}{29}{subsubsection.5.3.2}%
+\contentsline {paragraph}{CMB-S4 (CMB Stage-4).}{29}{paragraph*.42}%
+\contentsline {paragraph}{Euclid and LSST.}{29}{paragraph*.43}%
+\contentsline {subsection}{\numberline {5.4}Summary: Three Independent Tests by 2030}{29}{subsection.5.4}%
+\contentsline {paragraph}{Correlation between predictions.}{30}{paragraph*.44}%
+\contentsline {subsection}{\numberline {5.5}Falsifiability: How to Kill This Theory}{30}{subsection.5.5}%
+\contentsline {paragraph}{Definitive falsification (>5$\sigma $):}{30}{paragraph*.45}%
+\contentsline {paragraph}{Strong tension (3--5$\sigma $):}{31}{paragraph*.46}%
+\contentsline {paragraph}{What would \emph {not} falsify the framework:}{31}{paragraph*.47}%
+\contentsline {subsection}{\numberline {5.6}Implications of Confirmation}{31}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Timeline for Verdict}{31}{subsection.5.7}%
+\contentsline {section}{\numberline {6}Discussion: Robustness, Limitations, and Model Dependence}{32}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Robustness to Moduli Variations}{32}{subsection.6.1}%
+\contentsline {paragraph}{Scanning Procedure.}{32}{paragraph*.48}%
+\contentsline {paragraph}{Statistical Analysis.}{33}{paragraph*.49}%
+\contentsline {paragraph}{Moduli Stabilization Consistency.}{33}{paragraph*.50}%
+\contentsline {subsection}{\numberline {6.2}Alternative Flux Stabilization Mechanisms}{33}{subsection.6.2}%
+\contentsline {paragraph}{Large-Volume Scenarios (LVS).}{33}{paragraph*.51}%
+\contentsline {paragraph}{K\"ahler Uplifting.}{34}{paragraph*.52}%
+\contentsline {paragraph}{Non-Geometric Fluxes.}{34}{paragraph*.53}%
+\contentsline {subsection}{\numberline {6.3}Dependence on Calabi--Yau Geometry}{34}{subsection.6.3}%
+\contentsline {paragraph}{Topological Universality.}{34}{paragraph*.54}%
+\contentsline {paragraph}{Landscape Perspective.}{35}{paragraph*.55}%
+\contentsline {subsection}{\numberline {6.4}What the Framework Does Not Explain}{35}{subsection.6.4}%
+\contentsline {paragraph}{Why Three Generations?}{35}{paragraph*.56}%
+\contentsline {paragraph}{Strong CP Problem.}{35}{paragraph*.57}%
+\contentsline {paragraph}{Fermion Mass Scales.}{35}{paragraph*.58}%
+\contentsline {paragraph}{Dark Matter and Neutrino Masses.}{35}{paragraph*.59}%
+\contentsline {paragraph}{Cosmological Constant.}{35}{paragraph*.60}%
+\contentsline {paragraph}{Baryon Asymmetry.}{35}{paragraph*.61}%
+\contentsline {subsection}{\numberline {6.5}Comparison with Other String Approaches}{36}{subsection.6.5}%
+\contentsline {paragraph}{Heterotic Orbifold Models.}{36}{paragraph*.62}%
+\contentsline {paragraph}{F-theory GUTs.}{36}{paragraph*.63}%
+\contentsline {paragraph}{Local Model Building.}{36}{paragraph*.64}%
+\contentsline {paragraph}{Modular Flavor Symmetries.}{37}{paragraph*.65}%
+\contentsline {subsection}{\numberline {6.6}Open Questions and Future Directions}{37}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Summary of Robustness}{38}{subsection.6.7}%
+\contentsline {section}{\numberline {7}Conclusions}{38}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Key Achievements}{38}{subsection.7.1}%
+\contentsline {paragraph}{1. Zero-Parameter Predictions.}{38}{paragraph*.66}%
+\contentsline {paragraph}{2. Topological Origin of Hierarchies.}{39}{paragraph*.67}%
+\contentsline {paragraph}{3. Neutrino Sector from Seesaw Mechanism.}{39}{paragraph*.68}%
+\contentsline {paragraph}{4. Falsifiable Predictions.}{39}{paragraph*.69}%
+\contentsline {paragraph}{5. Robustness to Moduli Variations.}{39}{paragraph*.70}%
+\contentsline {subsection}{\numberline {7.2}Broader Implications}{39}{subsection.7.2}%
+\contentsline {paragraph}{String Theory as a Predictive Framework.}{39}{paragraph*.71}%
+\contentsline {paragraph}{Flavor as a Window into Compactification Geometry.}{40}{paragraph*.72}%
+\contentsline {paragraph}{Unification of Quark and Lepton Sectors.}{40}{paragraph*.73}%
+\contentsline {paragraph}{Neutrino Mass Generation Beyond Weinberg Operator.}{40}{paragraph*.74}%
+\contentsline {subsection}{\numberline {7.3}Limitations and Open Questions}{40}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Experimental Outlook}{41}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Philosophical Reflection}{41}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Final Remarks}{41}{subsection.7.6}%
+\contentsline {section}{\numberline {A}Complete Yukawa Coupling Derivation}{46}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Chern--Simons Action and Dimensional Reduction}{47}{subsection.A.1}%
+\contentsline {paragraph}{Decomposition of RR Potentials.}{47}{paragraph*.75}%
+\contentsline {paragraph}{Gauge Field Strength and Zero Modes.}{47}{paragraph*.76}%
+\contentsline {paragraph}{Dimensional Reduction of $C_4 \wedge F \wedge F$ Term.}{47}{paragraph*.77}%
+\contentsline {paragraph}{Dimensional Reduction of $C_6 \wedge F$ Term.}{48}{paragraph*.78}%
+\contentsline {subsection}{\numberline {A.2}Explicit Calculation for $\mathbb {P}_{11226}[12]$}{48}{subsection.A.2}%
+\contentsline {paragraph}{Wave Function Overlap Integrals.}{48}{paragraph*.79}%
+\contentsline {paragraph}{Moduli Dependence.}{49}{paragraph*.80}%
+\contentsline {subsection}{\numberline {A.3}Hierarchies from Chern Class Ratios}{49}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}Neutrino Yukawas and Seesaw Formula}{49}{subsection.A.4}%
+\contentsline {paragraph}{Numerical Example.}{50}{paragraph*.81}%
+\contentsline {subsection}{\numberline {A.5}K\"ahler Corrections and Higher-Order Terms}{50}{subsection.A.5}%
+\contentsline {subsection}{\numberline {A.6}Summary of Yukawa Calculation}{51}{subsection.A.6}%
+\contentsline {section}{\numberline {B}Operator Basis Analysis and Chern Class Dominance}{51}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Complete Operator Classification}{51}{subsection.B.1}%
+\contentsline {paragraph}{Power Counting.}{52}{paragraph*.82}%
+\contentsline {subsection}{\numberline {B.2}Leading-Order Operators}{52}{subsection.B.2}%
+\contentsline {paragraph}{Operator 1: Direct Chern--Simons Coupling.}{52}{paragraph*.83}%
+\contentsline {paragraph}{Operator 2: Curvature-Corrected Coupling.}{52}{paragraph*.84}%
+\contentsline {paragraph}{Operator 3: Higher Chern Classes.}{52}{paragraph*.85}%
+\contentsline {subsection}{\numberline {B.3}Relative Magnitudes and Dominance}{53}{subsection.B.3}%
+\contentsline {paragraph}{Chern Classes of $\Sigma _4$.}{53}{paragraph*.86}%
+\contentsline {paragraph}{Dimensional Reduction.}{53}{paragraph*.87}%
+\contentsline {paragraph}{Conclusion: $c_2$ Dominance.}{53}{paragraph*.88}%
+\contentsline {subsection}{\numberline {B.4}Proof of Theorem~\ref {thm:operator_basis}}{53}{subsection.B.4}%
+\contentsline {subsection}{\numberline {B.5}Numerical Verification}{54}{subsection.B.5}%
+\contentsline {paragraph}{Computation Method.}{55}{paragraph*.89}%
+\contentsline {paragraph}{Results.}{55}{paragraph*.90}%
+\contentsline {subsection}{\numberline {B.6}Implications for Hierarchies}{55}{subsection.B.6}%
+\contentsline {subsection}{\numberline {B.7}Comparison with Alternative Approaches}{56}{subsection.B.7}%
+\contentsline {paragraph}{F-theory GUTs.}{56}{paragraph*.91}%
+\contentsline {paragraph}{Heterotic Orbifolds.}{56}{paragraph*.92}%
+\contentsline {subsection}{\numberline {B.8}Summary}{56}{subsection.B.8}%
+\contentsline {section}{\numberline {C}KKLT Moduli Stabilization and Uncertainty Budget}{57}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}KKLT Stabilization Mechanism}{57}{subsection.C.1}%
+\contentsline {paragraph}{Step 1: Flux Stabilization of Complex Structure.}{57}{paragraph*.93}%
+\contentsline {paragraph}{Step 2: Supersymmetric AdS Minimum.}{57}{paragraph*.94}%
+\contentsline {paragraph}{Step 3: K\"ahler Moduli Stabilization via Gaugino Condensation.}{58}{paragraph*.95}%
+\contentsline {paragraph}{Step 4: Uplifting to de Sitter.}{58}{paragraph*.96}%
+\contentsline {subsection}{\numberline {C.2}Flux Choice and Tadpole Constraints}{58}{subsection.C.2}%
+\contentsline {paragraph}{Tadpole Constraint.}{58}{paragraph*.97}%
+\contentsline {subsection}{\numberline {C.3}Quantum Fluctuations and Uncertainty Budget}{59}{subsection.C.3}%
+\contentsline {paragraph}{Mass Eigenvalues.}{59}{paragraph*.98}%
+\contentsline {paragraph}{Zero-Point Fluctuations.}{59}{paragraph*.99}%
+\contentsline {paragraph}{Finite-Temperature Corrections.}{59}{paragraph*.100}%
+\contentsline {paragraph}{Cosmological Relaxation.}{59}{paragraph*.101}%
+\contentsline {subsection}{\numberline {C.4}Propagation to Flavor Observables}{60}{subsection.C.4}%
+\contentsline {paragraph}{Procedure.}{60}{paragraph*.102}%
+\contentsline {paragraph}{Results.}{60}{paragraph*.103}%
+\contentsline {paragraph}{Interpretation.}{60}{paragraph*.104}%
+\contentsline {subsection}{\numberline {C.5}Comparison with Large-Volume Scenarios}{60}{subsection.C.5}%
+\contentsline {paragraph}{Scaling Relations.}{61}{paragraph*.105}%
+\contentsline {subsection}{\numberline {C.6}Anthropic Considerations}{61}{subsection.C.6}%
+\contentsline {paragraph}{Anthropic Selection.}{61}{paragraph*.106}%
+\contentsline {paragraph}{Dynamical Selection.}{61}{paragraph*.107}%
+\contentsline {subsection}{\numberline {C.7}Summary of Uncertainty Analysis}{61}{subsection.C.7}%
+\contentsline {section}{\numberline {D}Alternative Wrapping Configurations and Chirality Scan}{62}{appendix.D}%
+\contentsline {subsection}{\numberline {D.1}Classification of Wrapping Numbers}{62}{subsection.D.1}%
+\contentsline {paragraph}{Constraints on Wrapping Numbers.}{62}{paragraph*.108}%
+\contentsline {subsection}{\numberline {D.2}Systematic Scan Over Wrapping Numbers}{63}{subsection.D.2}%
+\contentsline {paragraph}{Results: Viable Configurations.}{63}{paragraph*.109}%
+\contentsline {paragraph}{Interpretation.}{64}{paragraph*.110}%
+\contentsline {subsection}{\numberline {D.3}Chirality as a Selection Criterion}{64}{subsection.D.3}%
+\contentsline {paragraph}{Diophantine Equation.}{64}{paragraph*.111}%
+\contentsline {paragraph}{Resolution: Non-Simply-Connected Cycles.}{64}{paragraph*.112}%
+\contentsline {subsection}{\numberline {D.4}Flavor Structure for Alternative Wrappings}{64}{subsection.D.4}%
+\contentsline {paragraph}{Case 1: $(2,0)$ Wrapping.}{65}{paragraph*.113}%
+\contentsline {paragraph}{Case 2: $(3,1)$ Wrapping.}{65}{paragraph*.114}%
+\contentsline {paragraph}{Case 3: $(1,1)$ Wrapping (Baseline).}{65}{paragraph*.115}%
+\contentsline {subsection}{\numberline {D.5}Moduli Dependence for Different Wrappings}{65}{subsection.D.5}%
+\contentsline {paragraph}{Results.}{65}{paragraph*.116}%
+\contentsline {subsection}{\numberline {D.6}Connection to F-theory GUT Models}{67}{subsection.D.6}%
+\contentsline {subsection}{\numberline {D.7}Summary of Wrapping Scan}{67}{subsection.D.7}%
+\contentsline {section}{\numberline {E}Modular Forms and Wave Function Calculation}{67}{appendix.E}%
+\contentsline {subsection}{\numberline {E.1}Modular Transformations and String Compactifications}{67}{subsection.E.1}%
+\contentsline {paragraph}{Modular Group Action.}{68}{paragraph*.117}%
+\contentsline {paragraph}{Modular Forms.}{68}{paragraph*.118}%
+\contentsline {subsection}{\numberline {E.2}Wave Functions as Modular Forms}{68}{subsection.E.2}%
+\contentsline {paragraph}{Theta Function Representation.}{68}{paragraph*.119}%
+\contentsline {paragraph}{Explicit Formula for Three Generations.}{69}{paragraph*.120}%
+\contentsline {subsection}{\numberline {E.3}Determining Modular Form Coefficients}{69}{subsection.E.3}%
+\contentsline {paragraph}{Solution via Fourier Expansion.}{69}{paragraph*.121}%
+\contentsline {paragraph}{Illustrative Example.}{69}{paragraph*.122}%
+\contentsline {subsection}{\numberline {E.4}Yukawa Couplings from Modular Forms}{70}{subsection.E.4}%
+\contentsline {paragraph}{Modular Weight Consistency.}{70}{paragraph*.123}%
+\contentsline {subsection}{\numberline {E.5}Connection to Modular Flavor Symmetries}{70}{subsection.E.5}%
+\contentsline {paragraph}{Comparison with Our Approach.}{70}{paragraph*.124}%
+\contentsline {paragraph}{Do We Have Modular Symmetry?}{71}{paragraph*.125}%
+\contentsline {subsection}{\numberline {E.6}Generalization to Complex Structure Moduli $\rho , U_i$}{71}{subsection.E.6}%
+\contentsline {subsection}{\numberline {E.7}Summary of Modular Analysis}{71}{subsection.E.7}%
+\contentsline {section}{\numberline {F}Numerical Methods and Computational Implementation}{72}{appendix.F}%
+\contentsline {subsection}{\numberline {F.1}Discretization of the Four-Cycle $\Sigma _4$}{72}{subsection.F.1}%
+\contentsline {paragraph}{Coordinate System.}{72}{paragraph*.126}%
+\contentsline {paragraph}{Mesh Generation.}{72}{paragraph*.127}%
+\contentsline {subsection}{\numberline {F.2}Solving the Laplace Equation for Wave Functions}{73}{subsection.F.2}%
+\contentsline {paragraph}{Finite Element Method.}{73}{paragraph*.128}%
+\contentsline {paragraph}{Boundary Conditions.}{73}{paragraph*.129}%
+\contentsline {paragraph}{Eigenvalue Problem.}{73}{paragraph*.130}%
+\contentsline {paragraph}{Numerical Results.}{73}{paragraph*.131}%
+\contentsline {subsection}{\numberline {F.3}Computing Yukawa Overlap Integrals}{73}{subsection.F.3}%
+\contentsline {paragraph}{Localized Yukawa Form.}{74}{paragraph*.132}%
+\contentsline {paragraph}{Numerical Integration.}{74}{paragraph*.133}%
+\contentsline {paragraph}{Convergence Test.}{74}{paragraph*.134}%
+\contentsline {subsection}{\numberline {F.4}Moduli Optimization and Fitting Procedure}{74}{subsection.F.4}%
+\contentsline {paragraph}{Optimization Algorithm.}{75}{paragraph*.135}%
+\contentsline {paragraph}{Global vs. Local Minima.}{75}{paragraph*.136}%
+\contentsline {paragraph}{Uncertainty Estimation.}{75}{paragraph*.137}%
+\contentsline {subsection}{\numberline {F.5}Parallelization and Performance}{75}{subsection.F.5}%
+\contentsline {paragraph}{Parallel Implementation.}{76}{paragraph*.138}%
+\contentsline {paragraph}{Memory Usage.}{76}{paragraph*.139}%
+\contentsline {subsection}{\numberline {F.6}Code Availability and Reproducibility}{76}{subsection.F.6}%
+\contentsline {subsection}{\numberline {F.7}Validation and Cross-Checks}{76}{subsection.F.7}%
+\contentsline {paragraph}{1. Analytical Limits.}{77}{paragraph*.140}%
+\contentsline {paragraph}{2. Gauge Invariance.}{77}{paragraph*.141}%
+\contentsline {paragraph}{3. Moduli Symmetries.}{77}{paragraph*.142}%
+\contentsline {paragraph}{4. Comparison with CYTools.}{77}{paragraph*.143}%
+\contentsline {subsection}{\numberline {F.8}Summary of Numerical Methods}{77}{subsection.F.8}%
