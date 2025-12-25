@@ -33,7 +33,6 @@ desktop.ini
 # Temporary files
 *.tmp
 *.bak
-*.log
 
 # Archive directory (old code)
 archive/
@@ -43,3 +42,35 @@ archive/
 *.h5
 *.pkl
 *.pickle
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.synctex(busy)
+*.dvi
+*.ps
+*.nav
+*.snm
+*.vrb
+
+# LaTeX temporary files
+*.backup
+*-blx.bib
+*.run.xml
+*.bcf
+
+# Manuscript directory (keep only source, not build artifacts)
+manuscript/main.aux
+manuscript/main.bbl
+manuscript/main.blg
+manuscript/main.log
+manuscript/main.out
+manuscript/main.toc
+manuscript/*.backup
