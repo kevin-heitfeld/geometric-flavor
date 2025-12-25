@@ -69,12 +69,12 @@ Since $\Sigma_4$ is a closed manifold (no boundary), we impose periodic boundary
 The Laplace equation $\mathbf{K} \mathbf{c}^{(i)} = 0$ is an eigenvalue problem with eigenvalue $\lambda = 0$ (zero modes). We solve it using the Arnoldi iteration (implemented in \texttt{scipy.sparse.linalg.eigs}), extracting the three eigenvectors with smallest eigenvalue (which should be $\lambda \approx 0$ numerically).
 
 \paragraph{Numerical Results.}
-For our baseline moduli $\tau = 1.2 + 0.8i$, the three zero modes have eigenvalues:
+To illustrate the eigenvalue structure, we evaluate at generic moduli $\tau = 1.2 + 0.8i$. The three zero modes have eigenvalues:
 \begin{equation}
 \lambda_1 = 2.3 \times 10^{-8}, \quad \lambda_2 = 1.8 \times 10^{-8}, \quad \lambda_3 = 3.1 \times 10^{-8},
 \label{eq:eigenvalues}
 \end{equation}
-confirming they are genuine zero modes (within numerical precision). The corresponding eigenvectors $\mathbf{c}^{(1)}, \mathbf{c}^{(2)}, \mathbf{c}^{(3)}$ define the wave functions $\chi_1, \chi_2, \chi_3$.
+confirming they are genuine zero modes (within numerical precision). The corresponding eigenvectors $\mathbf{c}^{(1)}, \mathbf{c}^{(2)}, \mathbf{c}^{(3)}$ define the wave functions $\chi_1, \chi_2, \chi_3$. Physical predictions use $\tau_* = 2.69i$ (Eq.~\ref{eq:tau_vacuum}).
 
 \subsection{Computing Yukawa Overlap Integrals}
 
