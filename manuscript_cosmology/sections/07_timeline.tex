@@ -1,16 +1,86 @@
 \section{Complete Cosmological Timeline}
 \label{sec:timeline}
 
-% TODO: Complete this section
-% Content: Synthesis of all previous sections
-% - t ~ 10^-35 s: Inflation (sigma rolls)
-% - t ~ 10^-35 s: Reheating Stage 1 (T_RH^(1) ~ 10^13 GeV)
-% - t ~ 10^-30 s: tau stabilization (Yukawas fixed)
-% - t ~ 10^-10 s: tau decay (T_RH^(2) ~ 10^9 GeV, N_R production)
-% - t ~ 10^-6 s: Leptogenesis (N_R decay, eta_B generated)
-% - t ~ 10^-4 s: rho decay (axion release, strong CP solved)
-% - t ~ 1 s: BBN (light elements, N_eff ~ 3.04)
-% - t ~ 380 kyr: Recombination (CMB, n_s and r encoded)
-% - Today: Matter-dominated (DM: 83% sterile nu + 17% axion)
+Having established the individual cosmological mechanisms (Sections~\ref{sec:inflation}--\ref{sec:strongcp}), we now synthesize them into a complete timeline of the universe from $t \sim 10^{-35}$ s to the present. This section traces the sequence of modulus-driven events that shape the thermal and matter content of the cosmos.
 
-[Section to be completed - timeline synthesis]
+\subsection{Phase I: Inflation ($t = 10^{-35}$--$10^{-33}$ s)}
+
+\textbf{Dominant modulus}: $\sigmamod$ (blow-up mode)
+
+The universe begins in an inflationary phase driven by the $\sigmamod$ modulus at $\langle \sigmamod \rangle \sim 27 M_{\text{Pl}}$. The K\"ahler potential $K = -3 \log(\sigmamod + \bar{\sigmamod})$ induces $\alpha$-attractor inflation with $n_s = 0.9667$, $r = 0.0033$. After $N \approx 60$ e-folds, inflation ends and $\sigmamod$ oscillates.
+
+\textbf{Key events}:
+\begin{itemize}
+    \item $t \sim 10^{-35}$ s: Inflation begins, $H_{\text{inf}} \sim 10^{14}$ GeV
+    \item $t \sim 10^{-33}$ s: Inflation ends, $\sigmamod$ oscillates
+    \item PQ symmetry never restored: $f_a \sim 10^{16}$ GeV $> \TRH^{(1)}$
+\end{itemize}
+
+\subsection{Phase II: First Reheating ($t = 10^{-33}$--$10^{-32}$ s)}
+
+\textbf{Process}: $\sigmamod$ decay
+
+The inflaton decays into SM particles with $\TRH^{(1)} \sim 10^{13}$ GeV. Thermal bath established.
+
+\subsection{Phase III: Modulus Stabilization ($t \sim 10^{-30}$ s)}
+
+\textbf{Process}: $\taumod$ modulus stabilizes at $\taumod^* = 2.69i$
+
+Yukawa couplings freeze: $Y_{ij}(\taumod^*) \Rightarrow$ all 19 flavor observables.
+
+\subsection{Phase IV: Second Reheating ($t \sim 10^{-10}$ s)}
+
+\textbf{Process}: $\taumod$ decay
+
+Produces $N_R$ (heavy + light), $\TRH^{(2)} \sim 10^9$ GeV.
+
+\subsection{Phase V: Leptogenesis ($t \sim 10^{-9}$ s)}
+
+\textbf{Process}: $N_1, N_2$ CP-violating decays
+
+Resonant enhancement yields $\eta_B \sim 6 \times 10^{-10}$.
+
+\subsection{Phase VI: Sterile Neutrino Freeze-Out ($t \sim 10^{-6}$ s)}
+
+\textbf{Process}: Light $N_s$ become non-relativistic
+
+$\Omega_s h^2 \sim 0.10$ (83\% of DM).
+
+\subsection{Phase VII: Axion Oscillations ($t \sim 1$ s)}
+
+\textbf{Process}: Axion field begins oscillating
+
+$\Omega_a h^2 \sim 0.02$ (17\% of DM).
+
+\subsection{Phase VIII: Big Bang Nucleosynthesis ($t \sim 1$--$100$ s)}
+
+Light elements form with $\eta_B = 6 \times 10^{-10}$.
+
+\subsection{Phase IX--XI: Matter Domination to Today}
+
+CMB ($t \sim 380{,}000$ yr), structure formation, galaxies.
+
+\subsection{Timeline Summary}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Phase} & \textbf{Time} & \textbf{Temperature} & \textbf{Event} \\
+\midrule
+I & $10^{-35}$ s & $10^{14}$ GeV & Inflation ($\sigmamod$) \\
+II & $10^{-32}$ s & $10^{13}$ GeV & First reheating \\
+III & $10^{-30}$ s & $10^{12}$ GeV & $\taumod^* = 2.69i$ \\
+IV & $10^{-10}$ s & $10^9$ GeV & Second reheating \\
+V & $10^{-9}$ s & $10^8$ GeV & Leptogenesis \\
+VI & $10^{-6}$ s & $1$ GeV & Sterile $\nu$ freeze-out \\
+VII & $1$ s & $1$ MeV & Axion oscillations \\
+VIII & $1$--$100$ s & MeV & BBN \\
+IX & $50{,}000$ yr & $1$ eV & Matter-rad equality \\
+X & $380{,}000$ yr & $0.3$ eV & Recombination \\
+XI & today & $10^{-13}$ eV & Structure \\
+\bottomrule
+\end{tabular}
+\caption{Timeline: three moduli drive inflation, flavor, DM, baryogenesis, strong CP.}
+\label{tab:timeline}
+\end{table}
