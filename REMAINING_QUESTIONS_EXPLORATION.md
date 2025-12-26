@@ -65,18 +65,41 @@ This is a **known feature** of the SM, not a bug in our calculation!
 
 ### Question 2: Individual Gauge Couplings (α_s, α_w, α_em)
 
-**File**: `gauge_coupling_prediction.py` (TO CREATE)  
-**Status**: 🔵 **Not started**
+**File**: `gauge_coupling_prediction.py` ✓  
+**Status**: 🔴 **PARTIAL HARD WALL**
 
 **Strategy**:
-- We have gut_strength = 2 (instanton number c₂)
-- We have c6/c4 = 10.01 (topological ratio)
-- These might set GUT-scale relations: α_s/α_w, etc.
-- Then RG run to M_Z
-- Check unification at M_GUT ~ 10¹⁶ GeV
+- Test if topological parameters (gut_strength=2, c6/c4=10.01) predict α_GUT
+- Assume GUT unification: α₁=α₂=α₃ at M_GUT
+- RG run M_GUT→M_Z using two-loop SM beta functions
+- Compare to experimental values
 
-**Predicted Difficulty**: Medium-High
-**Hard Wall?**: Unknown
+**Findings**:
+
+✅ **What works**:
+- GUT unification pattern is consistent
+- Single α_GUT determines all 3 couplings at M_Z via RG
+- Best-fit α_GUT ≈ 0.0218 in reasonable ballpark
+
+❌ **What doesn't work**:
+- Cannot derive α_GUT from gut_strength or c6/c4
+  * 1/(gut_strength·π) = 0.159 → 631% off
+  * 1/(c6/c4·π) = 0.032 → 46% off
+  * g_s²/(4π) = 0.000004 → 100% off
+- Minimal SM doesn't unify perfectly at M_GUT
+  * Best fit gives sin²θ_W off by 32%
+  * Needs SUSY or similar for precise unification
+
+**Physical Limitation**:
+- α_GUT is the **dilaton VEV** (string coupling)
+- In string theory: g_s = e^(-S) where S is a modulus
+- Moduli are **flat directions** - not fixed by topology alone
+- Requires: Flux compactification or other vacuum selection
+
+**Verdict**: 
+We can explain the STRUCTURE (3 couplings unify at high scale) but cannot derive the VALUE (α_GUT ≈ 0.02-0.03). This is the moduli stabilization problem - a known hard wall in string phenomenology.
+
+**Parameter Count**: ❌ Cannot add α_s, sin²θ_W, α_em to our 22/26
 
 ---
 
