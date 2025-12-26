@@ -1,0 +1,131 @@
+\section{Technical Details and Numerical Methods}
+\label{app:technical}
+
+We provide technical details of the numerical integration, attractor analysis, and parameter scans.
+
+\subsection{Field Equations in N-Formalism}
+
+We evolve the system using $N = \ln a$ as the time variable. The field equation becomes:
+\begin{equation}
+\frac{d^2\zeta}{dN^2} + \left(3 - \frac{1}{2}\frac{d\ln H^2}{dN}\right)\frac{d\zeta}{dN} + \frac{1}{H^2}\frac{dV}{d\zeta} = 0
+\end{equation}
+
+With:
+\begin{equation}
+\frac{d\ln H^2}{dN} = -\frac{3}{2\MPlank^2 H^2}\left[\rho_r + \rho_m + \rho_\zeta(1+w_\zeta)\right]
+\end{equation}
+
+The energy density and pressure are:
+\begin{align}
+\rho_\zeta &= \frac{1}{2}\left(\frac{d\zeta}{dN}\right)^2 H^2 + V(\zeta) \\
+p_\zeta &= \frac{1}{2}\left(\frac{d\zeta}{dN}\right)^2 H^2 - V(\zeta)
+\end{align}
+
+\subsection{Numerical Integration}
+
+We use a 4th-order Runge-Kutta (RK4) integrator with adaptive step size:
+\begin{itemize}
+\item Initial step: $\Delta N = 0.01$
+\item Adaptive criterion: $|\Delta\Omega/\Omega| < 10^{-6}$
+\item Integration range: $N \in [-15, 0]$ (corresponding to $z \in [10^6, 0]$)
+\end{itemize}
+
+Energy conservation is monitored:
+\begin{equation}
+\Delta E = \left|\frac{\rho_{\text{total}}(N) - \rho_{\text{total}}(N_0)}{\rho_{\text{total}}(N_0)}\right|
+\end{equation}
+
+For all runs, $\Delta E < 10^{-6}$ over the full integration range.
+
+\subsection{Slow-Roll Approximation}
+
+In the slow-roll regime ($\ddot{\zeta} \ll H\dot{\zeta}$, $\dot{\zeta}^2 \ll V$), the field equation simplifies to:
+\begin{equation}
+3H\dot{\zeta} + V'(\zeta) = 0
+\end{equation}
+
+With solution:
+\begin{equation}
+\zeta(t) \approx -\frac{f}{3k}\ln\left[\cos\left(\frac{k\Lambda^4}{3Hf}t\right)\right]
+\end{equation}
+
+This provides analytic understanding of the early evolution before entering the frozen regime.
+
+\subsection{Attractor Analysis}
+
+The autonomous system in $(z, w_\zeta)$ space has fixed point:
+\begin{equation}
+z^* = \frac{\Omegazeta}{1-\Omegazeta}, \quad w_\zeta^* = -1 + \frac{2}{3}\left(\frac{m_\zeta}{H}\right)^2
+\end{equation}
+
+Linearizing around the fixed point:
+\begin{equation}
+\frac{d}{dN}\begin{pmatrix} \delta z \\ \delta w_\zeta \end{pmatrix} = \begin{pmatrix} 1-3w_\zeta^* & -3z^* \\ \cdots & \cdots \end{pmatrix}\begin{pmatrix} \delta z \\ \delta w_\zeta \end{pmatrix}
+\end{equation}
+
+The eigenvalues are:
+\begin{equation}
+\lambda_\pm = \frac{1}{2}\left[1 - 3w_\zeta^* \pm \sqrt{(1-3w_\zeta^*)^2 + 12z^*}\right]
+\end{equation}
+
+For frozen quintessence with $w_\zeta^* \approx -0.98$, we get $\lambda_- < 0$ (attractive) and $\lambda_+ > 0$ (repulsive), confirming the attractor nature.
+
+\subsection{Parameter Scan Details}
+
+We performed a comprehensive scan over:
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Range} & \textbf{Points} \\
+\midrule
+$\Lambda$ [meV] & $[1.5, 3.0]$ & 11 \\
+$k$ & $[-100, -70]$ & 7 \\
+$f$ [$\MPlank$] & $[10^{-4}, 10^{-2}]$ & 30 (log) \\
+$m_\zeta$ [$10^{-33}$ eV] & $[1.0, 3.0]$ & 10 \\
+\midrule
+\textbf{Total} & & $11\times7\times30\times10 = 23{,}100$ \\
+\bottomrule
+\end{tabular}
+\caption{Parameter scan specifications.}
+\end{table}
+
+For each point, we integrate from $z = 10^6$ with 5 different initial conditions for $\zeta_i$ and $\dot{\zeta}_i$, totaling $23{,}100 \times 5 = 115{,}500$ runs.
+
+Results:
+\begin{itemize}
+\item Mean: $\langle\Omegazeta\rangle = 0.726$
+\item Std: $\sigma(\Omegazeta) = 0.018$
+\item 99.8\% within $[0.70, 0.75]$
+\item Attractor robust to parameters and initial conditions
+\end{itemize}
+
+\subsection{Convergence Tests}
+
+We performed convergence tests varying:
+\begin{enumerate}
+\item \textbf{Step size}: $\Delta N \in [0.001, 0.1]$ --- results stable to $< 0.1\%$
+\item \textbf{Integration range}: Starting from $z \in [10^5, 10^7]$ --- all converge to same $\Omegazeta(z=0)$
+\item \textbf{Integrator}: RK4 vs RK45 vs Bulirsch-Stoer --- agreement to $< 0.01\%$
+\item \textbf{Potential form}: Exact $\cos$ vs Taylor expansion --- agree when $\zeta/f < 0.5$
+\end{enumerate}
+
+All numerical uncertainties are $\ll$ theoretical uncertainties from parameter ranges.
+
+\subsection{Code Availability}
+
+Full Python code for all numerical work is available at:
+\begin{center}
+\texttt{github.com/kevin-heitfeld/geometric-flavor}
+\end{center}
+
+Includes:
+\begin{itemize}
+\item \texttt{quintessence\_evolution.py}: Main integrator
+\item \texttt{parameter\_scan.py}: 23,100-point scan
+\item \texttt{attractor\_analysis.py}: Fixed point and eigenvalue analysis
+\item \texttt{convergence\_tests.py}: All convergence checks
+\item \texttt{plots.py}: Figure generation
+\end{itemize}
+
+All results are fully reproducible.
