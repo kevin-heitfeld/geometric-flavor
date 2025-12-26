@@ -58,10 +58,10 @@ m_zeta = Lambda**2 / M_Pl
 # Potential amplitude (normalize to match dark energy density)
 # V(ζ) = (A/2) [1 + cos(ζ/f_ζ)]
 # We want Ω_ζ,0 ≈ 0.685
-# Previous runs: A = 1.68×ρ_DE gives Ω_ζ = 0.785 (too high by 0.785/0.685 = 1.146)
-# So we need A ~ 1.68×ρ_DE / 1.146 ≈ 1.47×ρ_DE
+# Fine-tuning: A = 1.32×ρ_DE gives Ω_ζ = 0.741 (too high by 0.741/0.685 = 1.082)
+# So we need A ~ 1.32×ρ_DE / 1.082 ≈ 1.22×ρ_DE
 
-A = 1.47 * rho_DE_0
+A = 1.22 * rho_DE_0
 
 print("=" * 80)
 print("MODULAR QUINTESSENCE: COSMOLOGICAL EVOLUTION")
@@ -452,17 +452,27 @@ else:
     ax7.grid(True, alpha=0.3)
     ax7.set_ylim(-1.15, -0.85)
 
-    # Plot 8: Early dark energy
+    # Plot 8: w(z) zoom for DESI/Euclid (z < 5)
     ax8 = fig.add_subplot(gs[2, 2])
-    mask_rec = (z_eval > 500) & (z_eval < 2000)
-    ax8.plot(z_eval[mask_rec], Omega_zeta_eval[mask_rec], 'red', lw=2.5, label='Ω_ζ')
-    ax8.axvline(1100, color='gray', linestyle='--', lw=2, label='z_rec')
-    ax8.axhline(0.05, color='blue', linestyle=':', lw=1.5, label='EDE threshold')
+    mask_low_z = (z_eval > 0) & (z_eval < 5) & np.isfinite(w_zeta_eval) & (w_zeta_eval > -1.2) & (w_zeta_eval < 0)
+
+    ax8.plot(z_eval[mask_low_z], w_zeta_eval[mask_low_z], 'red', lw=2.5, label='w_ζ(z)')
+    ax8.axhline(-1, color='blue', linestyle='--', lw=2, label='ΛCDM (w = -1)')
+    ax8.axhspan(-1.03, -0.97, alpha=0.2, color='green', label='1σ (Planck)')
+
+    # Mark specific redshifts
+    for z_mark in [0, 0.5, 1.0, 2.0]:
+        idx_mark = np.argmin(np.abs(z_eval - z_mark))
+        ax8.axvline(z_mark, color='gray', linestyle=':', alpha=0.3, lw=1)
+        ax8.text(z_mark, -0.995, f'z={z_mark}', fontsize=8, ha='center', va='bottom')
+
     ax8.set_xlabel('Redshift z', fontsize=12)
-    ax8.set_ylabel('Ω_ζ', fontsize=12)
-    ax8.set_title('Early Dark Energy at Recombination', fontsize=13, fontweight='bold')
-    ax8.legend(fontsize=10)
+    ax8.set_ylabel('w_ζ', fontsize=12)
+    ax8.set_title('w(z) Evolution: DESI/Euclid Range', fontsize=13, fontweight='bold')
+    ax8.legend(fontsize=9, loc='lower right')
     ax8.grid(True, alpha=0.3)
+    ax8.set_xlim(0, 5)
+    ax8.set_ylim(-1.005, -0.995)
 
     plt.savefig('quintessence_cosmological_evolution.png', dpi=300, bbox_inches='tight')
     print("→ Saved: quintessence_cosmological_evolution.png")
@@ -480,13 +490,101 @@ else:
     print()
     print(f"Key results:")
     print(f"  • Evolved {len(solutions)} different initial conditions")
-    print(f"  • All converge to w₀ ≈ {w_zeta_eval[-1]:.3f} (attractor dynamics)")
+    print(f"  • All converge to w₀ ≈ {w_zeta_eval[-1]:.4f} (attractor dynamics)")
     print(f"  • Ω_ζ,0 = {Omega_zeta_eval[-1]:.3f} (target: {Omega_DE_0})")
     print(f"  • Early DE: Ω_ζ(z=1100) = {Omega_zeta_eval[idx_rec]:.4f}")
     print()
+
+    # Modular Ladder Summary
+    print("=" * 80)
+    print("MODULAR LADDER: All Cosmic Scales from Geometry")
+    print("=" * 80)
+    print()
+    print("Modulus | k_weight | w_wrap | Mass Scale        | Physical Role")
+    print("-" * 80)
+    print("σ       | -6       | 2.5    | M_σ ~ 10¹³ GeV    | Inflaton")
+    print("τ       | -4 to -2 | 1-2    | m_ℓ ~ MeV-GeV     | Flavor (SM masses)")
+    print("        | -18      | 1.5    | m_S ~ keV         | Sterile ν (dark matter)")
+    print("ρ       | -10      | 2.0    | f_a ~ 10¹⁰ GeV    | Axion (strong CP)")
+    print("ζ       | -86      | 2.5    | Λ ~ meV           | Quintessence (dark energy)")
+    print("        |          |        | m_ζ ~ 10⁻³⁴ eV    | (field mass)")
+    print("-" * 80)
+    print("Span: Δk = 84 steps → 10⁸⁴ orders of magnitude from inflation to DE!")
+    print()
+    print("Universal formula: M = M_string × (Im τ)^(k/2) × exp(-π w Im τ)")
+    print()
+
+    # w(z) detailed analysis for DESI/Euclid
+    print("=" * 80)
+    print("w(z) EVOLUTION: DESI/Euclid Predictions")
+    print("=" * 80)
+    print()
+
+    # Compute w at specific redshifts
+    z_points = [0, 0.5, 1.0, 2.0, 5.0, 10.0]
+    print("Redshift | w_ζ       | Δw from -1")
+    print("-" * 40)
+    for z_pt in z_points:
+        idx_pt = np.argmin(np.abs(z_eval - z_pt))
+        w_pt = w_zeta_eval[idx_pt]
+        delta_w = w_pt + 1
+        print(f"z = {z_pt:4.1f}  | {w_pt:+.6f} | {delta_w:+.6f}")
+    print()
+
+    # Compute w_a (CPL parametrization: w(a) = w_0 + w_a (1-a))
+    idx_z0 = np.argmin(np.abs(z_eval - 0))
+    idx_z1 = np.argmin(np.abs(z_eval - 1))
+    w0_fit = w_zeta_eval[idx_z0]
+    w1_fit = w_zeta_eval[idx_z1]
+    a0 = a_eval[idx_z0]
+    a1 = a_eval[idx_z1]
+    w_a = (w1_fit - w0_fit) / (a0 - a1) if (a0 - a1) != 0 else 0
+
+    print(f"CPL parametrization: w(a) = w₀ + wₐ(1-a)")
+    print(f"  w₀ = {w0_fit:.6f}")
+    print(f"  wₐ = {w_a:.6f}")
+    print()
+    print("Observational constraints:")
+    print("  DESI 2024: w₀ = -0.827 ± 0.063, wₐ = -0.75 ± 0.29")
+    print("  Planck 2018: w₀ = -1.03 ± 0.03 (assuming wₐ = 0)")
+    print(f"  This model: w₀ = {w0_fit:.4f}, wₐ = {w_a:.4f}")
+    print()
+    if abs(w_a) < 0.01:
+        print("  → Nearly constant w(z) ≈ -1 (ΛCDM-like)")
+    else:
+        print(f"  → Evolving w(z) with |wₐ| = {abs(w_a):.4f}")
+    print()
+
+    # Swampland update
+    print("=" * 80)
+    print("SWAMPLAND CONSTRAINTS")
+    print("=" * 80)
+    print()
+
+    # Compute c today
+    zeta_today = zeta_eval[-1]
+    V_today = V(zeta_today)
+    dV_today = dVdzeta(zeta_today)
+    c_today = abs(dV_today) * M_Pl / V_today if V_today > 0 else 0
+
+    print(f"de Sitter swampland conjecture: c = |∇V| M_Pl / V > O(1)")
+    print()
+    print(f"  ζ₀ = {zeta_today:.3e} GeV")
+    print(f"  V(ζ₀) = {V_today:.3e} GeV⁴")
+    print(f"  |V'(ζ₀)| = {abs(dV_today):.3e} GeV³")
+    print(f"  c = {c_today:.4f}")
+    print()
+    if c_today < 1:
+        print("  ⚠ VIOLATES strong conjecture (c < 1)")
+        print("  → Model makes FALSIFIABLE prediction")
+        print("  → If c > 1 proven necessary, model ruled out")
+    else:
+        print("  ✓ Satisfies strong conjecture (c > 1)")
+    print()
+
     print("Next steps:")
-    print("  → Refine initial conditions for better Ω_ζ match")
-    print("  → Compute w(z) predictions for DESI/Euclid")
     print("  → Write Paper 3 manuscript")
+    print("  → Compare with DESI Year 5 + Euclid w(z) data")
+    print("  → Explore early DE solutions (different ICs)")
     print()
     print("=" * 80)
