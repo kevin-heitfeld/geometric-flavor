@@ -33,6 +33,7 @@ desktop.ini
 # Temporary files
 *.tmp
 *.bak
+temp/
 
 # Archive directory (old code)
 archive/
