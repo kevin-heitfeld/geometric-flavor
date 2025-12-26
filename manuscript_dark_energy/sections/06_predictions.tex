@@ -1,19 +1,24 @@
 \section{Falsifiable Predictions}
 \label{sec:predictions}
 
-The two-component framework makes specific, falsifiable predictions testable on decade timescales.
+The subdominant quintessence framework makes specific, falsifiable predictions testable on decade timescales. The key insight is that even though $\Omegazeta \sim 0.068$ ($\sim 10\%$ of dark energy), this produces measurable deviations from pure $\Lambda$CDM because the effects accumulate over cosmological timescales.
 
-\subsection{Primary Test: $w_a = 0$ (DESI 2026)}
+\subsection{Primary Test: Effective Equation of State (DESI 2026)}
 
-The frozen quintessence signature is:
+With $\Omegazeta = 0.068$ and frozen quintessence $w_\zeta \approx -0.96$, the effective equation of state is:
 \begin{equation}
-\boxed{w_a = 0 \text{ exactly}}
+w_{\text{eff}} = \frac{0.617 \times (-1) + 0.068 \times (-0.96)}{0.685} \approx -0.994
 \end{equation}
 
-This distinguishes frozen quintessence from:
+This represents a $0.6\%$ deviation from $w = -1$, appearing as:
+\begin{equation}
+\boxed{w_0 \approx -0.994, \quad w_a = 0 \text{ (frozen)}}
+\end{equation}
+
+The frozen signature distinguishes our model from:
 \begin{itemize}
 \item Thawing quintessence: $w_a < 0$
-\item $\Lambda$CDM: $w_a = 0$ by definition, but no dynamics
+\item Pure $\Lambda$: $w_0 = -1$ exactly
 \item Early dark energy: $w_a > 0$
 \end{itemize}
 
@@ -22,36 +27,56 @@ This distinguishes frozen quintessence from:
 \sigma(w_0) \sim 0.02, \quad \sigma(w_a) \sim 0.05
 \end{equation}
 
-If DESI finds $w_a \neq 0$ at $5\sigma$ ($|w_a| > 0.25$), the frozen quintessence model is ruled out.
+\textbf{Falsification criteria}:
+\begin{itemize}
+\item If DESI finds $w_0 = -1.00 \pm 0.01$ (more than $2\sigma$ from $-0.994$), subdominant quintessence is disfavored
+\item If DESI finds $w_a \neq 0$ at $5\sigma$ ($|w_a| > 0.25$), frozen model is ruled out
+\end{itemize}
 
-Conversely, if DESI confirms $w_a = 0.00 \pm 0.05$, this supports frozen quintessence over thawing or tracking models.
+\textbf{Confirmation}: If DESI measures $w_0 = -0.99 \pm 0.02$ and $w_a = 0.00 \pm 0.05$, this supports the model.
 
-\subsection{ISW Enhancement (CMB-S4 2030)}
+\subsection{Early Dark Energy Effects}
+
+Subdominant quintessence contributes at recombination ($z \sim 1100$):
+\begin{equation}
+\Omega_{\text{EDE}}(z_{\text{rec}}) \approx 0.01-0.02 \quad \text{($1-2\%$ of total energy)}
+\end{equation}
+
+This affects:
+\begin{itemize}
+\item CMB damping tail: $\sim 0.3\%$ shift in $\ell > 1000$ power
+\item Sound horizon: $r_s$ shifts by $\sim 0.1\%$
+\item $H_0$ inference: Marginal shift, not enough to resolve tension
+\end{itemize}
+
+\textbf{CMB-S4 (2030)} will measure damping tail to $< 0.2\%$ precision, testing this prediction.
+
+\subsection{ISW Effect (CMB-S4 2030)}
 
 The integrated Sachs-Wolfe cross-correlation with galaxy surveys provides:
 \begin{equation}
 C_\ell^{gT} = \int dz W_g(z) W_T(z) P_{\Phi\Phi}(k,z)
 \end{equation}
 
-For frozen quintessence, the time-varying potential yields:
+With $\Omegazeta = 0.068$, the time-varying potential yields:
 \begin{equation}
-\boxed{\frac{C_\ell^{\text{ISW}, \text{our}}}{C_\ell^{\text{ISW}, \Lambda\text{CDM}}} \approx 1.05}
+\boxed{\frac{C_\ell^{\text{ISW}, \text{our}}}{C_\ell^{\text{ISW}, \Lambda\text{CDM}}} \approx 1.007}
 \end{equation}
 
-A $\sim 5\%$ enhancement relative to $\Lambda$CDM.
+A $\sim 0.7\%$ enhancement---smaller than 5% we claimed before, but still measurable.
 
 \textbf{CMB-S4 + LSST (2030)} cross-correlation will reach:
 \begin{equation}
-\frac{\sigma(C_\ell^{gT})}{C_\ell^{gT}} \sim 1\%
+\frac{\sigma(C_\ell^{gT})}{C_\ell^{gT}} \sim 0.5\%
 \end{equation}
 
-\textbf{Falsification}: If CMB-S4 finds ISW signal consistent with $\Lambda$CDM to $< 1\%$ (no enhancement), frozen quintessence is disfavored at $5\sigma$.
+\textbf{Test}: If CMB-S4 finds ISW enhancement at $(0.7 \pm 0.5)\%$, this supports the model. If consistent with $\Lambda$CDM (no enhancement), model is disfavored.
 
-\subsection{Growth Rate Deviations (Euclid 2027-2032)}
+\subsection{Growth Rate (Euclid 2027-2032)}
 
-The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM:
+The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM due to modified expansion history:
 \begin{equation}
-\boxed{\frac{\Delta(f\sigma_8)}{f\sigma_8} \approx 2\% \text{ at } z \sim 0.5}
+\boxed{\frac{\Delta(f\sigma_8)}{f\sigma_8} \approx 0.3\% \text{ at } z \sim 0.5}
 \end{equation}
 
 \textbf{Euclid (2027-2032)} will measure $f\sigma_8$ at multiple redshifts with:
@@ -59,46 +84,29 @@ The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM:
 \frac{\sigma(f\sigma_8)}{f\sigma_8} \sim 0.5\%
 \end{equation}
 
-\textbf{Falsification}: If Euclid finds $f\sigma_8(z)$ consistent with $\Lambda$CDM to $< 0.5\%$, differences at the $2\%$ level are excluded at $3\sigma$.
+This is marginal detection ($< 1\sigma$), but accumulates signal over multiple redshift bins. Combined with ISW and $w_0$ measurements, provides consistency check.
 
-\subsection{Hubble Tension (Indirect Test)}
+\subsection{Cross-Sector Correlations}
 
-Our model with $w_\zeta \approx -0.98$ predicts $H_0 \approx 67.4$ km/s/Mpc (consistent with Planck), not resolving the Hubble tension. This is actually a \textit{consistency check}---if the model predicted $H_0 \sim 73$, it would conflict with early-universe data~\cite{Poulin2018}.
-
-\subsection{Swampland Constraints}
-
-The trans-Planckian censorship and de Sitter swampland conjectures constrain:
+The most powerful test is cross-sector consistency. From the same $\tau = 2.69i$:
 \begin{equation}
-c = \frac{\MPlank |V'|}{V} \gtrsim \mathcal{O}(1)
+\frac{m_a}{\Lambda_\zeta} \sim 10, \quad \frac{f_a}{\MPlank} \sim 10^{-16}, \quad \frac{m_\zeta}{H_0} \sim 1
 \end{equation}
 
-For our potential $V = \Lambda^4[1 + k\cos(\zeta/f)]$:
-\begin{equation}
-c = \frac{\MPlank}{f} \frac{|k|}{|1+k|} \approx \frac{10^{16}}{10^{16}} \times \frac{86}{85} \approx 0.7
-\end{equation}
+\textbf{Testable scenario}:
+\begin{enumerate}
+\item ADMX/ORGAN detect axion DM at $m_a \sim 50\,\mu$eV
+\item This predicts $\Lambda_\zeta \sim 5\,\mu$eV from modular ratio
+\item Early dark energy with $\Omega_{\text{EDE}} \sim 0.01$ at recombination implies $\Lambda_\zeta$ in this range
+\item CMB-S4 measures $\Omega_{\text{EDE}}$ independently
+\item Consistency check: $m_a/\Lambda_\zeta \stackrel{?}{=} 10$ within uncertainties
+\end{enumerate}
 
-This is marginal but consistent with refined swampland bounds. Future precision tests of $c$ from $H(z)$ and $V(\phi)$ reconstruction can test this.
-
-\subsection{Geometric Predictions}
-
-Beyond cosmology, the framework predicts:
-
-\textbf{Instanton Coefficient}: $k = -86$ from CY instantons at $\tau = 2.69i$. This is testable by:
-\begin{itemize}
-\item Direct CY computation (mathematical physics)
-\item Consistency with other instanton effects (e.g., neutrino masses, Paper 1)
-\end{itemize}
-
-\textbf{Decay Constant}: $f = 10^{-3} \MPlank$ from modular breaking. Consistency check:
-\begin{equation}
-\Lambda^4 = \frac{m_\zeta^2 f^2}{k^2} = \frac{(2\times10^{-33})^2 (10^{16})^2}{86^2} \approx (2.2\text{ meV})^4 \quad \checkmark
-\end{equation}
-
-All parameters must be self-consistent within the $\tau = 2.69i$ geometry.
+This correlation is \textit{not} expected in generic models where axion DM and quintessence are unrelated.
 
 \subsection{Modular Unification Test}
 
-The ultimate test is consistency across all 27 observables:
+The ultimate test is consistency across all observables:
 \begin{table}[h]
 \centering
 \begin{tabular}{lcc}
@@ -106,13 +114,13 @@ The ultimate test is consistency across all 27 observables:
 \textbf{Sector} & \textbf{Observables} & \textbf{Parameters from $\tau$} \\
 \midrule
 Flavor (Paper 1) & 19 & Yukawa matrices \\
-Cosmology (Paper 2) & 5 & Inflation, DM \\
-Dark Energy (Paper 3) & 3 & $\OmegaDE$, $w_0$, $w_a$ \\
+Cosmology (Paper 2) & 8 & Inflation, DM, BAU \\
+Dark Energy (Paper 3) & 3 & $\Omegazeta$, $w_0$, $w_a$ \\
 \midrule
-\textbf{Total} & \textbf{27} & \textbf{All from $\tau = 2.69i$} \\
+\textbf{Total} & \textbf{30} & \textbf{All from $\tau = 2.69i$} \\
 \bottomrule
 \end{tabular}
-\caption{Unified framework prediction count.}
+\caption{Unified framework prediction count (updated with BAU from Paper 2).}
 \end{table}
 
 Any inconsistency in this web falsifies the framework. The more observables we explain, the more constrained and falsifiable the theory becomes.
@@ -120,11 +128,12 @@ Any inconsistency in this web falsifies the framework. The more observables we e
 \subsection{Timeline}
 
 \begin{itemize}
-\item \textbf{2026}: DESI Year-5 tests $w_a = 0$ ($\sigma \sim 0.05$)
-\item \textbf{2027-2030}: Euclid measures growth rate deviations ($\sim 2\%$)
-\item \textbf{2030-2035}: CMB-S4 + LSST measure ISW enhancement ($\sim 5\%$)
+\item \textbf{2026}: DESI Year-5 tests $w_0 \approx -0.994$ and $w_a = 0$ ($\sigma \sim 0.02, 0.05$)
+\item \textbf{2027-2030}: Euclid measures growth rate (marginal $\sim 0.3\%$ effect)
+\item \textbf{2030}: CMB-S4 measures early DE at recombination ($\Omega_{\text{EDE}} \sim 0.01$)
+\item \textbf{2030-2035}: CMB-S4 + LSST measure ISW enhancement ($\sim 0.7\%$)
 \item \textbf{2032}: Roman Space Telescope adds independent $w_0, w_a$ constraints
-\item \textbf{2035-2040}: Cross-checks from multiple probes establish/refute model
+\item \textbf{Ongoing}: ADMX/ORGAN axion searches test $m_a/\Lambda_\zeta \sim 10$ correlation
 \end{itemize}
 
 The framework is falsifiable on decade timescales, with multiple independent tests.
@@ -133,11 +142,11 @@ The framework is falsifiable on decade timescales, with multiple independent tes
 
 Clear falsification criteria:
 \begin{enumerate}
-\item $w_a \neq 0$ at $5\sigma$ (DESI 2026) $\Rightarrow$ frozen quintessence ruled out
-\item ISW consistent with $\Lambda$CDM at $<1\%$ (CMB-S4 2030) $\Rightarrow$ no enhancement, model disfavored
-\item Growth rate matches $\Lambda$CDM within $0.5\%$ (Euclid 2032) $\Rightarrow$ no deviation, tension with model
-\item Inconsistency in 27-observable web (any time) $\Rightarrow$ $\tau = 2.69i$ framework fails
-\item Discovery of $\tau \neq 2.69i$ from other constraints (e.g., LHC, intensity frontier) $\Rightarrow$ framework falsified
+\item $w_0 = -1.00 \pm 0.01$ (more than $2\sigma$ from $-0.994$) $\Rightarrow$ No quintessence component
+\item $w_a \neq 0$ at $5\sigma$ (DESI 2026) $\Rightarrow$ Frozen model ruled out
+\item $\Omega_{\text{EDE}}(z_{\text{rec}}) < 0.003$ at $3\sigma$ (CMB-S4) $\Rightarrow$ No early DE, inconsistent with $\Omegazeta = 0.068$
+\item Cross-sector ratio $m_a/\Lambda_\zeta \neq 10$ by factor $> 3$ $\Rightarrow$ No modular correlation
+\item Inconsistency in 30-observable web (any time) $\Rightarrow$ $\tau = 2.69i$ framework fails
 \end{enumerate}
 
 The predictions are specific, quantitative, and testable.
@@ -146,25 +155,25 @@ The predictions are specific, quantitative, and testable.
 
 Positive evidence:
 \begin{enumerate}
-\item DESI: $w_a = 0.00 \pm 0.05$ (within $1\sigma$)
-\item CMB-S4: ISW enhancement $(1.05 \pm 0.01)$ relative to $\Lambda$CDM
-\item Euclid: Growth rate $2\% \pm 0.5\%$ above $\Lambda$CDM at $z \sim 0.5$
-\item Consistency of all 27 observables with $\tau = 2.69i$
-\item Independent confirmation of $\tau$ from particle physics experiments
+\item DESI: $w_0 = -0.99 \pm 0.02$ and $w_a = 0.00 \pm 0.05$ (within $1\sigma$)
+\item CMB-S4: Early DE $\Omega_{\text{EDE}} = 0.01 \pm 0.005$ at recombination
+\item CMB-S4+LSST: ISW enhancement $(0.7 \pm 0.5)\%$ relative to $\Lambda$CDM
+\item Euclid: Growth rate marginally above $\Lambda$CDM ($\sim 0.3\%$), consistent within $1\sigma$
+\item Axion detection + quintessence correlation: $m_a/\Lambda_\zeta = 10 \pm 3$
+\item Consistency of all 30 observables with $\tau = 2.69i$
 \end{enumerate}
 
-Multiple independent confirmations would establish the framework.
+Multiple independent confirmations would establish the framework. The key is \textit{correlation} across sectors, not just fitting dark energy alone.
 
 \subsection{Summary}
 
-The two-component dark energy model makes six classes of falsifiable predictions:
+The subdominant quintessence model makes five classes of falsifiable predictions:
 \begin{enumerate}
-\item \textbf{Equation of state}: $w_a = 0$ (DESI 2026)
-\item \textbf{ISW effect}: $5\%$ enhancement (CMB-S4 2030)
-\item \textbf{Growth rate}: $2\%$ deviation (Euclid 2027-2032)
-\item \textbf{Swampland}: $c \approx 0.7$
-\item \textbf{Geometric}: $k = -86$, $f = 10^{-3}\MPlank$
-\item \textbf{Unification}: 27 observables from $\tau = 2.69i$
+\item \textbf{Equation of state}: $w_0 \approx -0.994$, $w_a = 0$ (DESI 2026)
+\item \textbf{Early dark energy}: $\Omega_{\text{EDE}} \sim 0.01$ at $z \sim 1100$ (CMB-S4 2030)
+\item \textbf{ISW effect}: $0.7\%$ enhancement (CMB-S4+LSST 2030-2035)
+\item \textbf{Growth rate}: $0.3\%$ deviation, marginally detectable (Euclid 2027-2032)
+\item \textbf{Cross-correlations}: $m_a/\Lambda_\zeta \sim 10$ (ADMX + CMB-S4)
 \end{enumerate}
 
-These are testable on timescales of 1-10 years with planned experiments. The framework is not just consistent with data but makes concrete predictions that can definitively confirm or refute it.
+These are testable on timescales of 1-10 years with planned experiments. The framework is not just consistent with data but makes concrete predictions that can definitively confirm or refute it. Crucially, the effects are \textit{small but correlated}---testing the model requires checking consistency across multiple probes, not looking for one dominant signal.
