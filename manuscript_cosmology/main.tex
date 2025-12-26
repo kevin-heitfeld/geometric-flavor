@@ -1,0 +1,169 @@
+% Paper 2: Complete Cosmology from Modular String Compactifications
+% Author: Kevin Heitfeld
+% Date: December 2025
+
+\documentclass[12pt,letterpaper]{article}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+
+% Math packages
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{physics}  % For bra-ket notation and derivatives
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,positioning,shapes}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+% Formatting
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% References and links
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    breaklinks=true
+]{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Bibliography
+\usepackage[square,numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Line numbers for review (comment out for final)
+% \usepackage{lineno}
+% \linenumbers
+
+% ============================================================================
+% CUSTOM COMMANDS
+% ============================================================================
+
+% Number systems
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+
+% Physics notation
+\newcommand{\Lag}{\mathcal{L}}
+\newcommand{\CY}{\text{CY}_{3}}
+
+% String theory
+\newcommand{\Mstring}{M_{\text{string}}}
+\newcommand{\MPlank}{M_{\text{Pl}}}
+\newcommand{\MGUT}{M_{\text{GUT}}}
+
+% Cosmology
+\newcommand{\TRH}{T_{\text{RH}}}
+\newcommand{\Hinf}{H_{\text{inf}}}
+\newcommand{\etaB}{\eta_B}
+\newcommand{\OmegaDM}{\Omega_{\text{DM}}}
+
+% Moduli
+\newcommand{\taumod}{\tau}
+\newcommand{\rhomod}{\rho}
+\newcommand{\sigmamod}{\sigma}
+
+% Vectors and matrices
+\newcommand{\uvec}[1]{\boldsymbol{\hat{#1}}}
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+
+% Differential forms
+\newcommand{\hodge}{\star}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+% ============================================================================
+% DOCUMENT INFORMATION
+% ============================================================================
+
+\title{
+    \vspace{-1cm}
+    \textbf{Complete Cosmology from Modular String Compactifications:} \\
+    \textbf{Inflation, Dark Matter, Baryogenesis, and Strong CP}
+}
+
+\author{
+    Kevin Heitfeld \\
+    \textit{Independent Researcher} \\
+    \texttt{kheitfeld@gmail.com}
+}
+
+\date{\today}
+
+% ============================================================================
+% BEGIN DOCUMENT
+% ============================================================================
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We demonstrate that the same Type IIB string compactification that explains Standard Model flavor structure naturally accommodates a complete cosmological history. The framework employs three Kähler moduli with distinct roles: (i) a blow-up mode $\sigmamod$ drives $\alpha$-attractor inflation with predictions $n_s = 0.967 \pm 0.004$ and $r = 0.003 \pm 0.001$, testable by LiteBIRD and CMB-S4; (ii) the complex structure modulus $\taumod^* = 2.69i$ (established in our companion paper from flavor phenomenology) produces sterile neutrino dark matter ($83\%$ of $\OmegaDM$) and drives resonant leptogenesis, achieving exact agreement with the observed baryon asymmetry $\etaB = (6.1 \pm 0.1) \times 10^{-10}$; (iii) the overall volume modulus $\rhomod$ generates a Peccei-Quinn axion that solves the strong CP problem while contributing subdominant axion dark matter ($17\%$ of $\OmegaDM$). The framework features two-stage reheating ($\TRH \sim 10^{13} \to 10^9$ GeV) that naturally suppresses gravitino overproduction and ensures PQ symmetry is never restored post-inflation. With sterile neutrino masses $m_s \sim 300$-$700$ MeV and right-handed neutrinos at $M_R \sim 20$ TeV, the model predicts observable signatures at Belle-II and the proposed FCC-hh collider. This unified picture explains 25 cosmological and particle physics observables from the same geometric input that determines SM flavor, demonstrating the power of modular string compactifications to address multiple fundamental puzzles simultaneously.
+\end{abstract}
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords:} String cosmology, Modular inflation, Dark matter, Leptogenesis, Strong CP problem, Axion, $\alpha$-attractors, Sterile neutrinos
+
+\vspace{0.5cm}
+\noindent\textbf{arXiv categories:} hep-ph, hep-th, astro-ph.CO
+
+\tableofcontents
+\newpage
+
+% ============================================================================
+% SECTIONS
+% ============================================================================
+
+\input{sections/01_introduction}
+\input{sections/02_multimoduli_framework}
+\input{sections/03_inflation}
+\input{sections/04_dark_matter}
+\input{sections/05_baryogenesis}
+\input{sections/06_strong_cp}
+\input{sections/07_timeline}
+\input{sections/08_predictions}
+\input{sections/09_discussion}
+\input{sections/10_conclusions}
+
+% ============================================================================
+% ACKNOWLEDGMENTS
+% ============================================================================
+
+\section*{Acknowledgments}
+
+The author thanks the developers of \texttt{NumPy}, \texttt{SciPy}, and \texttt{Matplotlib} for essential computational tools, and the AI research assistants Claude (Anthropic) and ChatGPT (OpenAI) for productive discussions during the optimization of leptogenesis parameters. This work was conducted independently without institutional support.
+
+% ============================================================================
+% BIBLIOGRAPHY
+% ============================================================================
+
+\bibliography{references}
+
+\end{document}
