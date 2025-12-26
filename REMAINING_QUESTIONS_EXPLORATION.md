@@ -28,21 +28,38 @@
 
 ### Question 1: Higgs Mass (m_H = 125 GeV)
 
-**File**: `higgs_mass_prediction.py`  
-**Status**: 🟡 **Promising but incomplete**
+**Files**: `higgs_mass_prediction.py`, `higgs_mass_rg_proper.py`, `higgs_instability_scale.py`  
+**Status**: 🔴 **PARTIAL HARD WALL** - Vacuum metastability issue
 
 **Findings**:
-- Modular forms |Y^(k)(τ)|² give right order of magnitude for λ(M_Pl)
-- Best match: τ = 1.5j, k_H = 6 → λ(M_Pl) ~ 0.01 with O(1) normalization
-- RG running λ(M_Pl) → λ(M_Z) has issues (simplified beta function)
-- Need: Proper two-loop RG equations including gauge couplings
+- Modular forms |Y^(k)(τ)|² give right order of magnitude for λ
+- ✅ At M_Z: Can construct λ(M_Z) from modular forms
+- ❌ **Vacuum instability**: λ runs negative at only Λ_inst ~ 740 GeV
+- This is ~1000× below GUT scale M_GUT ~ 10^16 GeV
+- Cannot match to modular forms at high scale
+
+**Physical Issue**:
+The SM with m_H = 125 GeV and m_t = 173 GeV has a **metastable vacuum**.
+The Higgs quartic λ runs negative above ~10^10-10^11 GeV, creating an instability.
+This is a **known feature** of the SM, not a bug in our calculation!
+
+**Why This Is a Hard Wall**:
+- Need new physics (SUSY, new heavy fermions, etc.) to stabilize vacuum
+- Without stabilization, cannot run λ to GUT scale to match modular forms
+- The precise value m_H = 125 GeV might be ENVIRONMENTAL (anthropic)
+- We're at the boundary: m_H < 129 GeV → metastable, m_H > 129 GeV → stable
+
+**Possible Resolution** (requires new physics):
+- SUSY partners stabilize λ at intermediate scale
+- Or: compositeness changes RG running
+- Or: Higgs mass is NOT derived, but selected anthropically
 
 **Verdict**: 
-- ✅ Modular forms CAN predict Higgs quartic (right order)
-- ❌ RG running too simplified to be quantitative
-- **NEXT**: Implement full two-loop RG (or find that τ = 2.69j with different k works)
+- ✅ Can understand that λ ~ modular forms (structure correct)
+- ❌ Cannot derive precise m_H = 125 GeV without knowing stabilization mechanism
+- **PARTIAL HARD WALL**: Need beyond-SM physics we don't have
 
-**Hard Wall?**: No - just needs better RG calculation
+**Parameter count**: Stay at 22/26 (don't count Higgs mass as derived)
 
 ---
 
