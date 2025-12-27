@@ -44,7 +44,26 @@
 
 ---
 
-#### 3. arXiv:2001.07972 - "Classification of discrete modular symmetries in Type IIB flux vacua" (Jan 2020)
+#### 3. arXiv:hep-th/0404229 - "Computing Yukawa Couplings from Magnetized Extra Dimensions" (Apr 2004)
+**Authors**: Cremades, Ibanez, Marchesano
+**Length**: 73 pages
+**Journal**: JHEP 0405:079,2004
+**Why ABSOLUTELY CRITICAL**:
+- **BULK MODE FORMULA**: Explicit wavefunctions for magnetized D-branes (exactly our case!)
+- Yukawa couplings as overlap integrals using **Riemann theta-functions**
+- Wave functions depend on **complex structure τ and Wilson lines**
+- Solves Dirac equation in extra dimensions explicitly
+- **73 pages of explicit calculations** - this is THE reference!
+
+**Target Extraction**:
+- Exact formula: ψ(z,τ) = N × exp(...) × θ[α,β](z|τ)
+- How (α,β) characteristics relate to orbifold quantum numbers
+- Modular transformation properties of bulk zero modes
+- Connection between magnetic flux M and modular weight w
+
+---
+
+#### 4. arXiv:2001.07972 - "Classification of discrete modular symmetries in Type IIB flux vacua" (Jan 2020)
 **Authors**: Kobayashi, Otsuka
 **Length**: 22 pages
 **Journal**: Phys. Rev. D 101, 106017 (2020)
