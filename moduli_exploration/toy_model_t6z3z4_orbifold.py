@@ -3,13 +3,22 @@ Toy Model: T^6/(Z_3 × Z_4) Orbifold with Dominant Kähler Modulus
 
 THIS IS THE ACTUAL CY MANIFOLD IDENTIFIED FOR SM FLAVOR!
 
+IMPORTANT FRAMEWORK CLARIFICATION (2025-01-03):
+  - Type IIB F-theory with magnetized D7-branes
+  - Bulk CY has χ = 0 (NOT χ = -6!)
+  - Chirality from D-brane intersections (see d7_brane_chirality.py)
+  - 3 generations from flux quantization: n_F = 3
+
 Goal: Demonstrate that in our identified compactification:
 1. One effective Kähler modulus T_eff dominates volume
 2. Same T_eff controls Yukawa suppression factors
 3. Complex structure gives τ ~ 2.69 (as found phenomenologically)
 4. This validates our effective single-modulus approximation
 
-Reference: CALABI_YAU_IDENTIFIED.md - the actual SM flavor geometry
+Reference:
+  - CALABI_YAU_IDENTIFIED.md - the SM flavor geometry (original)
+  - d7_brane_chirality.py - corrected chirality mechanism
+  - type_iib_ftheory_moduli_analysis.md - framework translation
 """
 
 import numpy as np
@@ -38,15 +47,22 @@ The Z_3 × Z_4 action has TWO twist vectors:
 
 Z_3 twist: θ₃ = (1/3, 1/3, -2/3)
   θ₃: (z_1, z_2, z_3) → (ω z_1, ω z_2, ω² z_3)  where ω = e^(2πi/3)
+  → Creates 3-cycles for LEPTON branes
 
 Z_4 twist: θ₄ = (1/4, 1/4, -1/2)
   θ₄: (z_1, z_2, z_3) → (i z_1, i z_2, -z_3)
+  → Creates 4-cycles for QUARK branes
 
-This gives BOTH:
-  • 3-cycles (from Z_3) → Leptons with Γ₀(3) symmetry
-  • 4-cycles (from Z_4) → Quarks with Γ₀(4) symmetry
+FRAMEWORK (Type IIB F-theory):
+  • Bulk χ = 0 → No bulk chirality ✓
+  • D7-branes wrap cycles with magnetic flux F
+  • Chiral matter at D7 intersections
+  • 3 generations from flux quantization: n_F = 3
+  • Modular forms from D7 worldvolume CFT
 
 THIS IS WHY QUARKS AND LEPTONS MIX DIFFERENTLY!
+  - Different twist sectors → Different modular symmetries
+  - Γ₀(3) for leptons, Γ₀(4) for quarks
 """)
 
 # Both twist vectors
@@ -58,10 +74,13 @@ print(f"Z_4 twist vector: v₄ = ({v4[0]:.3f}, {v4[1]:.3f}, {v4[2]:.3f})")
 print(f"Check: Σ v₃ᵢ = {np.sum(v3):.3f}, Σ v₄ᵢ = {np.sum(v4):.3f} (both must be 0 for CY)")
 
 # Euler characteristic
-chi = -6  # From orbifold formula for T^6/(Z_3 × Z_4)
-N_gen = abs(chi) // 2
+# CORRECTED (2025-01-03): Simple orbifold has χ = 0, not -6!
+# See hodge_numbers_calculation.py for explicit calculation
+chi = 0  # From orbifold formula: h^{1,1} = h^{2,1} → χ = 0
 print(f"\nEuler characteristic: χ = {chi}")
-print(f"Number of generations: |χ|/2 = {N_gen} ✓ THREE GENERATIONS!")#==============================================================================
+print(f"  → NO bulk chirality (all chiral matter from D-branes!)")
+print(f"  → See d7_brane_chirality.py for 3 generations from flux")
+print()#==============================================================================
 # 2. MODULI SPACE
 #==============================================================================
 
