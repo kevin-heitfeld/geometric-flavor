@@ -1,0 +1,35 @@
+{
+  "derived_parameters": {
+    "k_lepton": 27,
+    "k_quark": 16,
+    "C": 13,
+    "tau_ratio": 2.7,
+    "Delta_k_lepton": 3,
+    "Delta_k_quark": 2
+  },
+  "fitted_parameters": {
+    "tau_imaginary": 2.69,
+    "m_tau": 1776.86,
+    "m_t": 173000.0,
+    "g_lepton": null,
+    "g_quark": null
+  },
+  "tau_comparison": {
+    "derived": 2.7,
+    "phenomenological": 2.69,
+    "error_percent": 0.3717472118959194
+  },
+  "lepton_k_values": {
+    "e": 9,
+    "mu": 6,
+    "tau": 3
+  },
+  "quark_k_values": {
+    "u": 10,
+    "c": 6,
+    "t": 2,
+    "d": 10,
+    "s": 6,
+    "b": 2
+  }
+}
