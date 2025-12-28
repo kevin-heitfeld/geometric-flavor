@@ -1,0 +1,34 @@
+{
+  "step_6_final_answer": {
+    "question": "Why \u0394k = 2 for quarks?",
+    "answer": "Up-down splitting from Z\u2082 subgroup of Z\u2084",
+    "mechanism": "Z\u2082 = {e, g\u00b2} \u2282 Z\u2084 with order 2",
+    "delta_k": 2,
+    "comparison": {
+      "leptons": {
+        "delta_k": 3,
+        "origin": "Z\u2083 generation splitting"
+      },
+      "quarks": {
+        "delta_k": 2,
+        "origin": "Z\u2082 up-down splitting"
+      }
+    },
+    "status": "SOLVED",
+    "confidence": "high"
+  },
+  "complete_orbifold_predictions": {
+    "k_lepton": 27,
+    "k_lepton_formula": "3^3",
+    "k_quark": 16,
+    "k_quark_formula": "4^2",
+    "delta_k_lepton": 3,
+    "delta_k_lepton_formula": "N(Z3)",
+    "delta_k_quark": 2,
+    "delta_k_quark_formula": "N(Z2) where Z2 subset Z4",
+    "C": 13,
+    "C_formula": "3^2 + 4",
+    "tau": 2.7,
+    "tau_formula": "27/10"
+  }
+}
