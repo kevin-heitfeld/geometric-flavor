@@ -1,0 +1,30 @@
+{
+  "discovery": {
+    "tau_phenomenological": 2.69,
+    "tau_predicted": 2.7,
+    "formula": "tau = k_lepton / X",
+    "k_lepton": 27,
+    "X": 10,
+    "X_formula": "N(Z3) + N(Z4) + dim_CY/2",
+    "error_percent": 0.3717472118959194
+  },
+  "orbifold_structure": {
+    "Z3_order": 3,
+    "Z4_order": 4,
+    "CY_dimension": 6,
+    "k_lepton": 27,
+    "k_lepton_formula": "3^3",
+    "k_quark": 16,
+    "k_quark_formula": "4^2 (tentative)",
+    "C": 13,
+    "C_formula": "3^2 + 4",
+    "X": 10,
+    "X_formula": "3 + 4 + 3"
+  },
+  "interpretation": {
+    "tau_origin": "Determined by lepton sector modular level divided by orbifold characteristic",
+    "lepton_primary": true,
+    "quark_secondary": true,
+    "mechanism": "Lepton sector sets complex structure, quark sector adapts via E4 instead of eta"
+  }
+}

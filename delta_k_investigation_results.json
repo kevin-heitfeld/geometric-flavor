@@ -1,0 +1,37 @@
+{
+  "step_5_leptons": {
+    "question": "Why \u0394k = 3 for leptons?",
+    "answer": "From Z\u2083 orbifold with 3 twisted sectors",
+    "formula": "k = (3-q) \u00d7 3 for q = 0,1,2",
+    "observed_k": [
+      9,
+      6,
+      3
+    ],
+    "predicted_k": [
+      9,
+      6,
+      3
+    ],
+    "delta_k": 3,
+    "status": "SOLVED",
+    "confidence": "high"
+  },
+  "step_6_quarks": {
+    "question": "Why \u0394k = 2 for quarks?",
+    "answer": "Unclear - needs clarification",
+    "observed_k": [
+      10,
+      6,
+      2
+    ],
+    "observed_delta_k": [
+      4,
+      4
+    ],
+    "expected_from_Z4": "4 or 2",
+    "status": "PARTIAL",
+    "confidence": "medium",
+    "needs": "Verify what \u0394k means (generation vs up-down splitting)"
+  }
+}
