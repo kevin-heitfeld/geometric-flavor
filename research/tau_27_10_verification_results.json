@@ -1,0 +1,105 @@
+{
+  "alternative_orbifolds": [
+    {
+      "orbifold": "Z\u2083\u00d7Z\u2084 (our framework)",
+      "N_Z3": 3,
+      "N_Z4": 4,
+      "k_lepton": 27,
+      "k_quark": 16,
+      "C": 13,
+      "X": 10,
+      "tau": 2.7,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2083\u00d7Z\u2086",
+      "N_Z3": 3,
+      "N_Z4": 6,
+      "k_lepton": 27,
+      "k_quark": 36,
+      "C": 15,
+      "X": 12,
+      "tau": 2.25,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2084\u00d7Z\u2084",
+      "N_Z3": 4,
+      "N_Z4": 4,
+      "k_lepton": 64,
+      "k_quark": 16,
+      "C": 20,
+      "X": 11,
+      "tau": 5.818181818181818,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2082\u00d7Z\u2088",
+      "N_Z3": 2,
+      "N_Z4": 8,
+      "k_lepton": 8,
+      "k_quark": 64,
+      "C": 12,
+      "X": 13,
+      "tau": 0.6153846153846154,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2085\u00d7Z\u2083",
+      "N_Z3": 5,
+      "N_Z4": 3,
+      "k_lepton": 125,
+      "k_quark": 9,
+      "C": 28,
+      "X": 11,
+      "tau": 11.363636363636363,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2083\u00d7Z\u2083",
+      "N_Z3": 3,
+      "N_Z4": 3,
+      "k_lepton": 27,
+      "k_quark": 9,
+      "C": 12,
+      "X": 9,
+      "tau": 3.0,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2084\u00d7Z\u2086",
+      "N_Z3": 4,
+      "N_Z4": 6,
+      "k_lepton": 64,
+      "k_quark": 36,
+      "C": 22,
+      "X": 13,
+      "tau": 4.923076923076923,
+      "sensible": true
+    },
+    {
+      "orbifold": "Z\u2082\u00d7Z\u2086",
+      "N_Z3": 2,
+      "N_Z4": 6,
+      "k_lepton": 8,
+      "k_quark": 36,
+      "C": 10,
+      "X": 11,
+      "tau": 0.7272727272727273,
+      "sensible": true
+    }
+  ],
+  "comprehensive_scan": [
+    {
+      "N_Z3": 3,
+      "N_Z4": 4,
+      "tau": 2.7,
+      "error": 0.010000000000000231,
+      "error_pct": 0.3717472118959194,
+      "k_lepton": 27,
+      "k_quark": 16,
+      "C": 13,
+      "X": 10
+    }
+  ]
+}

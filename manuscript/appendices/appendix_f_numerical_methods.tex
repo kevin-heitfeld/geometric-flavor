@@ -5,7 +5,7 @@ This appendix describes the numerical methods used to compute flavor observables
 
 \subsection{Discretization of the Four-Cycle $\Sigma_4$}
 
-The wrapped four-cycle $\Sigma_4 = D_1 + D_2 \subset X$ is a four-dimensional submanifold of the six-dimensional Calabi--Yau $X = \mathbb{P}_{11226}[12]$. To perform numerical computations, we discretize $\Sigma_4$ using a finite element mesh.
+The wrapped four-cycle $\Sigma_4 = D_1 + D_2 \subset X$ is a four-dimensional submanifold of the six-dimensional toroidal orbifold $X = T^6/(\ZZ_3 \times \ZZ_4)$. To perform numerical computations, we discretize $\Sigma_4$ using a finite element mesh.
 
 \paragraph{Coordinate System.}
 We parametrize $\Sigma_4$ using local coordinates $(u_1, u_2, u_3, u_4)$ where:
@@ -242,7 +242,7 @@ Y'_{ijk} = U_{ia} U_{jb} U_{kc} Y_{abc} = Y_{ijk} \quad \text{for random } U \in
 Deviations are $< 10^{-10}$, consistent with numerical roundoff.
 
 \paragraph{3. Moduli Symmetries.}
-The CY $\mathbb{P}_{11226}[12]$ has a $\mathbb{Z}_2$ symmetry $\tau \to -1/\tau$. Our numerical results should respect this:
+The toroidal orbifold $T^6/(\ZZ_3 \times \ZZ_4)$ has discrete $\ZZ_3 \times \ZZ_4$ symmetries. Our numerical results should respect these symmetries:
 \begin{equation}
 Y_{ijk}(\tau) = Y_{ijk}(-1/\tau).
 \label{eq:symmetry_check}

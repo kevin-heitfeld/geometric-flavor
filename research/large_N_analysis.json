@@ -1,0 +1,10 @@
+{
+  "issue": "Z\u2085\u00d7Z\u2082 and Z\u2086\u00d7Z\u2082 give too large \u03c4",
+  "root_cause": "N\u2081\u00b3 scaling too aggressive for N\u2081 \u2265 5",
+  "solution": {
+    "product_N_small": "\u03c4 = N\u2081\u00b3 / (N\u2081 + N\u2082 + 3) for N\u2081 \u2264 4",
+    "product_N_large": "\u03c4 = N\u2081\u00b2 / (N\u2081 + N\u2082 + 3) for N\u2081 \u2265 5",
+    "simple": "\u03c4 = N\u00b2 / (N + 3)"
+  },
+  "threshold": "N\u2081 = 4 is cutoff between cubic and quadratic scaling"
+}

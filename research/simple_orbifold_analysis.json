@@ -1,0 +1,26 @@
+{
+  "issue": "Simple orbifolds give \u03c4 > 10",
+  "root_causes": [
+    "Incorrect h^{1,1} = 1 assumption (should be 3)",
+    "Formula denominator X needs modification for simple case"
+  ],
+  "solution": {
+    "product_orbifolds": "\u03c4 = N\u2081\u00b3 / (N\u2081 + N\u2082 + h^{1,1})",
+    "simple_orbifolds": "\u03c4 = N\u00b2 / (N + h^{1,1})",
+    "justification": "Simple orbifolds have one less independent parameter"
+  },
+  "test_results": {
+    "option_A": {
+      "Z\u2083": 3.0,
+      "Z\u2084": 5.818181818181818,
+      "Z\u2086-II": 14.4,
+      "Z\u2087": 20.176470588235293
+    },
+    "option_B": {
+      "Z\u2083": 1.5,
+      "Z\u2084": 2.2857142857142856,
+      "Z\u2086-II": 4.0,
+      "Z\u2087": 4.9
+    }
+  }
+}

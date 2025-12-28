@@ -148,7 +148,7 @@
 \contentsline {paragraph}{Gauge Field Strength and Zero Modes.}{49}{paragraph*.84}%
 \contentsline {paragraph}{Dimensional Reduction of $C_4 \wedge F \wedge F$ Term.}{49}{paragraph*.85}%
 \contentsline {paragraph}{Dimensional Reduction of $C_6 \wedge F$ Term.}{50}{paragraph*.86}%
-\contentsline {subsection}{\numberline {A.2}Explicit Calculation for $\mathbb {P}_{11226}[12]$}{50}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.2}Explicit Calculation for $T^6/(\mathbb {Z}_3 \times \mathbb {Z}_4)$ Orbifold}{50}{subsection.A.2}%
 \contentsline {paragraph}{Wave Function Overlap Integrals.}{50}{paragraph*.87}%
 \contentsline {paragraph}{Moduli Dependence.}{51}{paragraph*.88}%
 \contentsline {subsection}{\numberline {A.3}Hierarchies from Chern Class Ratios}{51}{subsection.A.3}%
