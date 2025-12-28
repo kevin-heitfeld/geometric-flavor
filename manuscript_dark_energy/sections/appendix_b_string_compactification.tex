@@ -64,7 +64,7 @@ This would require:
 
 \textit{Status}: Not yet achieved. Explicit CY construction at $\tau = 2.69i$ is ongoing work.
 
-\textit{If true}: Would dramatically strengthen the framework---$\rho_{\text{vac}}$ becomes a prediction, not a selection. The 99-fold fine-tuning reduction would be maintained, but now both components ($\rho_\zeta$ and $\rho_{\text{vac}}$) are predicted from $\tau = 2.69i$.
+\textit{If true}: Would dramatically strengthen the framework---$\rho_{\text{vac}}$ becomes a prediction, not a selection. Both the dynamical component ($\Omegazeta$) and vacuum component ($\Omegavac$) would be predicted from $\tau = 2.69i$, making this a complete geometric determination of dark energy.
 
 \subsubsection{Scenario B: Partial Correlation (Moderate)}
 
@@ -78,81 +78,38 @@ but not the precise value $-0.041\rho_{\text{crit}}$.
 This is intermediate between full prediction and pure selection:
 \begin{itemize}
 \item Modular structure at $\tau = 2.69i$ constrains $V_{\text{AdS}}$ and $V_{\text{uplift}}$ ranges
-\item Landscape scan within constrained range yields $10^{424} \to 10^{100}$ suitable vacua (still ample)
-\item Fine-tuning remains $\sim 10^{-1.2}$, but with theoretical understanding of order of magnitude
+\item Landscape scan within constrained range yields many suitable vacua (order-of-magnitude estimate)
+\item Residual tuning remains $\sim 1$ order of magnitude, but with theoretical understanding
 \end{itemize}
 
 \textit{Status}: Plausible but unproven. Requires understanding $W(\tau, \rho)$ correlations in string landscape.
 
 \subsubsection{Scenario C: Pure Landscape (Conservative)}
 
-\textit{Hypothesis}: No correlation between $\tau = 2.69i$ (complex structure) and $\rho_{\text{vac}}$ (K\"ahler/uplifting). The vacuum energy is selected from $\sim 10^{424}$ vacua with $\Omegavac \in [-0.05, -0.03]$.
+\textit{Hypothesis}: No correlation between $\tau = 2.69i$ (complex structure) and $\rho_{\text{vac}}$ (K\"ahler/uplifting). The vacuum energy is selected from the string landscape.
 
-This is our current assumption:
+This is our conservative baseline:
 \begin{itemize}
-\item $\Omegazeta = 0.726$ predicted from $\tau = 2.69i$ (dynamics)
-\item $\Omegavac = -0.041$ selected from landscape (anthropics)
-\item Fine-tuning $10^{-1.2}$ from 6\% cancellation
-\item Landscape provides $10^{424}$ vacua (vastly sufficient)
+\item $\Omega_{\text{PNGB}} \sim 0.7$ emerges from frozen quintessence dynamics
+\item Subdominant component $\Omegazeta \approx 0.068$ provides observable signatures
+\item Dominant vacuum $\Omegavac \approx 0.617$ remains anthropically selected
+\item Residual tuning at $\sim 1$ order of magnitude (Why 10\% split? Why $m_\zeta \approx H_0$?)
 \end{itemize}
 
 \textit{Status}: Conservative baseline. Makes no assumptions about $\tau$-$\rho_{\text{vac}}$ connection.
 
-\subsection{Landscape Counting}
+\subsection{Landscape Statistics (Order-of-Magnitude)}
 
-The string landscape has $\sim 10^{500}$ vacua~\cite{Douglas2003,Ashok2004,Denef2004}. For dark energy:
-\begin{align}
-\rho_{\text{vac}} &\in [-0.05\rho_{\text{crit}}, -0.03\rho_{\text{crit}}] \\
-\Delta\ln\rho &\sim \ln(0.05/0.03) \sim 0.5
-\end{align}
+The string landscape is estimated to contain $\sim 10^{500}$ vacua~\cite{Douglas2003,Ashok2004,Denef2004}, though this number is model-dependent and uncertain. For vacuum energy selection: 
 
-Assuming uniform distribution in $\ln\rho$ over 123 orders ($10^{-123} \to 1$ in Planck units):
-\begin{equation}
-P(\Omegavac \in [-0.05, -0.03]) \sim \frac{0.5}{123\ln 10} \sim 10^{-2.5}
-\end{equation}
+\textbf{Order-of-magnitude argument}: 
+\begin{itemize}
+\item Landscape scans $\sim 120$ orders of magnitude in $\rho_\Lambda$ (from Planck scale to observed)
+\item For anthropic selection, need $\gtrsim 10^{76}$ vacua (one per causal patch in eternal inflation)
+\item If vacua are roughly uniformly distributed in log space, landscape provides many orders of magnitude surplus
+\end{itemize}
 
-Wait, this gives $10^{500} \times 10^{-2.5} = 10^{497}$ vacua, not $10^{424}$. Let me recalculate.
-
-Actually, for anthropic selection we need $\rho_{\text{vac}} < 0$ (to cancel part of $\rho_\zeta$) and $|\rho_{\text{vac}}| \sim 0.04\rho_{\text{crit}}$. The range:
-\begin{equation}
-\rho_{\text{vac}} \in [-10^{-3}\text{ eV}^4, -0.5\times10^{-3}\text{ eV}^4]
-\end{equation}
-
-In Planck units, $\rho_{\text{crit}} \sim 10^{-47}$ GeV$^4 \sim 10^{-123}\MPlank^4$. So:
-\begin{equation}
-\rho_{\text{vac}} \sim 0.04 \times 10^{-123}\MPlank^4 \sim 10^{-124.4}\MPlank^4
-\end{equation}
-
-The probability:
-\begin{equation}
-P \sim 10^{-124.4} \times \frac{0.5}{123\ln 10} \sim 10^{-126}
-\end{equation}
-
-Oops, this gives $10^{500} \times 10^{-126} = 10^{374}$, still not quite right.
-
-The correct calculation: We need $\Omegavac/\Omegazeta \sim 0.06$. With $\Omegazeta \sim 0.7$ fixed, we need:
-\begin{equation}
-\rho_{\text{vac}} \sim 0.06 \times \rho_\zeta \sim 0.06 \times 0.7 \times \rho_{\text{crit}} \sim 0.04\rho_{\text{crit}}
-\end{equation}
-
-In absolute terms: $\rho_{\text{crit}} \sim (10^{-3}\text{ eV})^4$, so:
-\begin{equation}
-\rho_{\text{vac}} \sim 0.04 \times (10^{-3}\text{ eV})^4 \sim (0.63\times10^{-3}\text{ eV})^4
-\end{equation}
-
-In Planck units: $\MPlank \sim 10^{19}$ GeV $\sim 10^{28}$ eV, so:
-\begin{equation}
-\rho_{\text{vac}} \sim \frac{(0.6\times10^{-3})^4}{(10^{28})^4}\MPlank^4 \sim 10^{-124}\MPlank^4
-\end{equation}
-
-Scanning 123 orders ($10^{-123} \to 1$), probability of hitting $10^{-124} \pm 0.2$ orders:
-\begin{equation}
-P \sim \frac{0.4}{123} \sim 10^{-2.5}
-\end{equation}
-
-So $N = 10^{500} \times 10^{-2.5} = 10^{497}$ vacua. Hmm, this is more than $10^{424}$.
-
-The $10^{424}$ estimate comes from~\cite{Douglas2003} assuming additional constraints (supersymmetry breaking scale, etc.). The order of magnitude is robust: we need $\gtrsim 10^{76}$ for anthropics, and landscape provides $10^{400-500}$.
+\textbf{Bottom line}: Precise counting is not possible without explicit constructions, but order-of-magnitude estimates suggest the landscape is \textit{not} a bottleneck for vacuum energy selection. The framework does not depend on specific landscape statistics---we simply acknowledge that $\Omegavac$ is likely environmental rather than dynamically predicted.
 
 \subsection{Future Work: Explicit CY Construction}
 
@@ -171,9 +128,9 @@ This is a major computational project in algebraic geometry and string compactif
 
 Three scenarios for $\rho_{\text{vac}}$ origin:
 \begin{itemize}
-\item \textbf{A (Ambitious)}: Predicted from $\tau = 2.69i$ geometry
+\item \textbf{A (Ambitious)}: Predicted from $\tau = 2.69i$ geometry (requires explicit CY construction)
 \item \textbf{B (Moderate)}: Order of magnitude constrained by $\tau$, fine value selected
-\item \textbf{C (Conservative)}: Purely landscape-selected, no $\tau$ connection
+\item \textbf{C (Conservative)}: Purely landscape-selected, no $\tau$ connection (our baseline)
 \end{itemize}
 
-All three maintain the 99-fold fine-tuning reduction. Scenario A would be most dramatic (full prediction), C most conservative (our current assumption). Future CY calculations will determine which applies.
+All three preserve the key result: the \textit{dynamical component} $\Omegazeta$ provides testable signatures regardless of vacuum energy origin. Scenario A would be most dramatic (full prediction), C most conservative (current paper). Future CY calculations may clarify which applies, but our falsifiable predictions ($w_a = 0$, early DE, cross-correlations) remain unchanged.
