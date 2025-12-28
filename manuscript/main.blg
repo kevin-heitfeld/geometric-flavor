@@ -3,13 +3,16 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: unsrtnat.bst
 Database file #1: references.bib
+Warning--I didn't find a database entry for "Kaplunovsky:1988"
+Warning--I didn't find a database entry for "Dixon:1991"
+Warning--I didn't find a database entry for "Grimm:2010"
 Warning--empty journal in Ibanez:2012zz
 Warning--empty journal in CMB-S4:2016ple
 Warning--empty journal in Hyper-Kamiokande:2018ofw
 Warning--empty journal in Logg2012
 You've used 53 entries,
             2481 wiz_defined-function locations,
-            951 strings with 13480 characters,
+            957 strings with 13552 characters,
 and the built_in function-call counts, 19977 in all, are:
 = -- 1785
 > -- 935
@@ -48,4 +51,4 @@ warning$ -- 4
 while$ -- 166
 width$ -- 0
 write$ -- 795
-(There were 4 warnings)
+(There were 7 warnings)
