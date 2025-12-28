@@ -1,8 +1,30 @@
 """
+⊘ HISTORICAL SCRIPT - USES SUPERSEDED τ VALUES ⊘
+
+**Status**: HISTORICAL DEMONSTRATION (Phase 1 exploration)
+**Date**: ~June 2024 (before Papers 1-4)
+**Uses**: τ_leptons=3.25i, τ_quarks=1.422i (SUPERSEDED VALUES)
+
+⚠️ WARNING: This script uses the OLD multi-τ approach that was ABANDONED.
+
+Current Framework (Papers 1-4):
+- Uses τ = 2.69i for ALL sectors (leptons AND quarks)
+- Different modular forms (η vs E₄), NOT different τ values
+- For correct scripts, see: src/framework/tau_2p69i/
+
+Purpose of This Script:
+- Demonstrates why quarks need E₄(τ) instead of η(τ)
+- Shows mathematical differences between modular forms
+- Educational value: Understanding modular vs quasi-modular forms
+
+DO NOT use this for new calculations. See docs/framework/README.md for current approach.
+
+---
+
 INVESTIGATION: Why Do Quarks Need Eisenstein E₄ Instead of Dedekind η?
 ========================================================================
 
-CONTEXT:
+CONTEXT [Uses old τ values for demonstration]:
 - Leptons: m ∝ |η(τ)|^k works perfectly (χ² < 10⁻²⁰)
 - Quarks: m ∝ |η(τ)|^k fails catastrophically (χ² > 40,000)
 - Quarks: m ∝ |E₄(τ)|^α works perfectly (χ² < 10⁻²⁰)

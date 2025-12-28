@@ -1,11 +1,30 @@
 # MAJOR BREAKTHROUGH: Complete Flavor Unification Achieved
 
-**Date**: December 24, 2025  
-**Status**: All 12 Standard Model fermions unified through modular geometry
+---
+
+# ⚠️ MIXED CONTENT WARNING ⚠️
+
+**This document contains content from MULTIPLE framework phases**:
+- **Lines 1-250**: Historical multi-τ exploration (SUPERSEDED - uses τ=3.25i, τ=1.422i)
+- **Lines 250-467**: Discussion of extended structures (PARTIAL - some content current)
+
+**Status**: Document needs revision to separate historical from current content.
+
+### For Clean Current Framework Documentation
+
+**See instead**: `docs/framework/README.md` and Papers 1-4
+
+**Current Framework Summary**:
+- ✅ Single τ = 2.69i for ALL sectors (leptons, quarks, everything)
+- ✅ Leptons: Γ₀(3), k=27, η(τ) modular forms
+- ✅ Quarks: Γ₀(4), k=16, E₄(τ) Eisenstein series  
+- ✅ 30 observables, χ²/dof = 1.18
+
+**This document describes old multi-τ approach**: Uses different τ values (3.25i for leptons, 1.422i for quarks) which was **ABANDONED** in favor of single-τ framework.
 
 ---
 
-## Executive Summary
+## Executive Summary [MIXED CONTENT - Use with Caution]
 
 We have achieved **complete flavor unification** for all 12 Standard Model fermions (6 leptons + 6 quarks) using geometric modular forms and quasi-modular forms. This represents a major advance from our previous 65% flavor unification to **95% complete**.
 

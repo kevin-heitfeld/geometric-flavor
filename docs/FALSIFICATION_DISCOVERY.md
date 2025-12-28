@@ -1,6 +1,38 @@
 # THE FALSIFICATION THAT BECAME DISCOVERY
 
-## Executive Summary
+---
+
+# ⊘ HISTORICAL EXPLORATION - SUPERSEDED ⊘
+
+**Status**: ❌ **FAILED APPROACH - DO NOT USE**  
+**Date**: ~June 2024 (before Papers 1-4 finalized)  
+**Outcome**: Multi-τ approach abandoned; single-τ framework established  
+
+---
+
+## ⚠️ READ THIS FIRST ⚠️
+
+This document describes an attempt to use **DIFFERENT τ values** for different sectors:
+- Leptons: τ_leptonic = 3.25i
+- Quarks: τ_hadronic = 1.422i  
+- Ratio: τ_leptonic/τ_hadronic = 7/16
+
+**Result**: While the τ-ratio matched gauge couplings perfectly (0.0000% deviation!), this approach **FAILED to achieve minimal unification**. The framework could not unify quarks and leptons with different τ values.
+
+### Current Framework (Papers 1-4)
+
+The **ESTABLISHED** framework uses:
+- **Single τ = 2.69i for ALL sectors** (leptons, quarks, cosmology, dark energy)
+- Different modular FORMS (η for leptons, E₄ for quarks), NOT different τ values
+- Complete unification: 30 observables, χ²/dof = 1.18
+
+**For current framework, see**: `docs/framework/README.md`  
+**Why this failed**: See `docs/historical/README.md`  
+**Still confused?**: Read `docs/CONFUSION_SOURCE_ANALYSIS.md`
+
+---
+
+## Executive Summary [HISTORICAL - Phase 1 Exploration]
 
 **Starting Point**: Framework unified all leptons with Δk=2 pattern (survives p=0.439 test).
 

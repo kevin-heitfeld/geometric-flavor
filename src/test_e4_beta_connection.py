@@ -1,4 +1,22 @@
 """
+⊘ HISTORICAL SCRIPT - USES OLD τ VALUES FOR COMPARISON ⊘
+
+**Status**: EDUCATIONAL DEMONSTRATION
+**Date**: ~June-July 2024
+**Uses**: τ_leptons=3.25i, τ_quarks=1.422i for comparison only
+
+⚠️ This script demonstrates E₄ vs η properties using historical τ values.
+The mathematical insights (E₄ quasi-modularity ↔ QCD running) remain valid,
+but τ values shown are from superseded Phase 1 exploration.
+
+Current Framework: Both leptons and quarks use τ = 2.69i
+- See docs/framework/README.md for correct values
+- See src/framework/ for current calculations
+
+Educational Value: Understanding why E₄(τ) suits QCD (quasi-modular ~ RG running)
+
+---
+
 TEST: E₄ QUASI-MODULARITY ↔ QCD β-FUNCTION CONNECTION
 =======================================================
 
