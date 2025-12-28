@@ -4,9 +4,9 @@
 
 # ⊘ HISTORICAL EXPLORATION - SUPERSEDED ⊘
 
-**Status**: ❌ **FAILED APPROACH - DO NOT USE**  
-**Date**: ~June 2024 (before Papers 1-4 finalized)  
-**Outcome**: Multi-τ approach abandoned; single-τ framework established  
+**Status**: ❌ **FAILED APPROACH - DO NOT USE**
+**Date**: December 22-24, 2025 (early project exploration)
+**Outcome**: Multi-τ approach abandoned; single-τ framework established
 
 ---
 
@@ -14,7 +14,7 @@
 
 This document describes an attempt to use **DIFFERENT τ values** for different sectors:
 - Leptons: τ_leptonic = 3.25i
-- Quarks: τ_hadronic = 1.422i  
+- Quarks: τ_hadronic = 1.422i
 - Ratio: τ_leptonic/τ_hadronic = 7/16
 
 **Result**: While the τ-ratio matched gauge couplings perfectly (0.0000% deviation!), this approach **FAILED to achieve minimal unification**. The framework could not unify quarks and leptons with different τ values.
@@ -26,8 +26,8 @@ The **ESTABLISHED** framework uses:
 - Different modular FORMS (η for leptons, E₄ for quarks), NOT different τ values
 - Complete unification: 30 observables, χ²/dof = 1.18
 
-**For current framework, see**: `docs/framework/README.md`  
-**Why this failed**: See `docs/historical/README.md`  
+**For current framework, see**: `docs/framework/README.md`
+**Why this failed**: See `docs/historical/README.md`
 **Still confused?**: Read `docs/CONFUSION_SOURCE_ANALYSIS.md`
 
 ---

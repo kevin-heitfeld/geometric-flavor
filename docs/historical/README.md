@@ -10,7 +10,7 @@
 
 These files are kept for:
 - ✅ Understanding what was tried and why it didn't work
-- ✅ Historical context for current framework decisions  
+- ✅ Historical context for current framework decisions
 - ✅ Preventing re-exploration of dead ends
 - ✅ Educational value (learning from failures)
 
@@ -20,11 +20,11 @@ These files are kept for:
 
 ## Timeline of Framework Development
 
-### Phase 1: Multi-τ Exploration (~June 2024) - FAILED ❌
+### Phase 1: Multi-τ Exploration (Dec 22-24, 2025) - FAILED ❌
 
 **Hypothesis**: Different sectors have different τ values
 - Leptons: τ_leptonic = 3.25i
-- Quarks: τ_hadronic = 1.422i  
+- Quarks: τ_hadronic = 1.422i
 - Ratio: τ_leptonic/τ_hadronic = 7/16
 
 **Tests**:
@@ -43,7 +43,7 @@ These files are kept for:
 
 ---
 
-### Phase 2: Single-τ Framework (June-August 2024) - SUCCESS ✅
+### Phase 2: Single-τ Framework (Dec 24-27, 2025) - SUCCESS ✅
 
 **Hypothesis**: Same τ for all sectors, different modular forms
 - Universal: τ = 2.69i for ALL sectors
@@ -68,7 +68,7 @@ These files are kept for:
 
 ---
 
-### Phase 3: Path A/B Research (August 2024 - Present) - ONGOING 🔄
+### Phase 3: Path A/B Research (Dec 27-28, 2025 - Present) - ONGOING 🔄
 
 Building on established single-τ framework to understand deeper origins.
 
@@ -80,10 +80,10 @@ Building on established single-τ framework to understand deeper origins.
 
 | File | Original Name | Date | Status | Outcome |
 |------|---------------|------|--------|---------|
-| `2024_06_multi_tau_exploration.md` | FALSIFICATION_DISCOVERY.md | ~June 2024 | SUPERSEDED ⊘ | Failed unification |
-| `2024_07_delta_k_universality.md` | DELTA_K_UNIVERSALITY_REPORT.md | ~July 2024 | COMPLETED ✅ | Δk=2 NOT universal |
-| `2024_08_k_pattern_stress_test.md` | K_PATTERN_STRESS_TEST_RESULTS.md | ~August 2024 | COMPLETED ✅ | Different k → different τ |
-| `README.md` | (this file) | Dec 2025 | CURRENT | Navigation guide |
+| `2025_12_22_multi_tau_exploration.md` | FALSIFICATION_DISCOVERY.md | Dec 22-24, 2025 | SUPERSEDED ⊘ | Failed unification |
+| `2025_12_24_delta_k_universality.md` | DELTA_K_UNIVERSALITY_REPORT.md | Dec 24-25, 2025 | COMPLETED ✅ | Δk=2 NOT universal |
+| `2025_12_25_k_pattern_stress_test.md` | K_PATTERN_STRESS_TEST_RESULTS.md | Dec 25-26, 2025 | COMPLETED ✅ | Different k → different τ |
+| `README.md` | (this file) | Dec 28, 2025 | CURRENT | Navigation guide |
 
 ---
 
@@ -217,13 +217,13 @@ Result: Complete unification, 30 observables explained
 
 **In new documents**:
 ```markdown
-⚠️ Note: Multi-τ approach was explored historically but abandoned 
-(see docs/historical/2024_06_multi_tau_exploration.md). Current 
+⚠️ Note: Multi-τ approach was explored historically but abandoned
+(see docs/historical/2024_06_multi_tau_exploration.md). Current
 framework uses single τ=2.69i (docs/framework/).
 ```
 
 **In discussions**:
-> "We actually tried that in Phase 1! It didn't work because [reason]. 
+> "We actually tried that in Phase 1! It didn't work because [reason].
 > See historical/[file] for details. Current approach is [solution]."
 
 ---
@@ -234,7 +234,7 @@ framework uses single τ=2.69i (docs/framework/).
 
 Add files that document:
 - ✅ Approaches that were tried and failed
-- ✅ Tests that rejected hypotheses  
+- ✅ Tests that rejected hypotheses
 - ✅ Explorations that were superseded by better approaches
 - ✅ "Dead ends" that future researchers should know about
 

@@ -2,7 +2,7 @@
 ⊘ HISTORICAL SCRIPT - USES OLD τ VALUES FOR COMPARISON ⊘
 
 **Status**: EDUCATIONAL DEMONSTRATION
-**Date**: ~June-July 2024
+**Date**: December 24-25, 2025
 **Uses**: τ_leptons=3.25i, τ_quarks=1.422i for comparison only
 
 ⚠️ This script demonstrates E₄ vs η properties using historical τ values.

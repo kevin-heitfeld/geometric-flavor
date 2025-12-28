@@ -2,7 +2,7 @@
 ⊘ HISTORICAL SCRIPT - USES SUPERSEDED τ VALUES ⊘
 
 **Status**: HISTORICAL DEMONSTRATION (Phase 1 exploration)
-**Date**: ~June 2024 (before Papers 1-4)
+**Date**: December 22-24, 2025 (early project phase)
 **Uses**: τ_leptons=3.25i, τ_quarks=1.422i (SUPERSEDED VALUES)
 
 ⚠️ WARNING: This script uses the OLD multi-τ approach that was ABANDONED.
