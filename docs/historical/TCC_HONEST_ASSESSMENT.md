@@ -1,5 +1,7 @@
 # Trans-Planckian Censorship: Honest Assessment
 
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "27 observables" which was an earlier framework version. **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18. The TCC analysis here remains conceptually valid but numbers have changed.
+
 ## The Problem
 
 Our framework has an **internal three-way tension**:

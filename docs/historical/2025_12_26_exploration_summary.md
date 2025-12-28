@@ -1,5 +1,7 @@
 # Exploration Branch: Cosmological Extensions Summary
 
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "25 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18.
+
 **Branch**: `exploration/dark-matter-from-flavor`
 **Status**: All analyses complete
 **Date**: December 26, 2025

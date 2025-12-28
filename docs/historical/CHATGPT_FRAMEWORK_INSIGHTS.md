@@ -1,4 +1,6 @@
-# ChatGPT's Framework Insights: Stop Tuning, Start Writing
+# ChatGPT Framework Insights
+
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "27 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18. Stop Tuning, Start Writing
 
 **Date**: December 26, 2024
 **Source**: ChatGPT analysis of our quantum gravity exploration

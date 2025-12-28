@@ -1,5 +1,7 @@
 # Critical Assessment: Dark Energy Tensions and Path Forward
 
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "24/25 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18.
+
 **Date**: December 26, 2025  
 **Author**: Kevin (with AI feedback from ChatGPT, Gemini, Kimi, **Claude**)
 

@@ -1,0 +1,30 @@
+{
+  "alpha_prime_corrections": {
+    "gauge_thresholds_leptons_percent": 1.2826372980389986,
+    "gauge_thresholds_quarks_percent": 1.6032966225487482,
+    "moduli_exchange_percent": 1.0025356825629361,
+    "total_leptons_percent": 1.6279546164229257,
+    "total_quarks_percent": 1.8909357087664707
+  },
+  "worldsheet_instantons": {
+    "n1_action": 628.3185307179584,
+    "n1_correction_percent": 1.3326902844025374e-271,
+    "n2_action": 1256.6370614359168,
+    "n3_action": 1884.9555921538754
+  },
+  "chi_squared_analysis": {
+    "original_chi2_dof": 1.18,
+    "coherent_chi2_dof": 1.56959806957566,
+    "realistic_chi2_dof": 1.5175285886075738,
+    "delta_chi2_leptons_coherent": 2.6502362331327154,
+    "delta_chi2_quarks_coherent": 3.9729309496535055,
+    "delta_chi2_leptons_random": 1.8898792320166478,
+    "delta_chi2_quarks_random": 3.848106774312108,
+    "excellent_threshold": 1.5,
+    "acceptable_threshold": 2.0,
+    "passes_excellent": false,
+    "passes_acceptable": true
+  },
+  "verdict": "PASS",
+  "conclusion": "Framework predictions are robust against quantum corrections."
+}

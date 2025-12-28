@@ -1,4 +1,6 @@
-# ChatGPT's Structural Insight: Why Ω_ζ ≈ 0.73 is a Feature, Not a Bug
+# ChatGPT Structural Insight Analysis
+
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "25 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18.: Why Ω_ζ ≈ 0.73 is a Feature, Not a Bug
 
 **Date**: December 26, 2025  
 **Context**: After parameter scan attempts failed to reduce Ω_ζ from 0.726 → 0.685

@@ -1,4 +1,6 @@
-# Kimi's Mathematical Framing of the Two-Component Approach
+# KIMI Mathematical Framing Analysis
+
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "27 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18.
 
 **Date**: December 26, 2025
 **Context**: Following ChatGPT's strategic reframing, Kimi provides mathematical structure

@@ -1,4 +1,6 @@
-# Quantum Gravity Predictions: Complete Assessment
+# Quantum Gravity Constraints Summary
+
+> **⚠️ HISTORICAL DOCUMENT - OUTDATED OBSERVABLE COUNT**: This document references "27 observables". **Current official values**: 28 observables (19 flavor + 6 cosmology + 3 dark energy) with χ²/dof = 1.18.
 
 ## Executive Summary
 

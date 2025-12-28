@@ -5,7 +5,7 @@
 
 **Complete derivation of Standard Model flavor parameters from string theory compactifications**
 
-This repository contains the complete codebase and manuscripts for a geometric approach to flavor physics, deriving 30 observables from a single modular parameter τ = 2.69i with zero continuous free parameters.
+This repository contains the complete codebase and manuscripts for a geometric approach to flavor physics, deriving 28 observables from a single modular parameter τ = 2.69i with zero continuous free parameters.
 
 ---
 
@@ -66,9 +66,9 @@ geometric-flavor/
 
 **Single Input**: τ = 2.69i (modular parameter)
 
-**Outputs**: 30 observables across four papers
+**Outputs**: 28 observables across four papers
 - ✅ 19 SM flavor parameters (Paper 1)
-- ✅ 8 cosmological observables (Paper 2)
+- ✅ 6 cosmological observables (Paper 2)
 - ✅ 3 dark energy properties (Paper 3)
 - ✅ String origin confirmed (Paper 4)
 
