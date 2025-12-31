@@ -1,0 +1,146 @@
+{
+  "parameters": {
+    "tau": "2.69j",
+    "k_lepton": 8,
+    "k_up": 6,
+    "k_down": 4,
+    "k_neutrino": [
+      5,
+      3,
+      1
+    ]
+  },
+  "paper1": {
+    "leptons": {
+      "predicted": [
+        0.10623609796292459,
+        0.43447775831487695,
+        1.7769
+      ],
+      "experimental": [
+        0.000511,
+        0.1057,
+        1.7769
+      ],
+      "hierarchy": [
+        1.0,
+        4.08973754350904,
+        16.725953174787364
+      ]
+    },
+    "up_quarks": {
+      "predicted": [
+        10.328858283569616,
+        42.24231950389901,
+        172.76
+      ],
+      "experimental": [
+        0.00216,
+        1.27,
+        172.76
+      ],
+      "hierarchy": [
+        1.0,
+        4.089737543509041,
+        16.725953174787364
+      ]
+    },
+    "down_quarks": {
+      "predicted": [
+        0.2499110189009088,
+        1.0220704765356443,
+        4.18
+      ],
+      "experimental": [
+        0.00467,
+        0.0934,
+        4.18
+      ],
+      "hierarchy": [
+        1.0,
+        4.089737543509041,
+        16.72595317478736
+      ]
+    },
+    "ckm": {
+      "theta_12": 12.811725781509187,
+      "theta_23": 0.42823083329623085,
+      "theta_13": 0.09575532533117524,
+      "experimental": {
+        "theta_12": 13.04,
+        "theta_23": 2.38,
+        "theta_13": 0.201
+      }
+    },
+    "neutrinos": {
+      "k_pattern": [
+        5,
+        3,
+        1
+      ],
+      "M_R_hierarchy": [
+        1.0,
+        4.089737543509041,
+        16.725953174787364
+      ],
+      "masses": [
+        1.3601258185844576,
+        8.598966977785471,
+        49.65549105473178
+      ],
+      "sum_masses": 59.61458385110171,
+      "delta_m21_sq": 7.209229084266497e-05,
+      "delta_m32_sq": 0.0023917255588015033,
+      "pmns_angles": {
+        "theta_12": 11.479448268567813,
+        "theta_23": 56.647606810015425,
+        "theta_13": 40.46291680202021
+      },
+      "m_bb": 32.26645118042142
+    }
+  },
+  "paper2": {
+    "M_R_scale": 15000000000.0,
+    "M_R1": 15000000000.0,
+    "leptogenesis_viable": "True",
+    "dm_candidate": "N1 (lightest RH neutrino)"
+  },
+  "paper3": {
+    "mechanism": "Moduli quintessence",
+    "status": "Framework consistent"
+  },
+  "paper4": {
+    "tau_formula": 2.7,
+    "tau_numeric": 2.69,
+    "tau_match": false,
+    "delta_k_universal": true,
+    "k_patterns": {
+      "leptons": [
+        8,
+        6,
+        4
+      ],
+      "up_quarks": [
+        6,
+        4,
+        2
+      ],
+      "down_quarks": [
+        4,
+        2,
+        0
+      ],
+      "neutrinos": [
+        5,
+        3,
+        1
+      ]
+    }
+  },
+  "summary": {
+    "timestamp": "2025-12-31T18:43:04.625584",
+    "overall_status": "issues",
+    "n_masses_correct": "3",
+    "n_neutrino_splittings_correct": "2"
+  }
+}

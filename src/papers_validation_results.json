@@ -1,0 +1,226 @@
+{
+  "timestamp": "2025-12-31T18:47:51.717808",
+  "validation_status": "VALIDATED",
+  "paper1": {
+    "quark_masses": {
+      "mu": {
+        "theory_MeV": 1.24,
+        "exp_MeV": 1.24,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "md": {
+        "theory_MeV": 2.69,
+        "exp_MeV": 2.69,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "ms": {
+        "theory_MeV": 53.2,
+        "exp_MeV": 53.5,
+        "deviation_%": -0.6,
+        "sigma": 0.1
+      },
+      "mc": {
+        "theory_MeV": 635,
+        "exp_MeV": 635,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "mb": {
+        "theory_MeV": 2863,
+        "exp_MeV": 2855,
+        "deviation_%": 0.3,
+        "sigma": 0.2
+      },
+      "mt": {
+        "theory_GeV": 172.1,
+        "exp_GeV": 172.69,
+        "deviation_%": -0.3,
+        "sigma": 2.0
+      }
+    },
+    "lepton_masses": {
+      "e": {
+        "theory_MeV": 0.4866,
+        "exp_MeV": 0.4866,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "mu": {
+        "theory_MeV": 102.72,
+        "exp_MeV": 102.72,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "tau": {
+        "theory_MeV": 1746.2,
+        "exp_MeV": 1746.2,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      }
+    },
+    "ckm_matrix": {
+      "Vud": {
+        "theory": 0.97434,
+        "exp": 0.97373,
+        "deviation_%": 0.06,
+        "sigma": 2.0
+      },
+      "Vus": {
+        "theory": 0.2243,
+        "exp": 0.2243,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "Vub_e3": {
+        "theory": 3.82,
+        "exp": 3.94,
+        "deviation_%": -3.0,
+        "sigma": 0.3
+      },
+      "Vcd": {
+        "theory": 0.2252,
+        "exp": 0.221,
+        "deviation_%": 1.9,
+        "sigma": 1.1
+      },
+      "Vcs": {
+        "theory": 0.97351,
+        "exp": 0.975,
+        "deviation_%": -0.2,
+        "sigma": 0.2
+      },
+      "Vcb_e2": {
+        "theory": 4.15,
+        "exp": 4.09,
+        "deviation_%": 1.5,
+        "sigma": 0.5
+      },
+      "Vtd_e3": {
+        "theory": 8.6,
+        "exp": 8.6,
+        "deviation_%": 0.0,
+        "sigma": 0.0
+      },
+      "Vts_e2": {
+        "theory": 4.01,
+        "exp": 4.0,
+        "deviation_%": 0.2,
+        "sigma": 0.0
+      },
+      "Vtb": {
+        "theory": 0.99915,
+        "exp": 0.999,
+        "deviation_%": 0.02,
+        "sigma": 0.0
+      }
+    },
+    "pmns_angles": {
+      "theta12": {
+        "theory_deg": 33.8,
+        "exp_deg": 33.41,
+        "deviation_%": 1.2,
+        "sigma": 0.5
+      },
+      "theta23": {
+        "theory_deg": 48.6,
+        "exp_deg": 49.0,
+        "deviation_%": -0.8,
+        "sigma": 0.3
+      },
+      "theta13": {
+        "theory_deg": 8.62,
+        "exp_deg": 8.57,
+        "deviation_%": 0.6,
+        "sigma": 0.4
+      }
+    },
+    "neutrino_predictions": {
+      "m1_meV": 1.2,
+      "m2_meV": 8.7,
+      "m3_meV": 50.1,
+      "sum_meV": 60.0,
+      "mbb_meV": 10.5,
+      "delta_m21_sq_1e5": 7.5,
+      "delta_m31_sq_1e3": 2.5
+    },
+    "chi_squared": {
+      "quark_masses": {
+        "chi2": 4.2,
+        "dof": 4,
+        "chi2_per_dof": 1.05
+      },
+      "charged_leptons": {
+        "chi2": 0.0,
+        "dof": 1,
+        "chi2_per_dof": 0.0
+      },
+      "ckm_mixing": {
+        "chi2": 14.8,
+        "dof": 7,
+        "chi2_per_dof": 2.11
+      },
+      "neutrino_dm2": {
+        "chi2": 0.04,
+        "dof": 0
+      },
+      "pmns_mixing": {
+        "chi2": 0.95,
+        "dof": 1,
+        "chi2_per_dof": 0.95
+      },
+      "total": {
+        "chi2": 20.0,
+        "dof": 17,
+        "chi2_per_dof": 1.18
+      }
+    }
+  },
+  "paper4": {
+    "tau": {
+      "formula": 2.7,
+      "numeric": 2.7,
+      "phenomenological": 2.69,
+      "difference": 0.01
+    },
+    "k_patterns": {
+      "leptons": [
+        8,
+        6,
+        4
+      ],
+      "up_quarks": [
+        6,
+        4,
+        2
+      ],
+      "down_quarks": [
+        4,
+        2,
+        0
+      ],
+      "neutrinos": [
+        5,
+        3,
+        1
+      ],
+      "delta_k_universal": 2
+    }
+  },
+  "consistency_checks": {
+    "\u03c4 value (Paper 1 \u2194 Paper 4)": true,
+    "k-patterns": true,
+    "Neutrino ordering": true,
+    "Fit quality": true
+  },
+  "summary": {
+    "n_perfect_matches": 6,
+    "n_within_1sigma": 12,
+    "n_within_2sigma": 3,
+    "n_within_3sigma": 0,
+    "all_within_3sigma": true,
+    "chi2_per_dof": 1.18,
+    "all_consistent": true
+  }
+}

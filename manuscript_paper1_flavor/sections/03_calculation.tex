@@ -142,7 +142,21 @@ The near-unity values of Eisenstein series reflect the proximity to the cusp at 
 
 \subsection{Neutrino Mass Generation via Type-I Seesaw}
 
-Neutrino masses arise through the Type-I seesaw mechanism. We introduce right-handed neutrinos $N_R$ as singlets under the SM gauge group, localized at different points on the CY. Their Majorana mass matrix is:
+Neutrino masses arise through the Type-I seesaw mechanism. We introduce right-handed neutrinos $N_R$ as singlets under the SM gauge group, localized at different points on the CY. Their Majorana mass matrix has hierarchical structure with modular weights $k_\nu = (5, 3, 1)$ following the universal $\Delta k = 2$ pattern:
+\begin{equation}
+M_R = M_{R,0} \text{diag}\left(|\eta(\tau)|^{10}, |\eta(\tau)|^{6}, |\eta(\tau)|^{2}\right),
+\end{equation}
+where the factor of 2 in exponents comes from Majorana nature. At $\tau_* = 2.69i$, this gives the hierarchy $M_{R,1} : M_{R,2} : M_{R,3} \approx 1 : 4.1 : 16.7$ with $M_{R,1} \sim 1.5 \times 10^{10}$ GeV.
+
+The Dirac mass matrix $M_D$ has \textit{democratic} structure from modular symmetry:
+\begin{equation}
+M_D = v_D \begin{pmatrix}
+1 & e^{i\phi_1} & e^{i\phi_2} \\
+e^{i\phi_1} & 1 & e^{i\phi_3} \\
+e^{i\phi_2} & e^{i\phi_3} & 1
+\end{pmatrix},
+\end{equation}
+where $\phi_i$ are geometric CP phases from modular forms. This democratic structure (unlike hierarchical charged fermion matrices) naturally produces large PMNS mixing angles. The light neutrino masses follow from:
 \begin{equation}
     M_R = \Lambda_{\text{GUT}} \cdot \exp\left( -S_{\text{inst}} \right) \cdot M_{\text{top}}^{\text{eff}},
     \label{eq:majorana_mass}
