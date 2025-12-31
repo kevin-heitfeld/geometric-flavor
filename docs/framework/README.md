@@ -1,8 +1,21 @@
 # Framework Documentation - START HERE
 
-**Last Updated**: December 28, 2025
+**Last Updated**: December 31, 2025
 
 This directory contains the CANONICAL description of the established framework.
+
+---
+
+## 📋 Paper Structure Clarification (IMPORTANT)
+
+**The four papers cover different physics sectors:**
+
+1. - **Paper 1** (`manuscript_paper1_flavor/`): Flavor - leptons + quarks unified (19 parameters)
+2. - **Paper 2** (`manuscript_paper2_cosmology/`): Cosmology - inflation, DM, baryogenesis, strong CP (6 observables)
+3. - **Paper 3** (`manuscript_paper3_dark_energy/`): Dark energy - quintessence mechanism (3 observables)
+4. **Paper 4** (`manuscript_paper4_string_origin/`): **String Origin** - Geometric derivation of modular structure
+
+**Note**: Paper 1 already includes BOTH leptons and quarks in a unified framework. There are no separate "quark sector" or "unified framework" papers. Some older planning documents may reference this outdated structure—see `archive/planning/` for historical context.
 
 ---
 
@@ -45,17 +58,18 @@ NOT the modular parameter τ, but the **mathematical structures**:
 - 3 neutrino mixing angles, 2 mass splittings, 1 CP phase
 - **χ²/dof = 1.18** (excellent fit)
 
-### Paper 2: Cosmological Consequences  
-- Inflation from τ* = 2.69i moduli stabilization
-- Dark matter from modular symmetry breaking
-- Leptogenesis from CP violation
-- **8 cosmological observables** explained
+### Paper 2: Cosmology
+- Inflation: α-attractor (n_s = 0.967, r = 0.003)
+- Dark matter: Sterile neutrinos (83%) + axions (17%)
+- Baryogenesis: Resonant leptogenesis (η_B exact match)
+- Strong CP: Modular axion solution
+- **6 cosmological observables** explained
 
 ### Paper 3: Dark Energy
-- Quintessence from pseudo-Nambu-Goldstone boson
-- Mass, decay constant, instanton coefficient from τ = 2.69i
-- Subdominant dark energy component
-- **Testable deviations** from ΛCDM
+- Quintessence: ~10% of total dark energy (Ω_ζ ≈ 0.068)
+- Equation of state: w₀ ≈ -0.96, w_a = 0 (frozen)
+- Observable deviations testable by DESI (2026), CMB-S4 (2030)
+- **3 dark energy properties** predicted
 
 ### Paper 4: String Theory Origin
 - **T⁶/(Z₃×Z₄) compactification** produces modular structure
@@ -63,7 +77,7 @@ NOT the modular parameter τ, but the **mathematical structures**:
 - Worldvolume fluxes determine levels (k=27, k=16)
 - D7-branes on (1,3)-cycles realize Yukawa couplings
 
-**Total**: 30 observables explained from single input τ = 2.69i
+**Total**: 28 observables explained from single input τ = 2.69i (19 + 6 + 3)
 
 ---
 
@@ -85,9 +99,9 @@ Common misconceptions to avoid:
 ### 1. Papers (Final Authority)
 Located in `manuscript*/` directories:
 
-- **manuscript/**: Paper 1 - Flavor physics
-- **manuscript_cosmology/**: Paper 2 - Cosmological consequences  
-- **manuscript_dark_energy/**: Paper 3 - Dark energy
+- **manuscript_paper1_flavor/**: Paper 1 - Flavor physics
+- **manuscript_paper2_cosmology/**: Paper 2 - Cosmological consequences
+- **manuscript_paper3_dark_energy/**: Paper 3 - Dark energy
 - **manuscript_paper4_string_origin/**: Paper 4 - String theory origin
 
 **If any documentation contradicts these papers, the papers are correct.**
@@ -129,15 +143,15 @@ Read `docs/CONFUSION_SOURCE_ANALYSIS.md` - explains historical vs current framew
 ## ⚠️ Common Pitfalls
 
 ### Pitfall 1: Reading Historical Documents First
-❌ **Wrong**: Start with `FALSIFICATION_DISCOVERY.md` → get confused about multiple τ values  
+❌ **Wrong**: Start with `FALSIFICATION_DISCOVERY.md` → get confused about multiple τ values
 ✅ **Right**: Start with this README → understand single τ = 2.69i framework
 
 ### Pitfall 2: Trusting Old Scripts
-❌ **Wrong**: Use `src/why_quarks_need_eisenstein.py` (has τ=3.25i, τ=1.422i)  
+❌ **Wrong**: Use `src/why_quarks_need_eisenstein.py` (has τ=3.25i, τ=1.422i)
 ✅ **Right**: Use `src/framework/tau_2p69i/verify_tau_2p69i.py` (correct τ=2.69i)
 
 ### Pitfall 3: Assuming Δk=2 is Universal
-❌ **Wrong**: Apply Δk=2 to all sectors  
+❌ **Wrong**: Apply Δk=2 to all sectors
 ✅ **Right**: Δk=2 is leptonic only (see `docs/historical/2024_07_delta_k_universality.md`)
 
 ---
@@ -159,7 +173,7 @@ Read `docs/CONFUSION_SOURCE_ANALYSIS.md` - explains historical vs current framew
 ```
 
 **Key Papers**:
-- Heitfeld et al. (2024a) - Flavor  
+- Heitfeld et al. (2024a) - Flavor
 - Heitfeld et al. (2024b) - Cosmology
 - Heitfeld et al. (2024c) - Dark Energy
 - Heitfeld et al. (2024d) - String Origin
