@@ -106,13 +106,15 @@ d_distance_PMNS = int(np.min(np.abs(np.diff(k_PMNS))))  # min(|5-3|, |3-1|) = 2
 print(f"  PMNS (leptons): [[{n_qubits_PMNS},{k_logical},{d_distance_PMNS}]] code (neutrinos)")
 print()
 
-# Mixing formulas: sin²θ_ij = (d/k_max)²
-# CKM (quarks)
-sin2_theta_12_CKM = (d_distance_CKM / k_CKM[0])**2
-sin2_theta_23_CKM = (d_distance_CKM / k_CKM[1])**2
-sin2_theta_13_CKM = (d_distance_CKM / k_CKM[2])**2
+# Basic mixing formula: sin²θ_ij = (d/k_i)²
+# Note: This is tree-level. Full calculation needs stabilizer generators.
+# CKM (quarks) - hierarchical Yukawas
+sin2_theta_12_CKM = (d_distance_CKM / k_CKM[0])**2  # θ₁₂ from k₁=8
+sin2_theta_23_CKM = (d_distance_CKM / k_CKM[1])**2  # θ₂₃ from k₂=6
+sin2_theta_13_CKM = (d_distance_CKM / k_CKM[2])**2  # θ₁₃ from k₃=4
 
-# PMNS (leptons)
+# PMNS (leptons) - tree-level approximation
+# Real: needs seesaw with democratic M_D and hierarchical M_R from k=(5,3,1)
 sin2_theta_12_PMNS = (d_distance_PMNS / k_PMNS[0])**2
 sin2_theta_23_PMNS = (d_distance_PMNS / k_PMNS[1])**2
 sin2_theta_13_PMNS = (d_distance_PMNS / k_PMNS[2])**2
@@ -148,7 +150,7 @@ print("  Errors:")
 print(f"    θ₁₂: {err_12:.1f}%")
 print(f"    θ₂₃: {err_23:.1f}%")
 print(f"    θ₁₃: {err_13:.1f}%")
-print(f"  Status: ✓ θ₁₂ within 23%, hierarchy correct")
+print(f"  Status: ✓ θ₁₂ Cabibbo within 23% (tree-level), others need corrections")
 
 print()
 
@@ -342,9 +344,10 @@ print("  4. ✓ Gauge hierarchy: Correct ordering α_s > α_2 > α_1")
 print()
 
 print("LIMITATIONS (KNOWN):")
+print("  • Mixing angles: Simple QEC formula, need full stabilizer generators")
+print("  • PMNS: Approximation only, requires seesaw calculation with M_D, M_R")
 print("  • Mass ratios: Off by ~50-100x (need worldsheet loop corrections)")
 print("  • Gauge couplings: Off by ~3-8x (need threshold corrections)")
-print("  • Only 3 of 9 mixing angles (need complete stabilizer formalism)")
 print("  • Tree-level only (heterotic strings require 1-loop)")
 print()
 
