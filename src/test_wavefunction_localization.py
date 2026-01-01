@@ -86,14 +86,16 @@ def mass_with_localization(k_i, tau, A_i, include_modular=True):
 # TEST 1: Universal Δk=2, but generation-dependent localization
 # ============================================================================
 
-tau = 2.69j
+# PREDICTED value from topology: τ = 27/10 = 2.7i
+tau = 2.7j
 eta = dedekind_eta(tau)
 
 print("="*80)
 print("TEST: WAVEFUNCTION LOCALIZATION EFFECTS")
 print("="*80)
 print()
-print(f"τ = {tau}")
+print(f"τ = {tau.imag}i (PREDICTED from topology: 27/10)")
+print(f"  Formula: τ = k_lepton/X = 27/(3+4+3) = 2.7")
 print(f"η(τ) = {eta:.6f}")
 print(f"Im[τ] = {np.imag(tau):.2f}")
 print()
