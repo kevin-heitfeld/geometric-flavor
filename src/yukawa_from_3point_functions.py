@@ -199,7 +199,7 @@ class YukawaFromCFT:
             g_s = y_obs / (C_iiH * modular_magnitude)
         else:
             # Use fitted value
-            g_s = 0.5  # Typical string coupling
+            g_s = 0.10  # Universal string coupling from dilaton stabilization
 
         # Predicted Yukawa
         y_pred = g_s * C_iiH * modular_magnitude

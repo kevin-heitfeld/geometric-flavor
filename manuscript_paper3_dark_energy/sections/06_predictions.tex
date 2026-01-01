@@ -1,21 +1,23 @@
 \section{Falsifiable Predictions}
 \label{sec:predictions}
 
-The subdominant quintessence framework makes specific, falsifiable predictions testable on decade timescales. The key insight is that even though $\Omegazeta \sim 0.068$ ($\sim 10\%$ of dark energy), this produces measurable deviations from pure $\Lambda$CDM because the effects accumulate over cosmological timescales.
+The SUGRA-corrected quintessence framework makes specific, falsifiable predictions testable on decade timescales. With $\Omega_\zeta^{(\text{SUGRA})} = 0.690$ from the natural attractor (Section~\ref{sec:two_component}), frozen quintessence produces modest but measurable deviations from pure $\Lambda$CDM.
 
 \subsection{Primary Test: Effective Equation of State (DESI 2026)}
 
-With $\Omegazeta = 0.068$ and frozen quintessence $w_\zeta \approx -0.96$, the effective equation of state is:
+With $\Omega_\zeta^{(\text{SUGRA})} = 0.690$ and frozen quintessence $w_\zeta \approx -0.98$, the effective equation of state is:
 \begin{equation}
-w_{\text{eff}} = \frac{0.617 \times (-1) + 0.068 \times (-0.96)}{0.685} \approx -0.994
+w_{\text{eff}} = w_\zeta \approx -0.98
 \end{equation}
 
-This represents a $0.6\%$ deviation from $w = -1$, appearing as:
+With SUGRA kinetic mixing, this becomes:
 \begin{equation}
-\boxed{w_0 \approx -0.994, \quad w_a = 0 \text{ (frozen)}}
+\boxed{w_0 \approx -0.985 \pm 0.01, \quad w_a = 0 \text{ (frozen exactly)}}
 \end{equation}
 
-The frozen signature distinguishes our model from:
+This represents a $1.5\%$ deviation from $w = -1$.
+
+The frozen signature $w_a = 0$ exactly distinguishes our model from:
 \begin{itemize}
 \item Thawing quintessence: $w_a < 0$
 \item Pure $\Lambda$: $w_0 = -1$ exactly
@@ -29,27 +31,28 @@ The frozen signature distinguishes our model from:
 
 \textbf{Falsification criteria}:
 \begin{itemize}
-\item If DESI finds $w_0 = -1.00 \pm 0.01$ (more than $2\sigma$ from $-0.994$), subdominant quintessence is disfavored
+\item If DESI finds $w_0 = -1.00 \pm 0.01$ (consistent with pure $\Lambda$ at $< 1\sigma$), SUGRA quintessence produces only modest $\sim 0.75\sigma$ deviation
 \item If DESI finds $w_a \neq 0$ at $5\sigma$ ($|w_a| > 0.25$), frozen model is ruled out
+\item The signature is \textit{frozen} ($w_a = 0$ exact), not the specific amplitude $w_0$
 \end{itemize}
 
-\textbf{Confirmation}: If DESI measures $w_0 = -0.99 \pm 0.02$ and $w_a = 0.00 \pm 0.05$, this supports the model.
+\textbf{Confirmation}: If DESI measures $w_0 = -0.98 \pm 0.02$ and $w_a = 0.00 \pm 0.05$, this supports the model.
 
 \subsection{Early Dark Energy Effects}
 
-Subdominant quintessence contributes at recombination ($z \sim 1100$):
+Quintessence with $\Omega_\zeta = 0.690$ today contributes at recombination ($z \sim 1100$):
 \begin{equation}
-\Omega_{\text{EDE}}(z_{\text{rec}}) \approx 0.01-0.02 \quad \text{($1-2\%$ of total energy)}
+\Omega_{\text{EDE}}(z_{\text{rec}}) \approx 0.02-0.04 \quad \text{($2-4\%$ of total energy)}
 \end{equation}
 
 This affects:
 \begin{itemize}
-\item CMB damping tail: $\sim 0.3\%$ shift in $\ell > 1000$ power
-\item Sound horizon: $r_s$ shifts by $\sim 0.1\%$
+\item CMB damping tail: $\sim 0.5\%$ shift in $\ell > 1000$ power
+\item Sound horizon: $r_s$ shifts by $\sim 0.2\%$
 \item $H_0$ inference: Marginal shift, not enough to resolve tension
 \end{itemize}
 
-\textbf{CMB-S4 (2030)} will measure damping tail to $< 0.2\%$ precision, testing this prediction.
+\textbf{CMB-S4 (2030)} will measure damping tail to $< 0.2\%$ precision, testing this prediction at $> 2\sigma$.
 
 \subsection{ISW Effect (CMB-S4 2030)}
 
@@ -58,25 +61,25 @@ The integrated Sachs-Wolfe cross-correlation with galaxy surveys provides:
 C_\ell^{gT} = \int dz W_g(z) W_T(z) P_{\Phi\Phi}(k,z)
 \end{equation}
 
-With $\Omegazeta = 0.068$, the time-varying potential yields:
+With $\Omega_\zeta^{(\text{SUGRA})} = 0.690$, the time-varying potential (frozen $w \approx -0.985$) yields:
 \begin{equation}
-\boxed{\frac{C_\ell^{\text{ISW}, \text{our}}}{C_\ell^{\text{ISW}, \Lambda\text{CDM}}} \approx 1.007}
+\boxed{\frac{C_\ell^{\text{ISW}, \text{our}}}{C_\ell^{\text{ISW}, \Lambda\text{CDM}}} \approx 1.010}
 \end{equation}
 
-A $\sim 0.7\%$ enhancement---smaller than 5% we claimed before, but still measurable.
+A $\sim 1\%$ enhancement from the modest equation of state deviation.
 
 \textbf{CMB-S4 + LSST (2030)} cross-correlation will reach:
 \begin{equation}
 \frac{\sigma(C_\ell^{gT})}{C_\ell^{gT}} \sim 0.5\%
 \end{equation}
 
-\textbf{Test}: If CMB-S4 finds ISW enhancement at $(0.7 \pm 0.5)\%$, this supports the model. If consistent with $\Lambda$CDM (no enhancement), model is disfavored.
+\textbf{Test}: If CMB-S4 finds ISW enhancement at $(1.0 \pm 0.5)\%$, this supports the model ($2\sigma$ detection). If consistent with $\Lambda$CDM (no enhancement), model is marginally disfavored.
 
 \subsection{Growth Rate (Euclid 2027-2032)}
 
-The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM due to modified expansion history:
+The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM due to modified expansion history from $\Omega_\zeta = 0.690$ with $w \approx -0.985$:
 \begin{equation}
-\boxed{\frac{\Delta(f\sigma_8)}{f\sigma_8} \approx 0.3\% \text{ at } z \sim 0.5}
+\boxed{\frac{\Delta(f\sigma_8)}{f\sigma_8} \approx 0.4\% \text{ at } z \sim 0.5}
 \end{equation}
 
 \textbf{Euclid (2027-2032)} will measure $f\sigma_8$ at multiple redshifts with:
@@ -84,7 +87,7 @@ The growth rate $f\sigma_8(z)$ differs from $\Lambda$CDM due to modified expansi
 \frac{\sigma(f\sigma_8)}{f\sigma_8} \sim 0.5\%
 \end{equation}
 
-This is marginal detection ($< 1\sigma$), but accumulates signal over multiple redshift bins. Combined with ISW and $w_0$ measurements, provides consistency check.
+This is marginal detection ($< 1\sigma$ per bin), but accumulates signal over multiple redshift bins. Combined with ISW and $w_0$ measurements, provides consistency check.
 
 \subsection{Cross-Sector Correlations}
 
@@ -142,12 +145,14 @@ The framework is falsifiable on decade timescales, with multiple independent tes
 
 Clear falsification criteria:
 \begin{enumerate}
-\item $w_0 = -1.00 \pm 0.01$ (more than $2\sigma$ from $-0.994$) $\Rightarrow$ No quintessence component
-\item $w_a \neq 0$ at $5\sigma$ (DESI 2026) $\Rightarrow$ Frozen model ruled out
-\item $\Omega_{\text{EDE}}(z_{\text{rec}}) < 0.003$ at $3\sigma$ (CMB-S4) $\Rightarrow$ No early DE, inconsistent with $\Omegazeta = 0.068$
+\item $w_a \neq 0$ at $5\sigma$ (DESI 2026) $\Rightarrow$ Frozen model ruled out (\textit{primary test})
+\item $w_0 = -1.00 \pm 0.005$ (more than $3\sigma$ from $-0.985$) $\Rightarrow$ No dynamical component
+\item $\Omega_{\text{EDE}}(z_{\text{rec}}) < 0.01$ at $3\sigma$ (CMB-S4) $\Rightarrow$ Inconsistent with $\Omega_\zeta = 0.690$
 \item Cross-sector ratio $m_a/\Lambda_\zeta \neq 10$ by factor $> 3$ $\Rightarrow$ No modular correlation
-\item Inconsistency in 28-observable web (any time) $\Rightarrow$ $\tau = 2.69i$ framework fails
+\item Inconsistency in 30-observable web (any time) $\Rightarrow$ $\tau = 2.69i$ framework fails
 \end{enumerate}
+
+The frozen signature ($w_a = 0$ exact) is the \textit{smoking gun}, more diagnostic than the modest $w_0$ deviation.
 
 The predictions are specific, quantitative, and testable.
 

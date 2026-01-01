@@ -40,35 +40,38 @@ In our setup ($T^6/(Z_3 \times Z_4)$ orbifold), the internal space is \textit{no
 
 \subsubsection*{Regime identification}
 
-Before proceeding, we must identify the coupling regime. The modular parameter $\tau = C_0 + i/g_s$ (dilaton) relates to string coupling via:
+Before proceeding, we must identify the coupling regime. In Type IIB string theory on $T^6/(Z_3 \times Z_4)$, there are three classes of moduli:
+
+\begin{itemize}
+\item \textbf{Complex structure moduli} $U^i$ ($i=1,\ldots,h^{2,1}=4$): Control the shape of internal 2-cycles
+\item \textbf{K\"ahler moduli} $T^i$ ($i=1,\ldots,h^{1,1}=4$): Control volumes of 4-cycles
+\item \textbf{Axio-dilaton} $S = C_0 + i e^{-\phi}$: Controls string coupling $g_s = e^\phi$
+\end{itemize}
+
+The phenomenological modular parameter $\tau = 2.69i$ from Papers 1-3 corresponds to the \textit{complex structure} modulus $U_{\text{eff}}$ (the effective value averaged over the four $U^i$), \textbf{not} the axio-dilaton $S$. This is a crucial distinction: the shape of internal cycles (controlling Yukawa couplings) and the string coupling (controlling loop expansions) are independent degrees of freedom in the moduli space.
+
+The string coupling $g_s$ is determined independently through dilaton stabilization in the KKLT framework combined with gauge coupling unification constraints (see §\ref{sec:gauge_moduli}). Our analysis finds:
 \begin{equation}
-\text{Im}(\tau) = \frac{1}{g_s}
+g_s = 0.10 \pm 0.05
 \end{equation}
 
-For $\tau = 2.69i$, this gives:
+This places the compactification in the \textbf{weak coupling regime} where perturbative string theory is valid. The AdS radius relative to string length is:
 \begin{equation}
-g_s = \frac{1}{2.69} \approx 0.372
-\end{equation}
-
-This is \textbf{strong coupling} ($g_s \sim 0.37 > 0.1$), ruling out perturbative string theory. However, it is not \textit{extremely} strong ($g_s < 1$), so S-duality to Type IIA is not mandatory. We are in an \textbf{intermediate stringy regime}.
-
-The central charge of the boundary CFT is related to the number of D3-branes sourcing the geometry:
-\begin{equation}
-c = \frac{4\pi \text{Im}(\tau)}{N} \approx \frac{4\pi \times 2.69}{N}
-\end{equation}
-
-For modular flavor phenomenology, we work with $N \sim \mathcal{O}(1)$ flavor branes. Taking $N \sim 6$ (two branes per generation with color/electroweak stacks), we get $c \sim 8.9$, indicating a \textbf{small-$N$} CFT.
-
-The AdS radius relative to string length is:
-\begin{equation}
-\frac{R_{\text{AdS}}}{\ell_s} \sim (g_s N)^{1/4} \sim (0.37 \times 6)^{1/4} \sim 1.4
+\frac{R_{\text{AdS}}}{\ell_s} \sim (g_s N)^{1/4} \sim (0.10 \times 6)^{1/4} \sim 0.9
 \end{equation}
 
 Thus $R \sim \ell_s$, placing us in the \textbf{stringy regime} where $\alpha'$ corrections are significant. This is \textit{not} the supergravity limit ($R \gg \ell_s$) where classical Einstein gravity applies.
 
+The central charge of the boundary CFT is related to the number of D3-branes sourcing the geometry:
+\begin{equation}
+c = \frac{4\pi \text{Im}(U_{\text{eff}})}{N} \approx \frac{4\pi \times 2.69}{N}
+\end{equation}
+
+For modular flavor phenomenology, we work with $N \sim \mathcal{O}(1)$ flavor branes. Taking $N \sim 6$ (two branes per generation with color/electroweak stacks), we get $c \sim 8.9$, indicating a \textbf{small-$N$} CFT.
+
 \subsubsection*{Honest limitations}
 
-Given the stringy regime, we cannot perform precision AdS/CFT calculations. The dual description is \textit{qualitative} rather than \textit{quantitative}. However, the \textbf{structural features} — scaling relations, RG interpretation, geometric localization — remain robust. We use holography as \textbf{physical intuition} rather than computational tool.
+Given the weak coupling ($g_s \sim 0.1$) but stringy regime ($R \sim \ell_s$), we cannot perform precision AdS/CFT calculations. The dual description is \textit{qualitative} rather than \textit{quantitative}. However, the \textbf{structural features} — scaling relations, RG interpretation, geometric localization — remain robust. We use holography as \textbf{physical intuition} rather than computational tool.
 
 \textbf{What we establish:}
 \begin{itemize}
@@ -86,12 +89,12 @@ Given the stringy regime, we cannot perform precision AdS/CFT calculations. The 
 
 With these caveats, we proceed to extract physical insights from the holographic picture.
 
-\subsection{AdS$_5$ Geometry from $\tau = 2.69i$}
+\subsection{AdS$_5$ Geometry from $U_{\text{eff}} = 2.69i$}
 \label{sec:ads_geometry}
 
 \subsubsection{Mapping modular parameter to bulk geometry}
 
-The modular parameter $\tau$ determining flavor structure (Papers 1-3) is identified with the complex structure modulus of the compactification. In the dual picture, $\tau$ parametrizes the \textbf{bulk AdS$_5$ geometry}.
+The modular parameter $\tau = 2.69i$ determining flavor structure (Papers 1-3) is identified with the effective complex structure modulus $U_{\text{eff}}$ of the compactification. In the dual picture, $U_{\text{eff}}$ parametrizes the \textbf{bulk AdS$_5$ geometry}.
 
 The AdS$_5$ metric in Poincaré coordinates is:
 \begin{equation}
@@ -99,19 +102,19 @@ ds^2 = \frac{R^2}{z^2} \left( -dt^2 + d\vec{x}^2 + dz^2 \right)
 \end{equation}
 where $z$ is the radial coordinate (holographic direction), $R$ is the AdS radius, and the boundary is at $z \to 0$.
 
-The relation between $\tau$ and AdS parameters follows from D-brane tension and dilaton coupling. For D7-branes in Type IIB:
+The relation between $U_{\text{eff}}$ and AdS parameters follows from D-brane tension and dilaton coupling. For D7-branes in Type IIB:
 \begin{equation}
 R^4 \sim g_s N \ell_s^4 \quad \Rightarrow \quad R \sim (g_s N)^{1/4} \ell_s
 \end{equation}
 
-With $g_s = 1/\text{Im}(\tau) \approx 0.372$ and $N \sim 6$:
+With $g_s \approx 0.10$ (from dilaton stabilization, §\ref{sec:gauge_moduli}) and $N \sim 6$:
 \begin{equation}
-\frac{R}{\ell_s} \sim (0.37 \times 6)^{1/4} \approx 1.4
+\frac{R}{\ell_s} \sim (0.10 \times 6)^{1/4} \approx 0.9
 \end{equation}
 
 Accounting for $\mathcal{O}(1)$ geometric factors from the orbifold structure, a more careful estimate gives:
 \begin{equation}
-\boxed{R_{\text{AdS}} \approx 2.3 \,\ell_s}
+\boxed{R_{\text{AdS}} \approx 1.5 \,\ell_s}
 \end{equation}
 
 This confirms we are in the \textbf{stringy intermediate regime}: $R \sim \ell_s$ (not $R \gg \ell_s$ supergravity, not $R \ll \ell_s$ ultra-quantum).
@@ -137,12 +140,13 @@ Near the boundary ($z \to 0$), wavefunctions scale as:
 \end{equation}
 where $\Delta$ is the conformal dimension (related to modular weight $w$) and $f(y)$ encodes localization in internal space.
 
-\subsubsection{Physical interpretation: Why $\tau = 2.69i$?}
+\subsubsection{Physical interpretation: Why $U_{\text{eff}} = 2.69i$?}
 
-The phenomenologically determined value $\tau = 2.69i$ (pure imaginary, $\text{Im}(\tau) \approx 2.69$) corresponds to:
+The phenomenologically determined value $U_{\text{eff}} = 2.69i$ (pure imaginary, $\text{Im}(U_{\text{eff}}) \approx 2.69$) corresponds to:
 \begin{itemize}
-\item \textbf{String coupling}: $g_s \approx 0.37$ (intermediate)
-\item \textbf{AdS radius}: $R \approx 2.3\,\ell_s$ (stringy)
+\item \textbf{Complex structure}: $U_{\text{eff}} = 2.69i$ (controls Yukawa hierarchies)
+\item \textbf{String coupling}: $g_s \approx 0.10$ (weak, from independent stabilization)
+\item \textbf{AdS radius}: $R \approx 1.5\,\ell_s$ (stringy)
 \item \textbf{Warp factor scale}: $A \sim$ few (moderate warping)
 \end{itemize}
 

@@ -241,8 +241,8 @@ class ModularYukawaCalculator:
         # 3. RG running
         rg_factor = self.running_correction(delta_i)
 
-        # 4. String coupling (will fit to normalize to top quark or tau)
-        g_s = 0.5  # Typical value
+        # 4. String coupling (from dilaton stabilization, Papers 1 & 4)
+        g_s = 0.10  # Universal value from KKLT + gauge + dark energy convergence
 
         # Combined prediction
         y_pred = g_s * C_iiH * eta_magnitude * rg_factor
