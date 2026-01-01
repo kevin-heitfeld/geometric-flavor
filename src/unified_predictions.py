@@ -10,8 +10,10 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent))
 from utils.ckm_from_qec import ckm_from_modular_overlap, print_ckm_comparison
 from utils.loop_corrections import mass_with_full_corrections, run_gauge_twoloop, BETA_SU3, BETA_SU2, BETA_U1
-from utils.instanton_corrections import ckm_phase_corrections, yukawa_with_instantons
+from utils.instanton_corrections import ckm_phase_corrections
 from utils.pmns_seesaw import dirac_mass_matrix, majorana_mass_matrix, pmns_from_seesaw, print_pmns_comparison
+from utils.threshold_corrections import mass_ratios_with_thresholds
+from utils.higher_weight_modular import mass_ratios_with_E6
 
 print("="*80)
 print("UNIFIED THEORY OF EVERYTHING: ALL PREDICTIONS FROM τ = 2.69i")
@@ -234,13 +236,41 @@ print("  Complete CKM matrix (from [[9,3,2]] code):")
 V_CKM_full = ckm_from_modular_overlap(k_CKM, tau, dedekind_eta)
 chi2_ckm = print_ckm_comparison(V_CKM_full)
 
-# 2-loop mass corrections
+# Apply instanton corrections to CKM
+phases_inst = ckm_phase_corrections(k_CKM, k_CKM, tau)
+V_CKM_with_inst = V_CKM_full * np.exp(1j * phases_inst)
+
+# 2-loop mass corrections (use these for final predictions)
 print("  With 2-loop corrections:")
 m1_2loop = mass_with_full_corrections(k_mass[0], tau, g_s, dedekind_eta)
 m2_2loop = mass_with_full_corrections(k_mass[1], tau, g_s, dedekind_eta)
 m3_2loop = mass_with_full_corrections(k_mass[2], tau, g_s, dedekind_eta)
-print(f"    m₂/m₁ = {m2_2loop/m1_2loop:.2f} (1-loop: {m2_m1_pred:.2f})")
-print(f"    m₃/m₁ = {m3_2loop/m1_2loop:.2f} (1-loop: {m3_m1_pred:.2f})")
+
+# Update predictions to use 2-loop
+m2_m1_pred = m2_2loop / m1_2loop
+m3_m1_pred = m3_2loop / m1_2loop
+
+print(f"    m₂/m₁ = {m2_m1_pred:.2f} (1-loop: {m2/m1:.2f})")
+print(f"    m₃/m₁ = {m3_m1_pred:.2f} (1-loop: {m3/m1:.2f})")
+print()
+
+# Add string-scale threshold corrections (KK + GUT + D-branes)
+print("  With threshold corrections (KK + GUT + D-branes):")
+m2_m1_thresh, m3_m1_thresh = mass_ratios_with_thresholds(k_mass, tau, g_s, dedekind_eta)
+print(f"    m₂/m₁ = {m2_m1_thresh:.2f} (2-loop: {m2_m1_pred:.2f})")
+print(f"    m₃/m₁ = {m3_m1_thresh:.2f} (2-loop: {m3_m1_pred:.2f})")
+print()
+
+# Add weight-6 modular form (E₆) corrections
+print("  With E₆ modular form corrections:")
+m2_m1_E6, m3_m1_E6 = mass_ratios_with_E6(k_mass, tau, g_s, dedekind_eta)
+print(f"    m₂/m₁ = {m2_m1_E6:.2f} (threshold: {m2_m1_thresh:.2f})")
+print(f"    m₃/m₁ = {m3_m1_E6:.2f} (threshold: {m3_m1_thresh:.2f})")
+print()
+
+# Use E₆-corrected values for final predictions
+m2_m1_pred = m2_m1_E6
+m3_m1_pred = m3_m1_E6
 print()
 
 # Observations (up quarks: u, c, t at M_Z)
@@ -448,8 +478,8 @@ print(f"{'sin²θ₁₃':<30} {sin2_theta_13_CKM:.4f}            {sin2_theta_13_
 print()
 
 # Masses
-print(f"{'m₂/m₁ ratio':<30} {m2_m1_pred:.1f}               {m2_m1_obs_up:.0f} (u,c)         ⚠")
-print(f"{'m₃/m₁ ratio':<30} {m3_m1_pred:.1f}               {m3_m1_obs_up:.0f} (u,t)       ⚠")
+print(f"{'m₂/m₁ ratio':<30} {m2_m1_E6:.1f}               {m2_m1_obs_up:.0f} (u,c)         ⚠")
+print(f"{'m₃/m₁ ratio':<30} {m3_m1_E6:.1f}               {m3_m1_obs_up:.0f} (u,t)       ⚠")
 print()
 
 # Gauge

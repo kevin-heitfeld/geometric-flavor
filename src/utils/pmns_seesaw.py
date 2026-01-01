@@ -108,14 +108,17 @@ def majorana_mass_matrix(k_pattern, tau, c_AdS, g_s):
     # Derive string scale from theory parameters
     M_Planck = 1.22e19  # GeV
     k_max = np.max(k)
-    # String scale suppressed by compactification and coupling
-    M_string = M_Planck * np.exp(-k_max * 2 * np.pi * tau.imag) / g_s
+
+    # Right-handed neutrino scale: between GUT and Planck
+    # Use positive exponent so M_R is large (10^14-10^16 GeV)
+    # Seesaw: m_ν ~ M_D² / M_R, so need M_R >> M_D for light neutrinos
+    M_string = M_Planck * np.exp(-k_max * np.pi * tau.imag / 10) / (g_s * 100)
 
     # Hierarchical diagonal masses
     M_R = np.diag([
-        M_string * epsilon**k[0],
-        M_string * epsilon**k[1],
-        M_string * epsilon**k[2]
+        M_string * epsilon**(-k[0]/2),  # Negative power: larger k → larger M_R
+        M_string * epsilon**(-k[1]/2),
+        M_string * epsilon**(-k[2]/2)
     ])
 
     return M_R
