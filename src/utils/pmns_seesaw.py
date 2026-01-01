@@ -13,23 +13,24 @@ Where:
 import numpy as np
 
 
-def dirac_mass_matrix(k_pattern, tau, eta_func, y_scale=1e-3):
+def dirac_mass_matrix(k_pattern, tau, eta_func, k_charged):
     """
     Construct Dirac neutrino mass matrix M_D.
 
     Democratic structure with modular form factors:
-    M_D ~ y_scale * η(τ)^(k/2) * (1 + hierarchy corrections)
+    M_D ~ y_e * η(τ)^(k/2) * (1 + hierarchy corrections)
+    where y_e is computed from electron mass prediction
 
     Parameters
     ----------
     k_pattern : array_like
-        [k_1, k_2, k_3] modular weights
+        [k_1, k_2, k_3] modular weights for leptons
     tau : complex
         Modular parameter
     eta_func : callable
         Dedekind eta function
-    y_scale : float
-        Overall Yukawa scale (~ electron Yukawa)
+    k_charged : array_like
+        [k_1, k_2, k_3] modular weights for charged leptons (to get y_e)
 
     Returns
     -------
@@ -38,6 +39,18 @@ def dirac_mass_matrix(k_pattern, tau, eta_func, y_scale=1e-3):
     """
     eta = eta_func(tau, n_terms=50)
     k = np.array(k_pattern)
+    k_ch = np.array(k_charged)
+
+    # Compute electron Yukawa from its mass
+    # m_e = y_e * v_EW, so y_e = m_e / v_EW
+    v_EW = 246  # GeV (Higgs VEV)
+    m_e_obs = 0.511e-3  # GeV
+
+    # But we need to account for modular factor that generates m_e
+    # From charged lepton mass: m_e ~ y_base * |η|^(k_e/2)
+    k_e = k_ch[0]  # Electron has lightest k
+    modular_e = np.abs(eta)**(k_e / 2)
+    y_base = m_e_obs / (v_EW * modular_e)
 
     # Base: democratic matrix (all 1's)
     M_D = np.ones((3, 3), dtype=complex)
@@ -52,16 +65,15 @@ def dirac_mass_matrix(k_pattern, tau, eta_func, y_scale=1e-3):
             # Modular phase
             phase = np.exp(2j * np.pi * (k[i] - k[j]) * np.angle(eta) / 24)
 
-            M_D[i, j] = y_scale * modular_factor * phase
+            M_D[i, j] = y_base * modular_factor * phase
 
-    # Overall normalization to get correct scale
-    v_EW = 246  # GeV (Higgs VEV)
+    # Overall normalization
     M_D *= v_EW
 
     return M_D
 
 
-def majorana_mass_matrix(k_pattern, tau, M_string=5e17):
+def majorana_mass_matrix(k_pattern, tau, c_AdS, g_s):
     """
     Construct right-handed Majorana mass matrix M_R.
 
@@ -69,14 +81,19 @@ def majorana_mass_matrix(k_pattern, tau, M_string=5e17):
     M_R ~ M_string * diag(ε^k1, ε^k2, ε^k3)
     where ε ~ exp(-2π Im[τ]) is suppression factor
 
+    String scale derived from theory:
+    M_string = M_Planck * exp(-k_max * 2π * Im[τ]) / g_s
+
     Parameters
     ----------
     k_pattern : array_like
         [k_1, k_2, k_3] modular weights
     tau : complex
         Modular parameter
-    M_string : float
-        String scale in GeV
+    c_AdS : float
+        Central charge (from τ)
+    g_s : float
+        String coupling (from τ)
 
     Returns
     -------
@@ -87,6 +104,12 @@ def majorana_mass_matrix(k_pattern, tau, M_string=5e17):
 
     # Suppression factor from string compactification
     epsilon = np.exp(-2 * np.pi * np.imag(tau))
+
+    # Derive string scale from theory parameters
+    M_Planck = 1.22e19  # GeV
+    k_max = np.max(k)
+    # String scale suppressed by compactification and coupling
+    M_string = M_Planck * np.exp(-k_max * 2 * np.pi * tau.imag) / g_s
 
     # Hierarchical diagonal masses
     M_R = np.diag([

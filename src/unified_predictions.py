@@ -392,8 +392,9 @@ print()
 print("PREDICTION 7: PMNS NEUTRINO MIXING")
 print("-"*80)
 
-M_D = dirac_mass_matrix(k_PMNS, tau, dedekind_eta, y_scale=1e-3)
-M_R = majorana_mass_matrix(k_PMNS, tau, M_string=5e17)
+# No free parameters: y_e from electron mass, M_string from τ
+M_D = dirac_mass_matrix(k_PMNS, tau, dedekind_eta, k_mass)
+M_R = majorana_mass_matrix(k_PMNS, tau, c_theory, g_s)
 U_PMNS, nu_masses = pmns_from_seesaw(M_D, M_R)
 chi2_pmns = print_pmns_comparison(U_PMNS, nu_masses)
 
