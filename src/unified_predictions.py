@@ -14,6 +14,7 @@ from utils.instanton_corrections import ckm_phase_corrections
 from utils.pmns_seesaw import dirac_mass_matrix, majorana_mass_matrix, pmns_from_seesaw, print_pmns_comparison
 from utils.threshold_corrections import mass_ratios_with_thresholds
 from utils.higher_weight_modular import mass_ratios_with_E6
+from utils.yukawa_structure import mass_ratios_from_full_yukawa, ckm_from_full_yukawas
 
 print("="*80)
 print("UNIFIED THEORY OF EVERYTHING: ALL PREDICTIONS FROM τ = 2.69i")
@@ -268,9 +269,24 @@ print(f"    m₂/m₁ = {m2_m1_E6:.2f} (threshold: {m2_m1_thresh:.2f})")
 print(f"    m₃/m₁ = {m3_m1_E6:.2f} (threshold: {m3_m1_thresh:.2f})")
 print()
 
-# Use E₆-corrected values for final predictions
-m2_m1_pred = m2_m1_E6
-m3_m1_pred = m3_m1_E6
+# Full Yukawa matrix structure (diagonal + democratic off-diagonal)
+print("  With full Yukawa structure (diagonal + democratic):")
+m2_m1_yukawa, m3_m1_yukawa = mass_ratios_from_full_yukawa(k_mass, tau, g_s, dedekind_eta)
+print(f"    m₂/m₁ = {m2_m1_yukawa:.2f} (E₆: {m2_m1_E6:.2f})")
+print(f"    m₃/m₁ = {m3_m1_yukawa:.2f} (E₆: {m3_m1_E6:.2f})")
+print()
+
+# Compute CKM from full Yukawa matrices
+print("  CKM from full Yukawa (up and down):")
+V_CKM_yukawa, m_up, m_down = ckm_from_full_yukawas(k_mass, tau, g_s, dedekind_eta)
+print(f"    Up masses: u={m_up[0]:.2e}, c={m_up[1]:.2e}, t={m_up[2]:.2e}")
+print(f"    Down masses: d={m_down[0]:.2e}, s={m_down[1]:.2e}, b={m_down[2]:.2e}")
+print(f"    Diagonal CKM: |V_ud|={np.abs(V_CKM_yukawa[0,0]):.3f}, |V_cs|={np.abs(V_CKM_yukawa[1,1]):.3f}, |V_tb|={np.abs(V_CKM_yukawa[2,2]):.3f}")
+print()
+
+# Use full Yukawa values for final predictions
+m2_m1_pred = m2_m1_yukawa
+m3_m1_pred = m3_m1_yukawa
 print()
 
 # Observations (up quarks: u, c, t at M_Z)
@@ -478,8 +494,8 @@ print(f"{'sin²θ₁₃':<30} {sin2_theta_13_CKM:.4f}            {sin2_theta_13_
 print()
 
 # Masses
-print(f"{'m₂/m₁ ratio':<30} {m2_m1_E6:.1f}               {m2_m1_obs_up:.0f} (u,c)         ⚠")
-print(f"{'m₃/m₁ ratio':<30} {m3_m1_E6:.1f}               {m3_m1_obs_up:.0f} (u,t)       ⚠")
+print(f"{'m₂/m₁ ratio':<30} {m2_m1_yukawa:.1f}               {m2_m1_obs_up:.0f} (u,c)         ⚠")
+print(f"{'m₃/m₁ ratio':<30} {m3_m1_yukawa:.1f}               {m3_m1_obs_up:.0f} (u,t)       ⚠")
 print()
 
 # Gauge
