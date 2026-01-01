@@ -46,9 +46,15 @@ g_s_squared = g_s ** 2
 print(f"  String coupling: g_s = exp(-log Im[τ]) = {g_s:.4f}")
 print(f"  g_s² = {g_s_squared:.4f}")
 
-# k-pattern (from phenomenology)
-k_pattern = np.array([8, 6, 4])
-print(f"  k-pattern: {k_pattern} (from flavor structure)")
+# k-patterns (from Papers 1-3 phenomenology)
+k_CKM = np.array([8, 6, 4])    # Quark mixing (CKM matrix)
+k_PMNS = np.array([5, 3, 1])   # Lepton mixing (PMNS matrix, neutrinos)
+k_mass = np.array([8, 6, 4])   # Charged fermion masses
+
+print(f"  k-patterns:")
+print(f"    CKM (quarks):  {k_CKM}  [Δk=2]")
+print(f"    PMNS (leptons): {k_PMNS}  [Δk=2, neutrinos]")
+print(f"    Masses:        {k_mass}  [Δk=2, charged fermions]")
 
 # Bond dimension
 chi = 6
@@ -86,23 +92,40 @@ print()
 print("PREDICTION 2: FLAVOR MIXING ANGLES")
 print("-"*80)
 
-# QEC code parameters
-n_qubits = int(np.sum(k_pattern) / 2)  # n = 9
+# QEC code parameters (CKM sector)
+n_qubits_CKM = int(np.sum(k_CKM) / 2)  # n = 9
 k_logical = 3  # 3 generations
-d_distance = 2  # min(|k_i - k_{i+1}|)
+d_distance_CKM = 2  # min(|k_i - k_{i+1}|) for CKM
 
-print(f"  Quantum error correction: [[{n_qubits},{k_logical},{d_distance}]] code")
+print(f"  CKM (quarks): [[{n_qubits_CKM},{k_logical},{d_distance_CKM}]] code")
+
+# PMNS sector (neutrinos)
+n_qubits_PMNS = int(np.sum(k_PMNS) / 2)  # n = 4.5 → round to 5 OR use sum directly = 9/2 → 4
+d_distance_PMNS = int(np.min(np.abs(np.diff(k_PMNS))))  # min(|5-3|, |3-1|) = 2
+
+print(f"  PMNS (leptons): [[{n_qubits_PMNS},{k_logical},{d_distance_PMNS}]] code (neutrinos)")
 print()
 
-# Mixing formula: sin²θ_ij = (d/k_max)²
-sin2_theta_12 = (d_distance / k_pattern[0])**2
-sin2_theta_23 = (d_distance / k_pattern[1])**2
-sin2_theta_13 = (d_distance / k_pattern[2])**2
+# Mixing formulas: sin²θ_ij = (d/k_max)²
+# CKM (quarks)
+sin2_theta_12_CKM = (d_distance_CKM / k_CKM[0])**2
+sin2_theta_23_CKM = (d_distance_CKM / k_CKM[1])**2
+sin2_theta_13_CKM = (d_distance_CKM / k_CKM[2])**2
+
+# PMNS (leptons)
+sin2_theta_12_PMNS = (d_distance_PMNS / k_PMNS[0])**2
+sin2_theta_23_PMNS = (d_distance_PMNS / k_PMNS[1])**2
+sin2_theta_13_PMNS = (d_distance_PMNS / k_PMNS[2])**2
 
 print("  Predictions:")
-print(f"    sin²θ₁₂ = (d/k₁)² = {sin2_theta_12:.4f}")
-print(f"    sin²θ₂₃ = (d/k₂)² = {sin2_theta_23:.4f}")
-print(f"    sin²θ₁₃ = (d/k₃)² = {sin2_theta_13:.4f}")
+print(f"    CKM (quarks):")
+print(f"      sin²θ₁₂ = {sin2_theta_12_CKM:.4f}")
+print(f"      sin²θ₂₃ = {sin2_theta_23_CKM:.4f}")
+print(f"      sin²θ₁₃ = {sin2_theta_13_CKM:.4f}")
+print(f"    PMNS (leptons):")
+print(f"      sin²θ₁₂ = {sin2_theta_12_PMNS:.4f}")
+print(f"      sin²θ₂₃ = {sin2_theta_23_PMNS:.4f}")
+print(f"      sin²θ₁₃ = {sin2_theta_13_PMNS:.4f}")
 print()
 
 # Observations (CKM matrix)
@@ -116,10 +139,10 @@ print(f"    sin²θ₂₃ = {sin2_theta_23_obs:.4f}")
 print(f"    sin²θ₁₃ = {sin2_theta_13_obs:.4f}")
 print()
 
-# Errors
-err_12 = abs(sin2_theta_12 - sin2_theta_12_obs) / sin2_theta_12_obs * 100
-err_23 = abs(sin2_theta_23 - sin2_theta_23_obs) / sin2_theta_23_obs * 100
-err_13 = abs(sin2_theta_13 - sin2_theta_13_obs) / sin2_theta_13_obs * 100
+# Errors (CKM)
+err_12 = abs(sin2_theta_12_CKM - sin2_theta_12_obs) / sin2_theta_12_obs * 100
+err_23 = abs(sin2_theta_23_CKM - sin2_theta_23_obs) / sin2_theta_23_obs * 100
+err_13 = abs(sin2_theta_13_CKM - sin2_theta_13_obs) / sin2_theta_13_obs * 100
 
 print("  Errors:")
 print(f"    θ₁₂: {err_12:.1f}%")
@@ -146,9 +169,9 @@ def three_point_amplitude(k_i, tau):
     eta *= q**(1/24)
     return np.abs(eta ** (k_i / 2.0))
 
-A1 = three_point_amplitude(k_pattern[0], tau)
-A2 = three_point_amplitude(k_pattern[1], tau)
-A3 = three_point_amplitude(k_pattern[2], tau)
+A1 = three_point_amplitude(k_mass[0], tau)
+A2 = three_point_amplitude(k_mass[1], tau)
+A3 = three_point_amplitude(k_mass[2], tau)
 
 # Normalize to gen 1
 A1_norm = 1.0
@@ -221,9 +244,9 @@ print("PREDICTION 4: GAUGE COUPLING CONSTANTS")
 print("-"*80)
 
 # Kac-Moody levels (inverse order: smaller k = stronger coupling)
-k_3 = k_pattern[2]  # SU(3): k=4
-k_2 = k_pattern[1]  # SU(2): k=6
-k_1 = k_pattern[0]  # U(1)_Y: k=8
+k_3 = k_CKM[2]  # SU(3): k=4
+k_2 = k_CKM[1]  # SU(2): k=6
+k_1 = k_CKM[0]  # U(1)_Y: k=8
 
 print(f"  Kac-Moody levels: k₃={k_3}, k₂={k_2}, k₁={k_1}")
 print()
@@ -279,10 +302,10 @@ print(f"{'Cosmological Λ':<30} {Lambda:.3f}              {'-':<20} {'✓':<10}"
 print(f"{'Einstein R_μν=Λg_μν':<30} {'Satisfied':<20} {'-':<20} {'✓':<10}")
 print()
 
-# Mixing
-print(f"{'sin²θ₁₂ (Cabibbo)':<30} {sin2_theta_12:.4f}            {sin2_theta_12_obs:.4f}            {err_12:.0f}%")
-print(f"{'sin²θ₂₃':<30} {sin2_theta_23:.4f}            {sin2_theta_23_obs:.4f}            {err_23:.0f}%")
-print(f"{'sin²θ₁₃':<30} {sin2_theta_13:.4f}            {sin2_theta_13_obs:.4f}            {err_13:.0f}%")
+# Mixing (CKM)
+print(f"{'sin²θ₁₂ (Cabibbo)':<30} {sin2_theta_12_CKM:.4f}            {sin2_theta_12_obs:.4f}            {err_12:.0f}%")
+print(f"{'sin²θ₂₃':<30} {sin2_theta_23_CKM:.4f}            {sin2_theta_23_obs:.4f}            {err_23:.0f}%")
+print(f"{'sin²θ₁₃':<30} {sin2_theta_13_CKM:.4f}            {sin2_theta_13_obs:.4f}            {err_13:.0f}%")
 print()
 
 # Masses
@@ -342,16 +365,25 @@ unified_results = {
     'c_theory': c_theory,
     'R_AdS': R_AdS,
     'g_s': g_s,
-    'k_pattern': k_pattern,
+    'k_CKM': k_CKM,
+    'k_PMNS': k_PMNS,
+    'k_mass': k_mass,
     'spacetime': {
         'Lambda': Lambda,
         'R_scalar': R_scalar,
         'status': 'verified'
     },
     'mixing': {
-        'predictions': [sin2_theta_12, sin2_theta_23, sin2_theta_13],
-        'observations': [sin2_theta_12_obs, sin2_theta_23_obs, sin2_theta_13_obs],
-        'errors': [err_12, err_23, err_13]
+        'CKM': {
+            'predictions': [sin2_theta_12_CKM, sin2_theta_23_CKM, sin2_theta_13_CKM],
+            'observations': [sin2_theta_12_obs, sin2_theta_23_obs, sin2_theta_13_obs],
+            'errors': [err_12, err_23, err_13]
+        },
+        'PMNS': {
+            'predictions': [sin2_theta_12_PMNS, sin2_theta_23_PMNS, sin2_theta_13_PMNS],
+            'observations': [],  # To be added
+            'errors': []
+        }
     },
     'masses': {
         'predictions': [1.0, m2_m1_pred, m3_m1_pred],
@@ -378,10 +410,10 @@ print()
 fig = plt.figure(figsize=(16, 12))
 gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
 
-# 1. Mixing angles
+# 1. Mixing angles (CKM only for now)
 ax1 = fig.add_subplot(gs[0, 0])
 angles = ['θ₁₂', 'θ₂₃', 'θ₁₃']
-pred_mix = [sin2_theta_12, sin2_theta_23, sin2_theta_13]
+pred_mix = [sin2_theta_12_CKM, sin2_theta_23_CKM, sin2_theta_13_CKM]
 obs_mix = [sin2_theta_12_obs, sin2_theta_23_obs, sin2_theta_13_obs]
 x = np.arange(3)
 width = 0.35
@@ -454,7 +486,7 @@ Derived:
 
 Predictions:
   Spacetime:  AdS₃ with Einstein equations ✓ VERIFIED
-  Mixing:     θ₁₂ = {sin2_theta_12:.4f} vs {sin2_theta_12_obs:.4f} CKM ({err_12:.0f}% error) ✓
+  Mixing:     θ₁₂ = {sin2_theta_12_CKM:.4f} vs {sin2_theta_12_obs:.4f} CKM ({err_12:.0f}% error) ✓
   Masses:     m₃/m₁ = {m3_m1_pred:.0f} vs ~1000 observed (⚠ need loops)
   Gauge:      α_s = {alpha_s_pred:.2f} vs {alpha_s_obs:.2f} observed (⚠ need thresholds)
 
