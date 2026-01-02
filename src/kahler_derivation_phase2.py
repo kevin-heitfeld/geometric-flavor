@@ -109,11 +109,11 @@ print()
 def distance_to_nearest_fixed_point(z, fixed_points):
     """
     Compute distance to nearest fixed point on T³ with periodic boundaries
-    
+
     Args:
         z: position (z₁, z₂, z₃)
         fixed_points: list of fixed point positions
-    
+
     Returns:
         d_min: minimum distance to any fixed point
     """
@@ -130,38 +130,38 @@ def distance_to_nearest_fixed_point(z, fixed_points):
 def kahler_metric_position_dependent(z, K_TT_bulk, alpha_prime_correction=0.1):
     """
     Position-dependent Kähler metric with α' corrections near fixed points
-    
+
     K_{T̅T}(z) = K_{T̅T}^bulk × [1 + δK(z)]
-    
+
     where δK(z) is enhancement/suppression from local geometry:
         - Near fixed points: α' corrections enhance curvature
         - Bulk: smooth background value
-    
+
     Parametrization:
         δK(z) = α' × f(d) where d = distance to nearest fixed point
         f(d) = exp(-d²/σ²) - 1  (Gaussian profile)
-    
+
     Args:
         z: position on T³
         K_TT_bulk: bulk Kähler metric value
         alpha_prime_correction: strength of α' corrections
-    
+
     Returns:
         K_TT: local Kähler metric at position z
     """
     d = distance_to_nearest_fixed_point(z, fixed_points)
-    
+
     # Gaussian profile for α' corrections
     # Width σ ~ ℓ_s (string length scale)
     sigma = 1.0  # in units of 2π (torus period)
-    
+
     # Enhancement near fixed points
     # Note: We actually need SUPPRESSION (factor < 1) for higher generations
     # because they have larger ℓ (from Phase 1 finding)
     # So δK should be negative away from reference position
-    
+
     delta_K = -alpha_prime_correction * np.exp(-d**2 / sigma**2)
-    
+
     K_TT = K_TT_bulk * (1.0 + delta_K)
     return K_TT
 
@@ -215,93 +215,93 @@ print()
 def compute_A_from_positions(positions, alpha_prime):
     """
     Compute A_i' values for given generation positions
-    
+
     Args:
         positions: array of shape (3, 3) with positions[sector][generation] = z
         alpha_prime: α' correction strength
-    
+
     Returns:
         A_predicted: array of shape (3, 3) with A'[sector][generation]
     """
     A_predicted = np.zeros((3, 3))
-    
+
     for sector in range(3):  # Leptons, up, down
         for gen in range(3):  # Generations 0, 1, 2
             z = positions[sector][gen]
             K_TT = kahler_metric_position_dependent(z, K_TT_0, alpha_prime)
             ℓ = localization_from_metric(K_TT)
-            
+
             # Reference is first generation of this sector
             if gen == 0:
                 ℓ_ref_sector = ℓ
-            
+
             A_predicted[sector][gen] = A_from_localization(ℓ, ℓ_ref_sector)
-    
+
     return A_predicted
 
 def objective_function(params):
     """
     Objective: minimize difference between predicted and calibrated A'
-    
+
     Parameters:
         - positions: 3 sectors × 3 generations × 3 coordinates = 27 params
         - alpha_prime: 1 param
     Total: 28 parameters
-    
+
     To reduce: Fix first generation at origin for each sector (9 params)
     Remaining: 18 position params + 1 α' = 19 parameters
     """
     # Unpack parameters
     alpha_prime = params[0]
-    
+
     # Positions: each is (z₁, z₂, z₃)
     # Sector 0 (leptons):   gen 0 at origin, gen 1-2 free
-    # Sector 1 (up quarks): gen 0 at origin, gen 1-2 free  
+    # Sector 1 (up quarks): gen 0 at origin, gen 1-2 free
     # Sector 2 (down):      gen 0 at origin, gen 1-2 free
-    
+
     positions = np.zeros((3, 3, 3))  # [sector][generation][coordinate]
-    
+
     # First generation at origin for each sector
     for sector in range(3):
         positions[sector][0] = np.array([0.0, 0.0, 0.0])
-    
+
     # Higher generations from optimization parameters
     idx = 1
     for sector in range(3):
         for gen in range(1, 3):
             positions[sector][gen] = params[idx:idx+3] * np.pi  # Scale to [0, π]
             idx += 3
-    
+
     # Compute predicted A'
     A_pred_lep = np.zeros(3)
     A_pred_up = np.zeros(3)
     A_pred_down = np.zeros(3)
-    
+
     for gen in range(3):
         for sector in range(3):
             z = positions[sector][gen]
             K_TT = kahler_metric_position_dependent(z, K_TT_0, alpha_prime)
             ℓ = localization_from_metric(K_TT)
-            
+
             # Get reference for this sector
             z_ref = positions[sector][0]
             K_TT_ref = kahler_metric_position_dependent(z_ref, K_TT_0, alpha_prime)
             ℓ_ref = localization_from_metric(K_TT_ref)
-            
+
             A = A_from_localization(ℓ, ℓ_ref)
-            
+
             if sector == 0:
                 A_pred_lep[gen] = A
             elif sector == 1:
                 A_pred_up[gen] = A
             else:
                 A_pred_down[gen] = A
-    
+
     # Compute error
     error_lep = np.sum((A_pred_lep - A_lep_target)**2)
     error_up = np.sum((A_pred_up - A_up_target)**2)
     error_down = np.sum((A_pred_down - A_down_target)**2)
-    
+
     total_error = error_lep + error_up + error_down
     return total_error
 
@@ -369,26 +369,26 @@ print()
 
 for sector, name in enumerate(['Leptons', 'Up quarks', 'Down quarks']):
     print(f"{name}:")
-    
+
     # Get reference localization for this sector
     z_ref = positions_opt[sector][0]
     K_TT_ref = kahler_metric_position_dependent(z_ref, K_TT_0, alpha_opt)
     ℓ_ref = localization_from_metric(K_TT_ref)
-    
+
     for gen in range(3):
         z = positions_opt[sector][gen]
         d = distance_to_nearest_fixed_point(z, fixed_points)
         K_TT = kahler_metric_position_dependent(z, K_TT_0, alpha_opt)
         ℓ = localization_from_metric(K_TT)
         A = A_from_localization(ℓ, ℓ_ref)
-        
+
         if sector == 0:
             A_pred_lep[gen] = A
         elif sector == 1:
             A_pred_up[gen] = A
         else:
             A_pred_down[gen] = A
-        
+
         print(f"  Gen {gen}: z = ({z[0]/np.pi:.3f}π, {z[1]/np.pi:.3f}π, {z[2]/np.pi:.3f}π)")
         print(f"         d = {d:.3f}, ℓ = {ℓ:.4f} ℓ_s, A' = {A:.4f}")
     print()
