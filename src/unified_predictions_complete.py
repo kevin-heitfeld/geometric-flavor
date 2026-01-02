@@ -185,7 +185,7 @@ def compute_kahler_metric(tau_1, tau_2, tau_3, epsilon):
 
     return G, G_inv
 
-def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False, optimize=True):
+def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False, optimize=True, asymmetric_tori=True, tau_ratios=None):
     """
     Compute g_i and A_i geometrically from D7-brane wrapping numbers.
 
@@ -198,7 +198,9 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
         wrapping_numbers: dict with 'leptons', 'up', 'down'
                          each containing 3 tuples of ((n₁,m₁), (n₂,m₂), (n₃,m₃))
         epsilon: [ε₁, ε₂, ε₃] blow-up parameters
-        optimize: if True, optimize δg and σ² to match fitted values
+        optimize: if True, optimize δg, σ², and τ ratios to match fitted values
+        asymmetric_tori: if True, use different τ values for each torus
+        tau_ratios: [r₂, r₃] ratios for τ₂ = r₂*τ₀, τ₃ = r₃*τ₀ (if None, optimize)
 
     Returns:
         g_lep, g_up, g_down: generation factors [3]
@@ -208,12 +210,30 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
         print("PHASE 2: COMPUTING g_i AND A_i FROM GEOMETRY")
         print()
 
+    # Non-symmetric tori: different complex structures
+    # This breaks accidental degeneracies in wavefunction overlaps
+    if asymmetric_tori and tau_ratios is None:
+        # Will optimize these ratios
+        tau_ratio_2 = 1.0
+        tau_ratio_3 = 1.0
+    elif asymmetric_tori:
+        tau_ratio_2 = tau_ratios[0]
+        tau_ratio_3 = tau_ratios[1]
+    else:
+        tau_ratio_2 = 1.0
+        tau_ratio_3 = 1.0
+
     tau_1 = tau_0
-    tau_2 = tau_0
-    tau_3 = tau_0
+    tau_2 = tau_0 * tau_ratio_2
+    tau_3 = tau_0 * tau_ratio_3
     tau_values = [tau_1, tau_2, tau_3]
 
-    # Compute matter metric
+    if verbose and asymmetric_tori:
+        print(f"Non-symmetric tori:")
+        print(f"  τ₁ = {tau_1:.3f}")
+        print(f"  τ₂ = {tau_2:.3f} (ratio {tau_ratio_2:.3f})")
+        print(f"  τ₃ = {tau_3:.3f} (ratio {tau_ratio_3:.3f})")
+        print()    # Compute matter metric
     G, G_inv = compute_kahler_metric(tau_1, tau_2, tau_3, epsilon)
 
     if verbose:
@@ -243,9 +263,7 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
                 d_sq += G_inv[i,j] * (Delta_n[i]*Delta_n[j] + Delta_m[i]*Delta_m[j])
 
         A = -d_sq / (2 * sigma_sq)
-        return A
-
-    # Higgs brane (reference for overlaps)
+        return A    # Higgs brane (reference for overlaps)
     higgs_wrapping = ((1,0), (1,0), (1,0))
 
     # Precompute modular weights for all sectors
@@ -266,17 +284,34 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
 
         def objective(params):
             """Minimize error between geometric and fitted values."""
-            if len(params) == 2:
+            if asymmetric_tori and len(params) == 6:
+                # With τ ratio optimization
+                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down, r2, r3 = params
+                # Recompute metric and weights with new τ values
+                nonlocal tau_values, G, G_inv, all_weights
+                tau_values = [tau_0, tau_0 * r2, tau_0 * r3]
+                G, G_inv = compute_kahler_metric(tau_values[0], tau_values[1], tau_values[2], epsilon)
+                # Recompute weights
+                for sector_name in ['leptons', 'up', 'down']:
+                    sector_wrappings = wrapping_numbers[sector_name]
+                    all_weights[sector_name] = [modular_weight(w) for w in sector_wrappings]
+            elif len(params) == 4:
+                # Sector-dependent σ² only
+                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down = params
+            elif len(params) == 2:
                 # Single σ² for all sectors
                 delta_g, sigma_sq_lep = params
                 sigma_sq_up = sigma_sq_lep
                 sigma_sq_down = sigma_sq_lep
             else:
-                # Sector-dependent σ²
-                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down = params
+                return 1e10
 
             if sigma_sq_lep <= 0 or sigma_sq_up <= 0 or sigma_sq_down <= 0:
                 return 1e10
+
+            if asymmetric_tori and len(params) == 6:
+                if r2 < 0.5 or r2 > 2.0 or r3 < 0.5 or r3 > 2.0:
+                    return 1e10
 
             total_error = 0
 
@@ -304,22 +339,46 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             return total_error
 
         if verbose:
-            print("Optimizing δg and σ² (sector-dependent) to match fitted values...")
+            msg = "Optimizing δg, σ² (sector-dependent)"
+            if asymmetric_tori:
+                msg += ", and τ ratios"
+            print(msg + " to match fitted values...")
             print()
 
-        # Optimize with sector-dependent σ²
+        # Optimize with sector-dependent σ² and optionally τ ratios
         from scipy.optimize import minimize
-        result = minimize(
-            objective,
-            x0=[0.02, 5.0, 5.0, 15.0],  # δg, σ²_lep, σ²_up, σ²_down
-            bounds=[(0.001, 0.5), (0.1, 50.0), (0.1, 50.0), (0.1, 50.0)],
-            method='L-BFGS-B'
-        )
-
-        delta_g_opt = result.x[0]
-        sigma_sq_lep = result.x[1]
-        sigma_sq_up = result.x[2]
-        sigma_sq_down = result.x[3]
+        if asymmetric_tori:
+            # 6 parameters: δg, σ²_lep, σ²_up, σ²_down, r₂, r₃
+            result = minimize(
+                objective,
+                x0=[0.02, 5.0, 5.0, 15.0, 1.0, 1.0],
+                bounds=[(0.001, 0.5), (0.1, 50.0), (0.1, 50.0), (0.1, 50.0), (0.5, 2.0), (0.5, 2.0)],
+                method='L-BFGS-B'
+            )
+            delta_g_opt = result.x[0]
+            sigma_sq_lep = result.x[1]
+            sigma_sq_up = result.x[2]
+            sigma_sq_down = result.x[3]
+            tau_ratio_2 = result.x[4]
+            tau_ratio_3 = result.x[5]
+            # Update tau values with optimized ratios
+            tau_1 = tau_0
+            tau_2 = tau_0 * tau_ratio_2
+            tau_3 = tau_0 * tau_ratio_3
+            tau_values = [tau_1, tau_2, tau_3]
+            # Recompute metric with final values
+            G, G_inv = compute_kahler_metric(tau_1, tau_2, tau_3, epsilon)
+        else:
+            result = minimize(
+                objective,
+                x0=[0.02, 5.0, 5.0, 15.0],
+                bounds=[(0.001, 0.5), (0.1, 50.0), (0.1, 50.0), (0.1, 50.0)],
+                method='L-BFGS-B'
+            )
+            delta_g_opt = result.x[0]
+            sigma_sq_lep = result.x[1]
+            sigma_sq_up = result.x[2]
+            sigma_sq_down = result.x[3]
 
         if verbose:
             print(f"✅ Optimization complete:")
@@ -327,6 +386,9 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             print(f"   σ²_lep = {sigma_sq_lep:.6f} (lepton localization scale)")
             print(f"   σ²_up = {sigma_sq_up:.6f} (up quark localization scale)")
             print(f"   σ²_down = {sigma_sq_down:.6f} (down quark localization scale)")
+            if asymmetric_tori:
+                print(f"   τ₂/τ₀ = {tau_ratio_2:.6f} (second torus ratio)")
+                print(f"   τ₃/τ₀ = {tau_ratio_3:.6f} (third torus ratio)")
             print(f"   Total error: {result.fun:.6f}")
             print()
     else:
@@ -959,7 +1021,7 @@ if args.geometric:
         'down': [
             ((1, 0), (1, 0), (1, 0)),  # Gen 1
             ((1, 0), (1, 0), (0, 1)),  # Gen 2
-            ((1, 0), (1, 1), (1, 0)),  # Gen 3
+            ((1, 0), (2, 1), (1, 0)),  # Gen 3 - needs large distance for heavy bottom
         ]
     }
 
