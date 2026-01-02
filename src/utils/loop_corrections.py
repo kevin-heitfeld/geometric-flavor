@@ -79,7 +79,7 @@ def run_gauge_twoloop(alpha_GUT, b1, b2, M_GUT, M_Z):
     """
     Run gauge coupling from GUT scale to M_Z with 2-loop RG.
 
-    Solves: dα^(-1)/dt = -b1/(2π) - b2*α/(4π²)
+    Solves: dα/dt = (b1/(2π))α² + (b2/(4π²))α³
     where t = log(μ)
 
     Parameters
@@ -98,16 +98,18 @@ def run_gauge_twoloop(alpha_GUT, b1, b2, M_GUT, M_Z):
     alpha_Z : float
         Coupling at M_Z
     """
+    # Running parameter
+    t = np.log(M_Z / M_GUT)
+
     # 1-loop running
-    t = np.log(M_GUT / M_Z)
-    alpha_inv_1loop = 1/alpha_GUT - (b1 / (2 * np.pi)) * t
+    alpha_inv_out = 1.0/alpha_GUT - (b1 / (2*np.pi)) * t
+    alpha_1loop = 1.0 / alpha_inv_out
 
     # 2-loop correction
-    # α^(-1)(M_Z) ≈ α^(-1)(M_GUT) - (b1/(2π))*t + (b2/(4π²))*α(M_GUT)*t
-    two_loop_correction = (b2 / (4 * np.pi**2)) * alpha_GUT * t
+    correction = (b2 / (8*np.pi**2)) * t * alpha_GUT
+    alpha_out = alpha_1loop * (1 + correction * alpha_1loop)
 
-    alpha_inv_Z = alpha_inv_1loop + two_loop_correction
-    return 1 / alpha_inv_Z
+    return alpha_out
 
 
 def mass_with_full_corrections(k_i, tau, g_s, eta_func):
@@ -160,8 +162,8 @@ def mass_with_full_corrections(k_i, tau, g_s, eta_func):
 # SU(3)_c: b1 = -7, b2 = -26 (asymptotic freedom)
 BETA_SU3 = {'b1': -7, 'b2': -26}
 
-# SU(2)_L: b1 = 19/6, b2 = 35/6
-BETA_SU2 = {'b1': 19/6, 'b2': 35/6}
+# SU(2)_L: b1 = -19/6, b2 = 35/6 (asymptotic freedom at 1-loop)
+BETA_SU2 = {'b1': -19/6, 'b2': 35/6}
 
 # U(1)_Y: b1 = 41/10, b2 = 199/50
 BETA_U1 = {'b1': 41/10, 'b2': 199/50}
