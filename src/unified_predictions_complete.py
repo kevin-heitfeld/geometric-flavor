@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 COMPLETE UNIFIED TOE PREDICTIONS FROM τ = 2.7i
 All ~30 Standard Model observables computed from single modular parameter
@@ -514,20 +515,26 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
 # CKM MATRIX FROM GEOMETRY
 # ============================================================================
 
-def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values, verbose=False):
+def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
+                              sigma_overlap=3.5, alpha_12=0.225, alpha_23=0.042, alpha_13=0.0036,
+                              instanton_strength=10.0, verbose=False):
     """
-    Compute CKM mixing angles from geometric phase differences.
+    Compute CKM mixing angles from geometric phase differences + instanton corrections.
 
     Physical mechanism:
     - Quarks localized at different positions on CY manifold
     - Yukawa couplings Y_ij ∝ ∫ ψ_u^i ψ_d^j ψ_H from wavefunction overlaps
     - Off-diagonal terms arise from non-trivial wrapping number differences
-    - Complex phases from τ = (complex structure moduli)
+    - Classical phases from τ (complex structure moduli)
+    - CP violation from worldsheet instantons wrapping holomorphic cycles
 
     Args:
         wrapping_up: List of 3 wrapping numbers for up-type quarks
         wrapping_down: List of 3 wrapping numbers for down-type quarks
         tau_values: [τ₁, τ₂, τ₃] complex moduli (can be asymmetric)
+        sigma_overlap: Characteristic spread for wavefunction overlaps
+        alpha_12, alpha_23, alpha_13: Mixing strength parameters
+        instanton_strength: Overall normalization of instanton corrections
         verbose: Print detailed information
 
     Returns:
@@ -538,6 +545,7 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values, verbose=Fa
 
     # Compute relative phase factors from wrapping differences
     # For generations i,j: phase ∝ Im[τ × Δn × Δm]
+    # PLUS instanton corrections for CP violation
     phases_ij = np.zeros((3, 3), dtype=complex)
 
     for i in range(3):
@@ -547,33 +555,80 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values, verbose=Fa
                                wrapping_up[i][k][1] - wrapping_down[j][k][1])
                               for k in range(3))
 
-            # Phase accumulation from each torus
-            phase = 0
+            # Classical geometric phase: arg(exp(2πi(n+m×τ)))
+            phase_classical = 0
             for k in range(3):
                 tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
                 dn, dm = delta_wrap[k]
-                # Geometric phase: arg(exp(2πi(n+m×τ)))
-                phase += np.imag(2j * np.pi * (dn + dm * tau_k))
+                phase_classical += np.imag(2j * np.pi * (dn + dm * tau_k))
 
-            phases_ij[i, j] = np.exp(1j * phase)
+            # Worldsheet instanton corrections
+            # Instantons wrap holomorphic curves → contribute exp(-S_inst) with phase
+            # S_inst = ∫ J = Area of wrapped cycle ∝ |wrapping|²/Im[τ]
+            # For CY3 with 3 T²: instantons on each torus contribute
+            instanton_action = 0
+            phi_components = []
+            for k in range(3):
+                tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+                dn, dm = delta_wrap[k]
+                # Action for (n,m) curve on T²
+                z_wrap = dn + dm * tau_k
+                area = abs(z_wrap)**2 / np.imag(tau_k)
+                instanton_action += area
+                # Phase contribution from each torus (sensitive to both n and m)
+                phi_components.append(np.angle(z_wrap) + dn * dm * np.pi / 3.0)
 
+            # Instanton amplitude: exp(-S_inst + i×φ_inst)
+            # Phase depends on interference between tori and wrapping asymmetry
+            phi_inst = sum(phi_components) + np.pi * (i - j) / 3.0  # Add generation dependence
+
+            # Total phase = classical + instanton correction
+            # Instanton suppression ~ exp(-π×area) but enhanced by wrapping hierarchy
+            instanton_amplitude = np.exp(-np.pi * instanton_action + 1j * phi_inst) * instanton_strength
+
+            phases_ij[i, j] = np.exp(1j * phase_classical) * (1.0 + instanton_amplitude)
     # Mixing strength from wavefunction overlap integrals
-    # |V_ij|² ∝ exp(-|separation|²/2σ²)
-    # For now use small constant mixing (will optimize)
-    mixing_strength = 0.05  # Typical CKM scale
+    # Physical picture: Yukawa Y_ij ∝ ∫ ψ_u^i ψ_d^j ψ_H
+    # Suppression from separation on torus: exp(-π|Δn|²/Im[τ])
+    overlap_ij = np.zeros((3, 3))
 
-    # Build CKM-like matrix
-    V_CKM = np.eye(3, dtype=complex) * (1 - 2*mixing_strength)
+    for i in range(3):
+        for j in range(3):
+            delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
+                               wrapping_up[i][k][1] - wrapping_down[j][k][1])
+                              for k in range(3))
 
-    # Add off-diagonal terms with geometric phases
-    V_CKM[0, 1] = mixing_strength * phases_ij[0, 1] * 3.5  # Cabibbo angle ~0.22
-    V_CKM[1, 0] = mixing_strength * np.conj(phases_ij[0, 1]) * 3.5
-    V_CKM[1, 2] = mixing_strength * phases_ij[1, 2] * 0.8
-    V_CKM[2, 1] = mixing_strength * np.conj(phases_ij[1, 2]) * 0.8
-    V_CKM[0, 2] = mixing_strength * phases_ij[0, 2] * 0.08
-    V_CKM[2, 0] = mixing_strength * np.conj(phases_ij[0, 2]) * 0.08
+            # Distance on each T² (in moduli space)
+            distance_sq = 0
+            for k in range(3):
+                tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+                dn, dm = delta_wrap[k]
+                # Distance in fundamental domain
+                z = dn + dm * tau_k
+                distance_sq += abs(z)**2 / np.imag(tau_k)
 
-    # Unitarize (Gram-Schmidt)
+            # Overlap suppression with provided scale
+            overlap_ij[i, j] = np.exp(-distance_sq / (2 * sigma_overlap**2))
+
+    # Build CKM matrix with geometric overlap × phase structure
+    V_CKM = np.zeros((3, 3), dtype=complex)
+
+    # Diagonal: dominant self-overlaps (≈1)
+    for i in range(3):
+        V_CKM[i, i] = 1.0
+
+    # Off-diagonal: suppressed by overlap, modulated by phase
+    # Use provided strength parameters α_ij
+    V_CKM[0, 1] = alpha_12 * overlap_ij[0, 1] * phases_ij[0, 1]
+    V_CKM[1, 0] = alpha_12 * overlap_ij[1, 0] * phases_ij[1, 0]
+
+    V_CKM[1, 2] = alpha_23 * overlap_ij[1, 2] * phases_ij[1, 2]
+    V_CKM[2, 1] = alpha_23 * overlap_ij[2, 1] * phases_ij[2, 1]
+
+    V_CKM[0, 2] = alpha_13 * overlap_ij[0, 2] * phases_ij[0, 2]
+    V_CKM[2, 0] = alpha_13 * overlap_ij[2, 0] * phases_ij[2, 0]
+
+    # Unitarize via Gram-Schmidt orthogonalization
     V_CKM[0] /= np.linalg.norm(V_CKM[0])
     V_CKM[1] -= np.dot(V_CKM[1], V_CKM[0].conj()) * V_CKM[0]
     V_CKM[1] /= np.linalg.norm(V_CKM[1])
@@ -601,6 +656,146 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values, verbose=Fa
         print(f"  J_CP = {J_CP:.3e}")
 
     return sin2_theta_12, sin2_theta_23, sin2_theta_13, delta_CP, J_CP
+
+
+def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, verbose=True):
+    """
+    Optimize geometric CKM parameters (overlap scale σ, mixing strengths α_ij, and instanton strength)
+    to match observed CKM matrix elements.
+
+    Parameters to optimize:
+    - σ_overlap: characteristic spread for wavefunction overlaps
+    - α_12, α_23, α_13: mixing strength parameters
+    - λ_inst: instanton contribution strength (for CP violation)
+
+    Returns optimized parameters and final errors.
+    """
+    from scipy.optimize import differential_evolution
+
+    # Observed CKM values
+    sin2_theta_12_obs = 0.051
+    sin2_theta_23_obs = 0.00157
+    sin2_theta_13_obs = 0.000128
+    delta_CP_obs = 1.22  # rad
+    J_CP_obs = 3.0e-5
+
+    def objective(params):
+        """Minimize error in CKM observables"""
+        sigma_overlap, alpha_12, alpha_23, alpha_13, lambda_inst = params
+
+        try:
+            # Compute phases WITH INSTANTON CORRECTIONS
+            phases_ij = np.zeros((3, 3), dtype=complex)
+            for i in range(3):
+                for j in range(3):
+                    delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
+                                       wrapping_up[i][k][1] - wrapping_down[j][k][1])
+                                      for k in range(3))
+
+                    # Classical phase
+                    phase_classical = 0
+                    for k in range(3):
+                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+                        dn, dm = delta_wrap[k]
+                        phase_classical += np.imag(2j * np.pi * (dn + dm * tau_k))
+
+                    # Instanton correction
+                    instanton_action = 0
+                    phi_components = []
+                    for k in range(3):
+                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+                        dn, dm = delta_wrap[k]
+                        z_wrap = dn + dm * tau_k
+                        area = abs(z_wrap)**2 / np.imag(tau_k)
+                        instanton_action += area
+                        phi_components.append(np.angle(z_wrap) + dn * dm * np.pi / 3.0)
+
+                    phi_inst = sum(phi_components) + np.pi * (i - j) / 3.0
+
+                    instanton_amplitude = np.exp(-np.pi * instanton_action + 1j * phi_inst) * lambda_inst
+                    phases_ij[i, j] = np.exp(1j * phase_classical) * (1.0 + instanton_amplitude)
+
+            # Compute overlaps with current σ
+            overlap_ij = np.zeros((3, 3))
+            for i in range(3):
+                for j in range(3):
+                    delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
+                                       wrapping_up[i][k][1] - wrapping_down[j][k][1])
+                                      for k in range(3))
+                    distance_sq = 0
+                    for k in range(3):
+                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+                        dn, dm = delta_wrap[k]
+                        z = dn + dm * tau_k
+                        distance_sq += abs(z)**2 / np.imag(tau_k)
+                    overlap_ij[i, j] = np.exp(-distance_sq / (2 * sigma_overlap**2))
+
+            # Build CKM matrix
+            V_CKM = np.zeros((3, 3), dtype=complex)
+            for i in range(3):
+                V_CKM[i, i] = 1.0
+
+            V_CKM[0, 1] = alpha_12 * overlap_ij[0, 1] * phases_ij[0, 1]
+            V_CKM[1, 0] = alpha_12 * overlap_ij[1, 0] * phases_ij[1, 0]
+            V_CKM[1, 2] = alpha_23 * overlap_ij[1, 2] * phases_ij[1, 2]
+            V_CKM[2, 1] = alpha_23 * overlap_ij[2, 1] * phases_ij[2, 1]
+            V_CKM[0, 2] = alpha_13 * overlap_ij[0, 2] * phases_ij[0, 2]
+            V_CKM[2, 0] = alpha_13 * overlap_ij[2, 0] * phases_ij[2, 0]
+
+            # Unitarize
+            V_CKM[0] /= np.linalg.norm(V_CKM[0])
+            V_CKM[1] -= np.dot(V_CKM[1], V_CKM[0].conj()) * V_CKM[0]
+            V_CKM[1] /= np.linalg.norm(V_CKM[1])
+            V_CKM[2] = np.cross(V_CKM[0].conj(), V_CKM[1].conj()).conj()
+
+            # Extract observables
+            sin2_12_pred = np.abs(V_CKM[0, 1])**2
+            sin2_23_pred = np.abs(V_CKM[1, 2])**2
+            sin2_13_pred = np.abs(V_CKM[0, 2])**2
+            delta_pred = -np.angle(V_CKM[0, 2])
+            J_pred = np.imag(V_CKM[0, 1] * V_CKM[1, 2] *
+                            np.conj(V_CKM[0, 2]) * np.conj(V_CKM[1, 1]))
+
+            # Compute errors (weighted by importance)
+            err_12 = abs(sin2_12_pred - sin2_theta_12_obs) / sin2_theta_12_obs
+            err_23 = abs(sin2_23_pred - sin2_theta_23_obs) / sin2_theta_23_obs
+            err_13 = abs(sin2_13_pred - sin2_theta_13_obs) / sin2_theta_13_obs
+            err_dcp = abs(delta_pred - delta_CP_obs) / delta_CP_obs
+            err_jcp = abs(J_pred - J_CP_obs) / J_CP_obs
+
+            # Total error (weighted: angles more important than phases initially)
+            return max(err_12, err_23, err_13, err_dcp * 0.3, err_jcp * 0.3)
+
+        except:
+            return 1e10
+
+    if verbose:
+        print("Optimizing geometric CKM parameters (with instanton corrections)...")
+
+    # Bounds: σ ∈ [1, 10], α_ij reasonable mixing scales, λ_inst ∈ [0.1, 100]
+    bounds = [(1.0, 10.0),      # σ_overlap
+              (0.15, 0.30),     # α_12 (Cabibbo scale)
+              (0.02, 0.08),     # α_23 (V_cb scale)
+              (0.001, 0.01),    # α_13 (V_ub scale)
+              (0.1, 100.0)]     # λ_inst (instanton strength)
+
+    result = differential_evolution(objective, bounds, seed=42, maxiter=400,
+                                   popsize=15, atol=1e-6, tol=1e-6)
+
+    sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt = result.x
+
+    if verbose:
+        print(f"✅ Optimization complete:")
+        print(f"   σ_overlap = {sigma_opt:.3f}")
+        print(f"   α_12 = {alpha_12_opt:.6f}")
+        print(f"   α_23 = {alpha_23_opt:.6f}")
+        print(f"   α_13 = {alpha_13_opt:.6f}")
+        print(f"   λ_inst = {lambda_inst_opt:.3f}")
+        print(f"   Max error: {result.fun*100:.1f}%")
+        print()
+
+    return sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt
+
 
 # ============================================================================
 # PARAMETER FITTING FUNCTIONS (optional, can use cached values for speed)
@@ -1401,20 +1596,9 @@ print(f"  v = {v_higgs:.1f} GeV (input, to be derived from potential)")
 print(f"  λ_h = {lambda_h:.6f} (fitted to m_h = 125 GeV)")
 print()
 
-# Yukawa normalizations from Kähler geometry
-# PHASE 1 IMPROVEMENT: Instead of 3 fitted parameters, derive from τ and g_s
-from yukawa_from_geometry import compute_yukawa_normalizations
-Y_0_up, Y_0_down, Y_0_lep = compute_yukawa_normalizations(
-    tau=tau, g_s=g_s, calibrate=True, verbose=False
-)
-
-print(f"YUKAWA NORMALIZATIONS (from Kähler geometry):")
-print(f"  Y₀_lep  = {Y_0_lep:.6e}  (leptons)")
-print(f"  Y₀_up   = {Y_0_up:.6e}  (up-type quarks)")
-print(f"  Y₀_down = {Y_0_down:.6e}  (down-type quarks)")
-print(f"  → Derived from τ = {tau}, g_s = {g_s:.3f}")
-print(f"  → Parameter reduction: 3 fitted → 0 (geometric)")
-print()
+# NOTE: Yukawa normalizations Y₀ will be calibrated AFTER computing
+# dimensionless Yukawa eigenvalues from geometry (see Section 2)
+# This ensures m_e = Y₀_lep × v × m_lep[0] matches observation
 
 # ============================================================================
 # SECTION 1: SPACETIME GEOMETRY (1 observable)
@@ -1480,6 +1664,34 @@ print(f"    Errors: {abs(r_down[1]-r_down_obs[1])/r_down_obs[1]*100:.1f}%, {abs(
 print()
 
 # ============================================================================
+# YUKAWA NORMALIZATIONS: Calibrate Y₀ to match observed m_e
+# ============================================================================
+# Now that we have dimensionless Yukawa eigenvalues m_lep[0], m_up[0], m_down[0],
+# calibrate Y₀ so that: m_fermion = Y₀ × v × (dimensionless Yukawa)
+
+# Observed masses for calibration
+m_e_obs = 0.511e-3  # GeV
+m_u_obs = 2.16e-3   # GeV
+m_d_obs = 4.67e-3   # GeV
+
+# Calibrate Y₀ from electron mass: m_e = Y₀_lep × v × m_lep[0]
+Y_0_lep = m_e_obs / (v_higgs * m_lep[0])
+
+# Calibrate Y₀ from up quark: m_u = Y₀_up × v × m_up[0]
+Y_0_up = m_u_obs / (v_higgs * m_up_quarks[0])
+
+# Calibrate Y₀ from down quark: m_d = Y₀_down × v × m_down[0]
+Y_0_down = m_d_obs / (v_higgs * m_down_quarks[0])
+
+print(f"YUKAWA NORMALIZATIONS (calibrated to match lightest generation):")
+print(f"  Y₀_lep  = {Y_0_lep:.6e}  (from m_e = {m_e_obs*1e3:.3f} MeV)")
+print(f"  Y₀_up   = {Y_0_up:.6e}  (from m_u = {m_u_obs*1e3:.3f} MeV)")
+print(f"  Y₀_down = {Y_0_down:.6e}  (from m_d = {m_d_obs*1e3:.3f} MeV)")
+print(f"  Status: CALIBRATED (1 input per sector)")
+print(f"  Future: Derive from Kähler potential K = -log|X|²")
+print()
+
+# ============================================================================
 # SECTION 3: CKM MIXING ANGLES (3 observables)
 # ============================================================================
 # NOTE: Moved after masses - CKM derived from mass hierarchy
@@ -1492,29 +1704,53 @@ print()
 print("Computing CKM mixing from geometry and Yukawa diagonalization...")
 print()
 
-# METHOD 1: Geometric computation (Phase 2)
+# METHOD 1: Geometric computation (Phase 3: with instanton corrections)
 if args.geometric:
-    print("METHOD 1: GEOMETRIC CKM (from wrapping number phases)")
+    print("METHOD 1: GEOMETRIC CKM (with instanton corrections)")
     print("-" * 60)
 
-    # Use optimized tau values from Phase 2
+    # Optimize geometric CKM parameters including instanton strength
+    print("Optimizing overlap scale, mixing strengths, and instanton corrections...")
+    sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt = optimize_geometric_ckm(
+        wrapping_numbers['up'],
+        wrapping_numbers['down'],
+        tau_values,
+        verbose=True
+    )
+
+    # Use optimized parameters
     sin2_12_geom, sin2_23_geom, sin2_13_geom, delta_geom, J_geom = \
         compute_ckm_from_geometry(
             wrapping_numbers['up'],
             wrapping_numbers['down'],
             tau_values,  # Asymmetric: [τ₁, τ₂, τ₃]
+            sigma_overlap=sigma_opt,
+            alpha_12=alpha_12_opt,
+            alpha_23=alpha_23_opt,
+            alpha_13=alpha_13_opt,
+            instanton_strength=lambda_inst_opt,
             verbose=False
         )
 
-    print(f"  sin²θ₁₂ = {sin2_12_geom:.6f}")
-    print(f"  sin²θ₂₃ = {sin2_23_geom:.6f}")
-    print(f"  sin²θ₁₃ = {sin2_13_geom:.6f}")
-    print(f"  δ_CP = {delta_geom:.3f} rad = {np.degrees(delta_geom):.1f}°")
-    print(f"  J_CP = {J_geom:.3e}")
+    # Observed values for comparison
+    sin2_12_obs = 0.051
+    sin2_23_obs = 0.00157
+    sin2_13_obs = 0.000128
+    delta_obs = 1.22
+    J_obs = 3.0e-5
+
+    print(f"  sin²θ₁₂ = {sin2_12_geom:.6f} (obs: {sin2_12_obs:.6f}) [{abs(sin2_12_geom-sin2_12_obs)/sin2_12_obs*100:.1f}% error]")
+    print(f"  sin²θ₂₃ = {sin2_23_geom:.6f} (obs: {sin2_23_obs:.6f}) [{abs(sin2_23_geom-sin2_23_obs)/sin2_23_obs*100:.1f}% error]")
+    print(f"  sin²θ₁₃ = {sin2_13_geom:.6f} (obs: {sin2_13_obs:.6f}) [{abs(sin2_13_geom-sin2_13_obs)/sin2_13_obs*100:.1f}% error]")
+    print(f"  δ_CP = {delta_geom:.3f} rad = {np.degrees(delta_geom):.1f}° (obs: {delta_obs:.2f} rad) [{abs(delta_geom-delta_obs)/delta_obs*100:.1f}% error]")
+    print(f"  J_CP = {J_geom:.3e} (obs: {J_obs:.1e}) [{abs(J_geom-J_obs)/J_obs*100:.1f}% error]")
     print()
-    print("  Physics: Complex phases from wrapping on T²×T²×T²")
-    print("           Phase ∝ Im[τ_k × (Δn_k + Δm_k × τ_k)]")
-    print("           Different wrappings → geometric mixing")
+    print("  Physics: Wavefunction overlap + worldsheet instantons")
+    print("           Classical: Overlap ∝ exp(-|Δn|²/2σ²) × phase")
+    print("           Instanton: Amplitude ∝ exp(-S_inst + iφ) from wrapped cycles")
+    print("           CP violation: Requires instanton imaginary part")
+    print("           5 parameters: σ, α₁₂, α₂₃, α₁₃, λ_inst")
+    print("           vs 6 complex ε_ij (12 real) in Yukawa parametrization")
     print()
 
 # METHOD 2: Yukawa diagonalization (optimized fit)
@@ -1669,15 +1905,15 @@ m_b_pred = Y_0_down * v_higgs * m_down_quarks[2]
 
 print(f"Observable 11-19: Absolute masses")
 print(f"  Leptons:")
-print(f"    m_e: {m_e_pred*1e3:.3f} MeV (obs: {m_e_obs*1e3:.3f} MeV) - FITTED")
+print(f"    m_e: {m_e_pred*1e3:.3f} MeV (obs: {m_e_obs*1e3:.3f} MeV) - CALIBRATED")
 print(f"    m_μ: {m_mu_pred*1e3:.1f} MeV (obs: {m_mu_obs*1e3:.1f} MeV)")
 print(f"    m_τ: {m_tau_pred*1e3:.1f} MeV (obs: {m_tau_obs*1e3:.1f} MeV)")
 print(f"  Up quarks:")
-print(f"    m_u: {m_u_pred*1e3:.3f} MeV (obs: {m_u_obs*1e3:.3f} MeV)")
+print(f"    m_u: {m_u_pred*1e3:.3f} MeV (obs: {m_u_obs*1e3:.3f} MeV) - CALIBRATED")
 print(f"    m_c: {m_c_pred:.2f} GeV (obs: {m_c_obs:.2f} GeV)")
 print(f"    m_t: {m_t_pred:.1f} GeV (obs: {m_t_obs:.1f} GeV)")
 print(f"  Down quarks:")
-print(f"    m_d: {m_d_pred*1e3:.3f} MeV (obs: {m_d_obs*1e3:.3f} MeV)")
+print(f"    m_d: {m_d_pred*1e3:.3f} MeV (obs: {m_d_obs*1e3:.3f} MeV) - CALIBRATED")
 print(f"    m_s: {m_s_pred*1e3:.1f} MeV (obs: {m_s_obs*1e3:.1f} MeV)")
 print(f"    m_b: {m_b_pred:.2f} GeV (obs: {m_b_obs:.2f} GeV)")
 print()
@@ -1692,32 +1928,24 @@ err_s = abs(m_s_pred - m_s_obs) / m_s_obs * 100
 err_b = abs(m_b_pred - m_b_obs) / m_b_obs * 100
 
 print(f"  Errors:")
-print(f"    Leptons: m_μ {err_mu:.1f}%, m_τ {err_tau:.1f}%")
-print(f"    Up: m_u {err_u:.1f}%, m_c {err_c:.1f}%, m_t {err_t:.1f}%")
-print(f"    Down: m_d {err_d:.1f}%, m_s {err_s:.1f}%, m_b {err_b:.1f}%")
+print(f"    Leptons: m_e 0.0% (calibrated), m_μ {err_mu:.1f}%, m_τ {err_tau:.1f}%")
+print(f"    Up: m_u 0.0% (calibrated), m_c {err_c:.1f}%, m_t {err_t:.1f}%")
+print(f"    Down: m_d 0.0% (calibrated), m_s {err_s:.1f}%, m_b {err_b:.1f}%")
 print()
 
-print(f"Note: Y₀ normalization depends on Kähler potential K = -log|X|²")
-print(f"      Current status: FITTED, needs derivation from geometry")
+print(f"Note: Y₀ normalization calibrated from lightest generation (m_e, m_u, m_d)")
+print(f"      Heavier generations predicted from geometric mass ratios")
+print(f"      Future: Derive Y₀ from Kähler potential K = -log|X|²")
 print()
 
 # ============================================================================
 # FIT NEUTRINO PARAMETERS (before neutrino section)
 # ============================================================================
 
-if args.fit or args.fit_neutrinos:
-    print("REFITTING NEUTRINO PARAMETERS...")
-    print()
-    M_R_scale, mu_scale, M_D_offdiag, M_R_offdiag, mu_offdiag, mu_diag_factors, phase_CP = fit_neutrino_parameters(v_higgs)
-else:
-    # Use cached values (optimized with 0.0% error)
-    M_R_scale = 3.537688  # GeV
-    mu_scale = 2.391095e-05  # GeV (24 keV)
-    M_D_offdiag = np.array([-0.340315, 1.869660, 0.609715])
-    M_R_offdiag = np.array([-0.554740, 0.618417, 0.059341])
-    mu_offdiag = np.array([1.477972, 0.025678, 1.794746])
-    mu_diag_factors = np.array([0.301352, 5.986650, 8.525876, 7.863262])
-    phase_CP = 1.36  # rad (needs refitting with new parametrization)
+# Always refit to ensure correct phase convention and up-to-date values
+print("FITTING NEUTRINO PARAMETERS (may take ~30 seconds)...")
+print()
+M_R_scale, mu_scale, M_D_offdiag, M_R_offdiag, mu_offdiag, mu_diag_factors, phase_CP = fit_neutrino_parameters(v_higgs, verbose=False)
 
 print(f"FITTED NEUTRINO PARAMETERS:")
 print(f"  M_R = {M_R_scale:.6f} GeV (inverse seesaw scale)")
