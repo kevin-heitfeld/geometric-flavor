@@ -1,8 +1,8 @@
 # Phase 1 Completion Plan: Parameter Identification
 
 **Goal:** Transform all 38 fitted parameters into geometrically-identified objects.
-**Timeline:** 2-4 weeks focused work
-**Status:** Implementation roadmap
+**Timeline:** 4-5 weeks focused work (REVISED)
+**Status:** Implementation roadmap (UPDATED after spurion testing)
 
 ---
 
@@ -16,11 +16,40 @@
 
 **Remaining work:** Parameter identification, not new physics.
 
+**KEY UPDATE (Jan 2025):** After testing spurion mechanism, revised priority order.
+CKM/mixing identification DEFERRED until geometric foundation is complete.
+
 ---
 
-## Critical Path: 4 Major Tasks
+## Critical Path: 4 Major Tasks (REVISED PRIORITY)
 
-### TASK 1: Collapse CP Violation to Single Spurion ⚡ HIGHEST PRIORITY
+### ~~TASK 1: Collapse CP Violation to Single Spurion~~ → DEFERRED TO WEEK 5+
+
+**Status:** ⏸️ Postponed pending geometric understanding
+
+**What we learned:**
+- Spurion mechanism CONCEPTUALLY sound (reduces 28 → 1 spurion + discrete data)
+- Multiple implementations tested (FN formula, hierarchical, multi-charge)
+- Best fit achieved: 41% error (vs. <5% target)
+- **Conclusion:** Spurion requires more geometric input than currently available
+
+**Why defer:**
+1. Can't force <5% fit without understanding Kähler geometry
+2. Other parameters (Yukawa, localization, neutrino scales) easier to identify
+3. Once geometric foundation built → return with proper constraints
+4. Better to do it RIGHT than do it FAST
+
+**Spurion work completed:**
+- ✅ Module structure (flavor_spurion.py, 445 lines)
+- ✅ Multiple implementations tested (v1, v2, scanning)
+- ✅ Demonstrated parameter reduction concept
+- ⏸️ Actual integration deferred until Weeks 5+
+
+**See:** `docs/SPURION_HONEST_ASSESSMENT.md` for full analysis
+
+---
+
+### TASK 1 (NEW): Identify Yukawa Normalizations with Kähler Geometry ⚡ NEW HIGHEST PRIORITY
 
 **Problem:** 28 free complex parameters for mixing (12 CKM + 16 neutrino)
 **Solution:** ONE complex modular form generates all mixing
@@ -68,61 +97,99 @@ def generate_CKM_from_spurion(Z_spurion, U1_charges):
     epsilon_up = np.zeros((3, 3), dtype=complex)
     epsilon_down = np.zeros((3, 3), dtype=complex)
 
-    # Example charge assignment (Froggatt-Nielsen)
-    q_up = np.array([3, 2, 0])    # u, c, t generations
-    q_down = np.array([3, 2, 0])  # d, s, b generations
+**Problem:** 3 free Yukawa normalizations (Y₀^u, Y₀^d, Y₀^ℓ) lack geometric origin
+**Solution:** Relate to Kähler metric K(τ, g_s) + worldsheet instanton actions
 
-    # Clebsch coefficients (from SO(10) or SU(5) breaking)
-    # These are FIXED by symmetry, not fitted
-    C_up = get_clebsch_coefficients('up', family_symmetry='A4')
-    C_down = get_clebsch_coefficients('down', family_symmetry='A4')
+**Why this is easier than CKM:**
+- Yukawa normalizations are REAL numbers (not complex)
+- Only 3 parameters (not 28)
+- Direct connection to moduli τ, g_s (which we already know!)
+- String theory formula is standard: Y ~ e^{-K/2} × e^{-S_inst}
 
-    for i in range(3):
-        for j in range(3):
-            if i != j:
-                power = q_up[i] - q_up[j]
-                epsilon_up[i, j] = C_up[i, j] × Z_spurion**power
+**Implementation:**
 
-                power = q_down[i] - q_down[j]
-                epsilon_down[i, j] = C_down[i, j] × Z_spurion**power
+#### 1.1 Define Kähler Metric from Modulus
+```python
+def kahler_metric(tau, g_s, sector='uptype'):
+    """
+    Kähler metric component for Yukawa couplings.
 
-    return epsilon_up, epsilon_down
+    K = -3 log(T + T̄) - log(S + S̄)
+    where T = τ (Kähler modulus), S = 1/g_s (dilaton)
+
+    Yukawa ~ e^{-K_i/2 - K_j/2 - K_H/2}
+    """
+    T = tau
+    S = 1/g_s
+
+    # Kähler potential (tree level)
+    K = -3 * np.log(2 * T.imag) - np.log(2 * S.real)
+
+    # Matter field dependence (from localization)
+    if sector == 'uptype':
+        K_matter = K  # untwisted sector
+    elif sector == 'downtype':
+        K_matter = K + 0.2  # twisted sector shift
+    elif sector == 'lepton':
+        K_matter = K + 0.1  # different localization
+
+    return np.exp(-K_matter / 2)
 ```
 
-**Benefit:** Reduces 28 free parameters → 1 complex spurion + discrete data
-
-#### 1.3 Unify Neutrino CP Phase
+#### 1.2 Add Worldsheet Instanton Contributions
 ```python
-def generate_neutrino_mixing_from_spurion(Z_spurion, charges_L, charges_N):
+def yukawa_from_geometry(tau, g_s, sector):
     """
-    Neutrino Dirac matrix from SAME spurion as CKM.
+    Yukawa coupling from Kähler + instantons.
 
-    M_D[i,j] = Y₀ × [δ_ij + ε_ij] × v
-    ε_ij = C_ij^ν × Z^{q_L[i] - q_N[j]}
+    Y_0 = e^{-K/2} × e^{-S_inst}
 
-    Key: phase_CP is NOT independent, it comes from arg(Z).
+    where S_inst = Re(τ) for up-type, etc.
     """
-    M_D_offdiag = np.zeros(3, dtype=complex)
+    # Kähler contribution
+    K_factor = kahler_metric(tau, g_s, sector)
 
-    # Off-diagonal structure from spurion
-    M_D_offdiag[0] = C_01 × Z_spurion**(charges_L[0] - charges_N[1])
-    M_D_offdiag[1] = C_12 × Z_spurion**(charges_L[1] - charges_N[2])
-    M_D_offdiag[2] = C_02 × Z_spurion**(charges_L[0] - charges_N[2])
+    # Instanton suppression (different for each sector)
+    if sector == 'uptype':
+        S_inst = tau.real * 0.5  # wraps 2-cycle once
+    elif sector == 'downtype':
+        S_inst = tau.real * 0.3  # different cycle
+    elif sector == 'lepton':
+        S_inst = tau.real * 0.4
 
-    return M_D_offdiag
+    instanton_factor = np.exp(-S_inst)
+
+    Y_0 = K_factor * instanton_factor
+
+    return Y_0
+```
+
+#### 1.3 Replace Fitted Parameters
+```python
+# OLD CODE (to delete):
+Y0_up = 1.2e-5    # Fitted value
+Y0_down = 5.4e-6  # Fitted value
+Y0_lepton = 2.8e-6  # Fitted value
+
+# NEW CODE:
+Y0_up = yukawa_from_geometry(tau, g_s, 'uptype')
+Y0_down = yukawa_from_geometry(tau, g_s, 'downtype')
+Y0_lepton = yukawa_from_geometry(tau, g_s, 'lepton')
 ```
 
 **Code changes required:**
-- Delete `fit_ckm_parameters()` optimization
-- Delete independent `phase_CP` parameter
-- Add `get_mixing_from_spurion(Z, charges, symmetry)`
-- Optimize only: |Z|, arg(Z), charge assignments
+- Add `kahler_metric()` function
+- Add `yukawa_from_geometry()` function
+- Replace Y0 fitted values with geometric formula
+- Test: Verify all 50 observables still <5% error
 
-**Success metric:** 28 parameters → 2 (|Z|, arg(Z)) + discrete charges
+**Success metric:** 3 fitted parameters → 0 (derived from τ, g_s)
+
+**Time estimate:** 2-3 days
 
 ---
 
-### TASK 2: Lock Yukawa Normalizations to Kähler Geometry
+### TASK 2: Discretize Localization Parameters
 
 **Problem:** Y₀^(u,d,ℓ) are arbitrary normalization constants
 **Solution:** Relate to Kähler metric + instantons
