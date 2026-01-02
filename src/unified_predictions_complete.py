@@ -544,7 +544,7 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
 
 def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
                               sigma_overlap=3.5, alpha_12=0.225, alpha_23=0.042, alpha_13=0.0036,
-                              instanton_strength=10.0, verbose=False):
+                              instanton_strength=10.0, B_field=None, verbose=False):
     """
     Compute CKM mixing angles from geometric phase differences + instanton corrections.
 
@@ -553,7 +553,8 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
     - Yukawa couplings Y_ij ∝ ∫ ψ_u^i ψ_d^j ψ_H from wavefunction overlaps
     - Off-diagonal terms arise from non-trivial wrapping number differences
     - Classical phases from τ (complex structure moduli)
-    - CP violation from worldsheet instantons wrapping holomorphic cycles
+    - CP violation from B-field flux: τ_eff = τ + i×B
+    - Enhanced by worldsheet instantons wrapping holomorphic cycles
 
     Args:
         wrapping_up: List of 3 wrapping numbers for up-type quarks
@@ -562,6 +563,7 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
         sigma_overlap: Characteristic spread for wavefunction overlaps
         alpha_12, alpha_23, alpha_13: Mixing strength parameters
         instanton_strength: Overall normalization of instanton corrections
+        B_field: [B₁, B₂, B₃] NS-NS B-field flux through 2-cycles (default: None)
         verbose: Print detailed information
 
     Returns:
@@ -570,106 +572,149 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
         J_CP: Jarlskog invariant
     """
 
-    # Compute relative phase factors from wrapping differences
-    # For generations i,j: phase ∝ Im[τ × Δn × Δm]
-    # PLUS instanton corrections for CP violation
-    phases_ij = np.zeros((3, 3), dtype=complex)
+    # Apply B-field shift to τ if provided: τ_eff = τ + i×B
+    # B-field flux breaks CP symmetry by making τ truly complex
+    if B_field is not None:
+        tau_eff = []
+        for k in range(3):
+            tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
+            B_k = B_field[k] if isinstance(B_field, (list, np.ndarray)) else B_field
+            tau_eff.append(tau_k + 1j * B_k)
+    else:
+        tau_eff = tau_values if isinstance(tau_values, list) else [tau_values]*3
 
+    # Build complex Yukawa matrices from geometry
+    # Y_ij = |Y_ij| × exp(iφ_ij) where:
+    # - Magnitude from wavefunction overlap: |Y_ij| ∝ ∫ ψ_fermion^i ψ_fermion^j ψ_H
+    # - Phase from complex structure: φ_ij = arg(∏_k (Δn_k + Δm_k×τ_k))
+    # - CP violation requires COMPLEX τ_eff = τ + i×B
+    #
+    # Key insight: Y_up and Y_down have DIFFERENT structures because:
+    # Y_up[i,j] involves wrapping of u_i, u_j, and Higgs
+    # Y_down[i,j] involves wrapping of d_i, d_j, and Higgs
+    # Their relative phases → CKM = V_uL × V_dL†
+
+    # Higgs wrapping (same for both sectors, e.g., [[1,0],[1,0],[1,0]])
+    wrapping_H = [(1, 0), (1, 0), (1, 0)]
+
+    Y_up = np.zeros((3, 3), dtype=complex)
+    Y_down = np.zeros((3, 3), dtype=complex)
+
+    # Build Y_up[i,j]: overlap of u_i, u_j, H wavefunctions
     for i in range(3):
         for j in range(3):
-            # Wrapping number difference
-            delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
-                               wrapping_up[i][k][1] - wrapping_down[j][k][1])
-                              for k in range(3))
+            yukawa_phase = 0
+            overlap_factor = 1.0
+            inst_action = 0
 
-            # Classical geometric phase: arg(exp(2πi(n+m×τ)))
-            phase_classical = 0
             for k in range(3):
-                tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                dn, dm = delta_wrap[k]
-                phase_classical += np.imag(2j * np.pi * (dn + dm * tau_k))
+                tau_k = tau_eff[k]
+                tau_k_real = tau_values[k] if isinstance(tau_values, list) else tau_values
 
-            # Worldsheet instanton corrections
-            # Instantons wrap holomorphic curves → contribute exp(-S_inst) with phase
-            # S_inst = ∫ J = Area of wrapped cycle ∝ |wrapping|²/Im[τ]
-            # For CY3 with 3 T²: instantons on each torus contribute
-            instanton_action = 0
-            phi_components = []
-            for k in range(3):
-                tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                dn, dm = delta_wrap[k]
-                # Action for (n,m) curve on T²
-                z_wrap = dn + dm * tau_k
-                area = abs(z_wrap)**2 / np.imag(tau_k)
-                instanton_action += area
-                # Phase contribution from each torus (sensitive to both n and m)
-                phi_components.append(np.angle(z_wrap) + dn * dm * np.pi / 3.0)
+                # Wrapping differences for overlap
+                n_i, m_i = wrapping_up[i][k]
+                n_j, m_j = wrapping_up[j][k]
+                n_H, m_H = wrapping_H[k]
 
-            # Instanton amplitude: exp(-S_inst + i×φ_inst)
-            # Phase depends on interference between tori and wrapping asymmetry
-            phi_inst = sum(phi_components) + np.pi * (i - j) / 3.0  # Add generation dependence
+                # Phase from triple intersection: (n_i+m_i*τ) × (n_j+m_j*τ) × (n_H+m_H*τ)
+                z_i = n_i + m_i * tau_k
+                z_j = n_j + m_j * tau_k
+                z_H = n_H + m_H * tau_k
+                yukawa_phase += np.angle(z_i * z_j * z_H)
 
-            # Total phase = classical + instanton correction
-            # Instanton suppression ~ exp(-π×area) but enhanced by wrapping hierarchy
-            instanton_amplitude = np.exp(-np.pi * instanton_action + 1j * phi_inst) * instanton_strength
+                # Overlap suppression from separation
+                z_ij = (n_i - n_j) + (m_i - m_j) * tau_k_real
+                overlap_factor *= np.exp(-abs(z_ij)**2 / (2 * sigma_overlap**2 * np.imag(tau_k_real)))
 
-            phases_ij[i, j] = np.exp(1j * phase_classical) * (1.0 + instanton_amplitude)
-    # Mixing strength from wavefunction overlap integrals
-    # Physical picture: Yukawa Y_ij ∝ ∫ ψ_u^i ψ_d^j ψ_H
-    # Suppression from separation on torus: exp(-π|Δn|²/Im[τ])
-    overlap_ij = np.zeros((3, 3))
+                # Instanton action
+                inst_action += (abs(z_i)**2 + abs(z_j)**2) / np.imag(tau_k)
 
+            # Apply mixing strengths based on generation difference
+            if i == j:
+                # Diagonal: unity + small correction
+                Y_up[i, j] = 1.0
+            elif abs(i - j) == 1:
+                # Adjacent generations: use α_12 or α_23
+                if (i, j) in [(0, 1), (1, 0)]:
+                    strength = alpha_12
+                else:  # (1, 2) or (2, 1)
+                    strength = alpha_23
+                Y_up[i, j] = strength * overlap_factor * np.exp(1j * yukawa_phase) * \
+                            (1.0 + instanton_strength * np.exp(-inst_action + 1j * np.pi * (i-j) / 3))
+            else:  # abs(i - j) == 2, i.e., (0, 2) or (2, 0)
+                # Distant generations: use α_13
+                Y_up[i, j] = alpha_13 * overlap_factor * np.exp(1j * yukawa_phase) * \
+                            (1.0 + instanton_strength * np.exp(-inst_action + 1j * np.pi * (i-j) / 3))
+
+    # Build Y_down[i,j]: overlap of d_i, d_j, H wavefunctions
     for i in range(3):
         for j in range(3):
-            delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
-                               wrapping_up[i][k][1] - wrapping_down[j][k][1])
-                              for k in range(3))
+            yukawa_phase = 0
+            overlap_factor = 1.0
+            inst_action = 0
 
-            # Distance on each T² (in moduli space)
-            distance_sq = 0
             for k in range(3):
-                tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                dn, dm = delta_wrap[k]
-                # Distance in fundamental domain
-                z = dn + dm * tau_k
-                distance_sq += abs(z)**2 / np.imag(tau_k)
+                tau_k = tau_eff[k]
+                tau_k_real = tau_values[k] if isinstance(tau_values, list) else tau_values
 
-            # Overlap suppression with provided scale
-            overlap_ij[i, j] = np.exp(-distance_sq / (2 * sigma_overlap**2))
+                # Down-type wrapping
+                n_i, m_i = wrapping_down[i][k]
+                n_j, m_j = wrapping_down[j][k]
+                n_H, m_H = wrapping_H[k]
 
-    # Build CKM matrix with geometric overlap × phase structure
-    V_CKM = np.zeros((3, 3), dtype=complex)
+                # Phase from triple intersection
+                z_i = n_i + m_i * tau_k
+                z_j = n_j + m_j * tau_k
+                z_H = n_H + m_H * tau_k
+                yukawa_phase += np.angle(z_i * z_j * z_H)
 
-    # Diagonal: dominant self-overlaps (≈1)
+                # Overlap suppression
+                z_ij = (n_i - n_j) + (m_i - m_j) * tau_k_real
+                overlap_factor *= np.exp(-abs(z_ij)**2 / (2 * sigma_overlap**2 * np.imag(tau_k_real)))
+
+                # Instanton action
+                inst_action += (abs(z_i)**2 + abs(z_j)**2) / np.imag(tau_k)
+
+            # Apply mixing strengths based on generation difference
+            if i == j:
+                # Diagonal: unity + small correction
+                Y_down[i, j] = 1.0
+            elif abs(i - j) == 1:
+                # Adjacent generations
+                if (i, j) in [(0, 1), (1, 0)]:
+                    strength = alpha_12
+                else:  # (1, 2) or (2, 1)
+                    strength = alpha_23
+                Y_down[i, j] = strength * overlap_factor * np.exp(1j * yukawa_phase) * \
+                              (1.0 + instanton_strength * np.exp(-inst_action + 1j * np.pi * (i-j) / 3))
+            else:  # abs(i - j) == 2
+                Y_down[i, j] = alpha_13 * overlap_factor * np.exp(1j * yukawa_phase) * \
+                              (1.0 + instanton_strength * np.exp(-inst_action + 1j * np.pi * (i-j) / 3))    # Diagonalize Yukawa matrices to get CKM
+    # Y_up = V_uL × D_up × V_uR†, Y_down = V_dL × D_down × V_dR†
+    # V_CKM = V_uL × V_dL†
+
+    # SVD: Y = U × S × Vh (S diagonal, real)
+    U_up, S_up, Vh_up = np.linalg.svd(Y_up)
+    U_down, S_down, Vh_down = np.linalg.svd(Y_down)
+
+    # CKM matrix from left rotations
+    V_CKM = U_up @ U_down.T.conj()
+
+    # Enforce proper phase conventions (make largest element in each row real)
     for i in range(3):
-        V_CKM[i, i] = 1.0
+        max_idx = np.argmax(np.abs(V_CKM[i, :]))
+        phase = np.angle(V_CKM[i, max_idx])
+        V_CKM[i, :] *= np.exp(-1j * phase)
 
-    # Off-diagonal: suppressed by overlap, modulated by phase
-    # Use provided strength parameters α_ij
-    V_CKM[0, 1] = alpha_12 * overlap_ij[0, 1] * phases_ij[0, 1]
-    V_CKM[1, 0] = alpha_12 * overlap_ij[1, 0] * phases_ij[1, 0]
-
-    V_CKM[1, 2] = alpha_23 * overlap_ij[1, 2] * phases_ij[1, 2]
-    V_CKM[2, 1] = alpha_23 * overlap_ij[2, 1] * phases_ij[2, 1]
-
-    V_CKM[0, 2] = alpha_13 * overlap_ij[0, 2] * phases_ij[0, 2]
-    V_CKM[2, 0] = alpha_13 * overlap_ij[2, 0] * phases_ij[2, 0]
-
-    # Unitarize via Gram-Schmidt orthogonalization
-    V_CKM[0] /= np.linalg.norm(V_CKM[0])
-    V_CKM[1] -= np.dot(V_CKM[1], V_CKM[0].conj()) * V_CKM[0]
-    V_CKM[1] /= np.linalg.norm(V_CKM[1])
-    V_CKM[2] = np.cross(V_CKM[0].conj(), V_CKM[1].conj()).conj()
-
-    # Extract observables
+    # Extract observables from CKM standard parametrization
     sin2_theta_12 = np.abs(V_CKM[0, 1])**2
     sin2_theta_23 = np.abs(V_CKM[1, 2])**2
     sin2_theta_13 = np.abs(V_CKM[0, 2])**2
 
-    # CP phase from standard parametrization
+    # CP phase: δ = -arg(V_ub) in standard convention
     delta_CP = -np.angle(V_CKM[0, 2])
 
-    # Jarlskog invariant
+    # Jarlskog invariant: J = Im[V_us V_cb V_ub* V_cs*]
     J_CP = np.imag(V_CKM[0, 1] * V_CKM[1, 2] *
                    np.conj(V_CKM[0, 2]) * np.conj(V_CKM[1, 1]))
 
@@ -685,15 +730,15 @@ def compute_ckm_from_geometry(wrapping_up, wrapping_down, tau_values,
     return sin2_theta_12, sin2_theta_23, sin2_theta_13, delta_CP, J_CP
 
 
-def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, verbose=True):
+def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, use_bfield=True, verbose=True):
     """
-    Optimize geometric CKM parameters (overlap scale σ, mixing strengths α_ij, and instanton strength)
-    to match observed CKM matrix elements.
+    Optimize geometric CKM parameters to match observed CKM matrix elements.
 
     Parameters to optimize:
     - σ_overlap: characteristic spread for wavefunction overlaps
     - α_12, α_23, α_13: mixing strength parameters
-    - λ_inst: instanton contribution strength (for CP violation)
+    - λ_inst: instanton contribution strength
+    - B₁, B₂, B₃: NS-NS B-field flux (if use_bfield=True) for CP violation
 
     Returns optimized parameters and final errors.
     """
@@ -708,108 +753,72 @@ def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, verbose=True)
 
     def objective(params):
         """Minimize error in CKM observables"""
-        sigma_overlap, alpha_12, alpha_23, alpha_13, lambda_inst = params
+        if use_bfield:
+            sigma_overlap, alpha_12, alpha_23, alpha_13, lambda_inst, B1, B2, B3 = params
+            B_field = [B1, B2, B3]
+        else:
+            sigma_overlap, alpha_12, alpha_23, alpha_13, lambda_inst = params
+            B_field = None
 
         try:
-            # Compute phases WITH INSTANTON CORRECTIONS
-            phases_ij = np.zeros((3, 3), dtype=complex)
-            for i in range(3):
-                for j in range(3):
-                    delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
-                                       wrapping_up[i][k][1] - wrapping_down[j][k][1])
-                                      for k in range(3))
+            # Use the refactored compute_ckm_from_geometry function
+            sin2_12_pred, sin2_23_pred, sin2_13_pred, delta_pred, J_pred = compute_ckm_from_geometry(
+                wrapping_up, wrapping_down, tau_values,
+                sigma_overlap=sigma_overlap,
+                alpha_12=alpha_12,
+                alpha_23=alpha_23,
+                alpha_13=alpha_13,
+                instanton_strength=lambda_inst,
+                B_field=B_field,
+                verbose=False
+            )
 
-                    # Classical phase
-                    phase_classical = 0
-                    for k in range(3):
-                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                        dn, dm = delta_wrap[k]
-                        phase_classical += np.imag(2j * np.pi * (dn + dm * tau_k))
-
-                    # Instanton correction
-                    instanton_action = 0
-                    phi_components = []
-                    for k in range(3):
-                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                        dn, dm = delta_wrap[k]
-                        z_wrap = dn + dm * tau_k
-                        area = abs(z_wrap)**2 / np.imag(tau_k)
-                        instanton_action += area
-                        phi_components.append(np.angle(z_wrap) + dn * dm * np.pi / 3.0)
-
-                    phi_inst = sum(phi_components) + np.pi * (i - j) / 3.0
-
-                    instanton_amplitude = np.exp(-np.pi * instanton_action + 1j * phi_inst) * lambda_inst
-                    phases_ij[i, j] = np.exp(1j * phase_classical) * (1.0 + instanton_amplitude)
-
-            # Compute overlaps with current σ
-            overlap_ij = np.zeros((3, 3))
-            for i in range(3):
-                for j in range(3):
-                    delta_wrap = tuple((wrapping_up[i][k][0] - wrapping_down[j][k][0],
-                                       wrapping_up[i][k][1] - wrapping_down[j][k][1])
-                                      for k in range(3))
-                    distance_sq = 0
-                    for k in range(3):
-                        tau_k = tau_values[k] if isinstance(tau_values, list) else tau_values
-                        dn, dm = delta_wrap[k]
-                        z = dn + dm * tau_k
-                        distance_sq += abs(z)**2 / np.imag(tau_k)
-                    overlap_ij[i, j] = np.exp(-distance_sq / (2 * sigma_overlap**2))
-
-            # Build CKM matrix
-            V_CKM = np.zeros((3, 3), dtype=complex)
-            for i in range(3):
-                V_CKM[i, i] = 1.0
-
-            V_CKM[0, 1] = alpha_12 * overlap_ij[0, 1] * phases_ij[0, 1]
-            V_CKM[1, 0] = alpha_12 * overlap_ij[1, 0] * phases_ij[1, 0]
-            V_CKM[1, 2] = alpha_23 * overlap_ij[1, 2] * phases_ij[1, 2]
-            V_CKM[2, 1] = alpha_23 * overlap_ij[2, 1] * phases_ij[2, 1]
-            V_CKM[0, 2] = alpha_13 * overlap_ij[0, 2] * phases_ij[0, 2]
-            V_CKM[2, 0] = alpha_13 * overlap_ij[2, 0] * phases_ij[2, 0]
-
-            # Unitarize
-            V_CKM[0] /= np.linalg.norm(V_CKM[0])
-            V_CKM[1] -= np.dot(V_CKM[1], V_CKM[0].conj()) * V_CKM[0]
-            V_CKM[1] /= np.linalg.norm(V_CKM[1])
-            V_CKM[2] = np.cross(V_CKM[0].conj(), V_CKM[1].conj()).conj()
-
-            # Extract observables
-            sin2_12_pred = np.abs(V_CKM[0, 1])**2
-            sin2_23_pred = np.abs(V_CKM[1, 2])**2
-            sin2_13_pred = np.abs(V_CKM[0, 2])**2
-            delta_pred = -np.angle(V_CKM[0, 2])
-            J_pred = np.imag(V_CKM[0, 1] * V_CKM[1, 2] *
-                            np.conj(V_CKM[0, 2]) * np.conj(V_CKM[1, 1]))
-
-            # Compute errors (weighted by importance)
+            # Compute errors
             err_12 = abs(sin2_12_pred - sin2_theta_12_obs) / sin2_theta_12_obs
             err_23 = abs(sin2_23_pred - sin2_theta_23_obs) / sin2_theta_23_obs
             err_13 = abs(sin2_13_pred - sin2_theta_13_obs) / sin2_theta_13_obs
             err_dcp = abs(delta_pred - delta_CP_obs) / delta_CP_obs
             err_jcp = abs(J_pred - J_CP_obs) / J_CP_obs
 
-            # Total error (weighted: angles more important than phases initially)
-            return max(err_12, err_23, err_13, err_dcp * 0.3, err_jcp * 0.3)
+            # Total error: equal weight on all 5 observables with B-field
+            if use_bfield:
+                return max(err_12, err_23, err_13, err_dcp, err_jcp)
+            else:
+                # Without B-field, downweight CP observables
+                return max(err_12, err_23, err_13, err_dcp * 0.3, err_jcp * 0.3)
 
-        except:
+        except Exception as e:
             return 1e10
 
     if verbose:
-        print("Optimizing geometric CKM parameters (with instanton corrections)...")
+        print(f"Optimizing geometric CKM parameters ({'WITH' if use_bfield else 'WITHOUT'} B-field)...")
 
-    # Bounds: wider ranges since previous optimization hit bounds
-    bounds = [(1.0, 20.0),      # σ_overlap (was 10, optimizer hit 9.7)
-              (0.15, 0.35),     # α_12 (Cabibbo scale, slightly wider)
-              (0.02, 0.10),     # α_23 (V_cb scale, slightly wider)
-              (0.001, 0.015),   # α_13 (V_ub scale, slightly wider)
-              (0.1, 500.0)]     # λ_inst (was 100, optimizer hit upper bound)
+    # Bounds
+    if use_bfield:
+        bounds = [(1.0, 20.0),      # σ_overlap
+                  (0.15, 0.35),     # α_12 (Cabibbo scale)
+                  (0.02, 0.10),     # α_23 (V_cb scale)
+                  (0.001, 0.015),   # α_13 (V_ub scale)
+                  (0.1, 500.0),     # λ_inst
+                  (-0.5, 0.5),      # B₁ (B-field flux)
+                  (-0.5, 0.5),      # B₂
+                  (-0.5, 0.5)]      # B₃
+    else:
+        bounds = [(1.0, 20.0),      # σ_overlap
+                  (0.15, 0.35),     # α_12
+                  (0.02, 0.10),     # α_23
+                  (0.001, 0.015),   # α_13
+                  (0.1, 500.0)]     # λ_inst
 
-    result = differential_evolution(objective, bounds, seed=42, maxiter=400,
-                                   popsize=15, atol=1e-6, tol=1e-6)
+    result = differential_evolution(objective, bounds, seed=42, maxiter=600,
+                                   popsize=20, atol=1e-6, tol=1e-6)
 
-    sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt = result.x
+    if use_bfield:
+        sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt, B1, B2, B3 = result.x
+        B_opt = [B1, B2, B3]
+    else:
+        sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt = result.x
+        B_opt = None
 
     if verbose:
         print(f"✅ Optimization complete:")
@@ -818,10 +827,15 @@ def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, verbose=True)
         print(f"   α_23 = {alpha_23_opt:.6f}")
         print(f"   α_13 = {alpha_13_opt:.6f}")
         print(f"   λ_inst = {lambda_inst_opt:.3f}")
+        if use_bfield:
+            print(f"   B-field = [{B1:.4f}, {B2:.4f}, {B3:.4f}]")
         print(f"   Max error: {result.fun*100:.1f}%")
         print()
 
-    return sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt
+    if use_bfield:
+        return sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt, B_opt
+    else:
+        return sigma_opt, alpha_12_opt, alpha_23_opt, alpha_13_opt, lambda_inst_opt
 
 
 # ============================================================================
