@@ -1,7 +1,7 @@
 # Phase 2 Breakthrough: Yukawa Hierarchies from Kähler Geometry
 
-**Date**: January 2, 2026  
-**Achievement**: First geometric derivation of Yukawa coupling hierarchies from string theory  
+**Date**: January 2, 2026
+**Achievement**: First geometric derivation of Yukawa coupling hierarchies from string theory
 **Result**: ALL A_i errors = 0.0% (perfect agreement)
 
 ## Executive Summary
@@ -86,7 +86,7 @@ Critical innovation: **τ₂ ≠ τ₃** breaks accidental degeneracies
 **Leptons**:
 ```
 Gen 1: ((1,0), (1,0), (1,0))
-Gen 2: ((1,0), (1,0), (1,1))  
+Gen 2: ((1,0), (1,0), (1,1))
 Gen 3: ((1,0), (1,1), (1,0))
 ```
 
@@ -109,7 +109,7 @@ Gen 3: ((1,0), (2,1), (1,0))  ← Large wrapping for bottom
 ### Optimization Algorithm
 - **Method**: L-BFGS-B (bounded optimization)
 - **Parameters**: 12 (δg + 9×σ² + 2×τ_ratio)
-- **Bounds**: 
+- **Bounds**:
   - δg: [0.001, 0.5]
   - σ²: [0.1, 50.0] for each
   - τ_ratio: [0.5, 2.0]
@@ -118,7 +118,7 @@ Gen 3: ((1,0), (2,1), (1,0))  ← Large wrapping for bottom
 ### Blow-up Parameters
 ```
 ε₁ = 0.1
-ε₂ = 0.1  
+ε₂ = 0.1
 ε₃ = 0.1
 ```
 
@@ -214,11 +214,11 @@ python src/unified_predictions_complete.py --geometric
 
 ## Validation Checks
 
-✓ **Unitarity**: g_i[0] = 1 exactly (normalization)  
-✓ **Symmetry**: Down quarks need special wrappings  
-✓ **Convergence**: Optimization reaches global minimum  
-✓ **Stability**: Results stable under parameter variations  
-✓ **Physics**: ~10% g_i errors validate protection  
+✓ **Unitarity**: g_i[0] = 1 exactly (normalization)
+✓ **Symmetry**: Down quarks need special wrappings
+✓ **Convergence**: Optimization reaches global minimum
+✓ **Stability**: Results stable under parameter variations
+✓ **Physics**: ~10% g_i errors validate protection
 
 ## Conclusions
 

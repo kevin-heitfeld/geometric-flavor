@@ -1044,7 +1044,11 @@ def fit_neutrino_parameters(v_higgs, verbose=True):
             sin2_12 = np.abs(U_PMNS[0,1])**2
             sin2_23 = np.abs(U_PMNS[1,2])**2
             sin2_13 = np.abs(U_PMNS[0,2])**2
-            delta_CP = np.angle(U_PMNS[0,2])
+            # Extract CP phase in [0, 2π] range (standard PMNS convention)
+            # Standard parametrization: U_e3 = sin(θ₁₃) e^(-iδ) → δ = -arg(U[0,2])
+            delta_CP = -np.angle(U_PMNS[0,2])
+            if delta_CP < 0:
+                delta_CP += 2 * np.pi
 
             # Compute errors
             err_m21 = abs(Delta_m21_sq - Delta_m21_sq_obs) / Delta_m21_sq_obs
@@ -1781,8 +1785,11 @@ sin2_theta_12_PMNS = np.abs(U_PMNS[0,1])**2
 sin2_theta_23_PMNS = np.abs(U_PMNS[1,2])**2
 sin2_theta_13_PMNS = np.abs(U_PMNS[0,2])**2
 
-# Extract PMNS CP phase
-delta_CP_PMNS_pred = np.angle(U_PMNS[0,2])  # radians
+# Extract PMNS CP phase in [0, 2π] convention
+# Standard parametrization: U_e3 = sin(θ₁₃) e^(-iδ) → δ = -arg(U[0,2])
+delta_CP_PMNS_pred = -np.angle(U_PMNS[0,2])  # radians
+if delta_CP_PMNS_pred < 0:
+    delta_CP_PMNS_pred += 2 * np.pi
 delta_CP_PMNS_degrees = np.degrees(delta_CP_PMNS_pred)
 
 # Mass splittings (in eV²)
