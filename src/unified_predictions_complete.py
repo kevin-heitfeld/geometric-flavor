@@ -724,6 +724,7 @@ else:
     k_gauge = np.array([11, 9, 9])
 
     # Localization parameters (fitted for mass hierarchies)
+    # TODO Phase 2: Derive from explicit CY geometry
     A_leptons = np.array([0.00, -0.72084622, -0.92315966])
     A_up = np.array([0.00, -0.87974875, -1.48332060])
     A_down = np.array([0.00, -0.33329575, -0.88288836])

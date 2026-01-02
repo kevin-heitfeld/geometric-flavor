@@ -189,65 +189,38 @@ Y0_lepton = yukawa_from_geometry(tau, g_s, 'lepton')
 
 ---
 
-### TASK 2: Discretize Localization Parameters
+### TASK 2: Discretize Localization Parameters ⏸️ DEFERRED TO PHASE 2
 
-**Problem:** Y₀^(u,d,ℓ) are arbitrary normalization constants
-**Solution:** Relate to Kähler metric + instantons
+**Status:** ⏸️ Postponed pending explicit CY geometry
 
-**Implementation:**
+**What we learned:**
+- Localization parameters (g_i, A_i) depend on LOCAL CY geometry
+- Simple formulas give 10-80% errors (unacceptable)
+- Need: Actual CY metric, intersection angles, brane distances
+- **Conclusion:** Cannot derive without explicit Calabi-Yau
 
-#### 2.1 Define Kähler Metric from Modulus
-```python
-def kahler_metric(tau, g_s, sector='uptype'):
-    """
-    Kähler metric component for Yukawa couplings.
+**Why defer:**
+1. g_i ~ 1 + δg × modular_weight gives ~10% errors (too simple)
+2. A_i ~ generation × base_suppression gives 36-80% errors (way off)
+3. Reality: Full modular forms + detailed CY intersection geometry needed
+4. Better to be honest: "need Phase 2" than add fake calibration factors
 
-    K = -k log(T + T̄) - log(S + S̄) + ...
-    where T = τ (Kähler modulus), S = dilaton
+**Localization work completed:**
+- ✅ Module structure (localization_from_geometry.py)
+- ✅ Demonstrated scaling behavior (g_i ~ O(1), A_i ~ distance)
+- ✅ Identified physical origin (modular weights, brane distances)
+- ⏸️ Cannot predict numerical values without CY details
 
-    Yukawa ~ e^{-K_i/2 - K_j/2 - K_H/2} × ⟨ψ_i ψ_j H⟩
-    """
-    T = tau
-    S = 1/g_s  # dilaton
+**See:** `docs/LOCALIZATION_HONEST_ASSESSMENT.md` for full analysis
 
-    # Kähler potential (tree level)
-    k_T = 3  # dimension of internal manifold piece
-    K = -k_T × np.log(T.imag) - np.log(S.real)
+**Contrast with Yukawa success:**
+- Yukawa Y₀: GLOBAL properties (Kähler potential, overall volume) ✅
+- Localization g_i, A_i: LOCAL properties (intersection details) ❌
+- Lesson: Phase 1 can identify global parameters, local ones need Phase 2
 
-    # Matter field Kähler metric (from localization)
-    if sector == 'uptype':
-        K_matter = K  # untwisted sector
-    elif sector == 'downtype':
-        K_matter = K + 0.5  # twisted sector shift
-    elif sector == 'lepton':
-        K_matter = K + 0.3  # different localization
+---
 
-    return np.exp(-K_matter / 2)
-```
-
-#### 2.2 Add Worldsheet Instanton Suppression
-```python
-def instanton_action(tau, g_s, sector):
-    """
-    Worldsheet instanton contributing to Yukawa.
-
-    Y ~ e^{-S_inst} where S_inst = Area / ℓ_s²
-
-    For different sectors, different 2-cycles are wrapped.
-    """
-    # Instanton action (real part)
-    if sector == 'uptype':
-        S_inst = 15.2  # wrapped 2-cycle area
-    elif sector == 'downtype':
-        S_inst = 14.5  # different 2-cycle
-    elif sector == 'lepton':
-        S_inst = 15.0  # third 2-cycle
-
-    return np.exp(-S_inst)
-```
-
-#### 2.3 Compute Y₀ from Geometry
-```python
+### TASK 3 (REVISED): Identify Mass Scale Factors k_mass ⚡ NEW PRIORITY
 def yukawa_normalization(tau, g_s, sector):
     """
     Yukawa normalization from Kähler + instantons.
