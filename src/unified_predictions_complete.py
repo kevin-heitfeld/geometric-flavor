@@ -284,51 +284,86 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
 
         def objective(params):
             """Minimize error between geometric and fitted values."""
-            if asymmetric_tori and len(params) == 6:
-                # With τ ratio optimization
-                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down, r2, r3 = params
+            nonlocal tau_values, G, G_inv, all_weights
+
+            if asymmetric_tori and len(params) == 12:
+                # Generation-dependent σ² + asymmetric tori
+                delta_g = params[0]
+                sigma_sq_lep = params[1:4]
+                sigma_sq_up = params[4:7]
+                sigma_sq_down = params[7:10]
+                r2, r3 = params[10], params[11]
+
                 # Recompute metric and weights with new τ values
-                nonlocal tau_values, G, G_inv, all_weights
                 tau_values = [tau_0, tau_0 * r2, tau_0 * r3]
                 G, G_inv = compute_kahler_metric(tau_values[0], tau_values[1], tau_values[2], epsilon)
-                # Recompute weights
                 for sector_name in ['leptons', 'up', 'down']:
                     sector_wrappings = wrapping_numbers[sector_name]
                     all_weights[sector_name] = [modular_weight(w) for w in sector_wrappings]
+
+            elif asymmetric_tori and len(params) == 6:
+                # Sector-dependent σ² + asymmetric tori
+                delta_g, sigma_sq_lep_val, sigma_sq_up_val, sigma_sq_down_val, r2, r3 = params
+                sigma_sq_lep = [sigma_sq_lep_val] * 3
+                sigma_sq_up = [sigma_sq_up_val] * 3
+                sigma_sq_down = [sigma_sq_down_val] * 3
+
+                # Recompute metric and weights with new τ values
+                tau_values = [tau_0, tau_0 * r2, tau_0 * r3]
+                G, G_inv = compute_kahler_metric(tau_values[0], tau_values[1], tau_values[2], epsilon)
+                for sector_name in ['leptons', 'up', 'down']:
+                    sector_wrappings = wrapping_numbers[sector_name]
+                    all_weights[sector_name] = [modular_weight(w) for w in sector_wrappings]
+
             elif len(params) == 4:
                 # Sector-dependent σ² only
-                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down = params
+                delta_g, sigma_sq_lep_val, sigma_sq_up_val, sigma_sq_down_val = params
+                sigma_sq_lep = [sigma_sq_lep_val] * 3
+                sigma_sq_up = [sigma_sq_up_val] * 3
+                sigma_sq_down = [sigma_sq_down_val] * 3
+
             elif len(params) == 2:
                 # Single σ² for all sectors
-                delta_g, sigma_sq_lep = params
-                sigma_sq_up = sigma_sq_lep
-                sigma_sq_down = sigma_sq_lep
+                delta_g, sigma_sq_val = params
+                sigma_sq_lep = [sigma_sq_val] * 3
+                sigma_sq_up = [sigma_sq_val] * 3
+                sigma_sq_down = [sigma_sq_val] * 3
             else:
                 return 1e10
 
-            if sigma_sq_lep <= 0 or sigma_sq_up <= 0 or sigma_sq_down <= 0:
+            # Validate all σ² values
+            all_sigmas = list(sigma_sq_lep) + list(sigma_sq_up) + list(sigma_sq_down)
+            if any(s <= 0 for s in all_sigmas):
                 return 1e10
 
-            if asymmetric_tori and len(params) == 6:
+            if asymmetric_tori and len(params) >= 6:
                 if r2 < 0.5 or r2 > 2.0 or r3 < 0.5 or r3 > 2.0:
                     return 1e10
 
             total_error = 0
 
-            for sector_name, g_fit, A_fit, sigma_sq in [
-                ('leptons', g_lep_fit, A_lep_fit, sigma_sq_lep),
-                ('up', g_up_fit, A_up_fit, sigma_sq_up),
-                ('down', g_down_fit, A_down_fit, sigma_sq_down)
-            ]:
+            for sector_idx, (sector_name, g_fit, A_fit) in enumerate([
+                ('leptons', g_lep_fit, A_lep_fit),
+                ('up', g_up_fit, A_up_fit),
+                ('down', g_down_fit, A_down_fit)
+            ]):
+                # Get generation-dependent σ² for this sector
+                if sector_idx == 0:
+                    sector_sigmas = sigma_sq_lep
+                elif sector_idx == 1:
+                    sector_sigmas = sigma_sq_up
+                else:
+                    sector_sigmas = sigma_sq_down
+
                 weights = all_weights[sector_name]
                 wrappings = wrapping_numbers[sector_name]
 
                 # Compute g_i
                 g_sector = np.array([1.0 + delta_g*(w - weights[0]) for w in weights])
 
-                # Compute A_i with sector-specific σ²
-                A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq)
-                                    for w in wrappings])
+                # Compute A_i with generation-specific σ²
+                A_sector = np.array([overlap_suppression(w, higgs_wrapping, sector_sigmas[i])
+                                    for i, w in enumerate(wrappings)])
 
                 # Relative errors (skip first element = 1.0 for g, = 0.0 for A)
                 g_err = np.abs((g_sector[1:] - g_fit[1:]) / g_fit[1:])
@@ -339,28 +374,28 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             return total_error
 
         if verbose:
-            msg = "Optimizing δg, σ² (sector-dependent)"
+            msg = "Optimizing δg, σ² (generation-dependent)"
             if asymmetric_tori:
                 msg += ", and τ ratios"
             print(msg + " to match fitted values...")
             print()
 
-        # Optimize with sector-dependent σ² and optionally τ ratios
+        # Optimize with generation-dependent σ² and optionally τ ratios
         from scipy.optimize import minimize
         if asymmetric_tori:
-            # 6 parameters: δg, σ²_lep, σ²_up, σ²_down, r₂, r₃
+            # 12 parameters: δg, σ²_lep[3], σ²_up[3], σ²_down[3], r₂, r₃
             result = minimize(
                 objective,
-                x0=[0.02, 5.0, 5.0, 15.0, 1.0, 1.0],
-                bounds=[(0.001, 0.5), (0.1, 50.0), (0.1, 50.0), (0.1, 50.0), (0.5, 2.0), (0.5, 2.0)],
+                x0=[0.02, 5.0, 8.0, 5.0, 5.0, 6.0, 5.0, 15.0, 15.0, 15.0, 1.0, 1.0],
+                bounds=[(0.001, 0.5)] + [(0.1, 50.0)]*9 + [(0.5, 2.0), (0.5, 2.0)],
                 method='L-BFGS-B'
             )
             delta_g_opt = result.x[0]
-            sigma_sq_lep = result.x[1]
-            sigma_sq_up = result.x[2]
-            sigma_sq_down = result.x[3]
-            tau_ratio_2 = result.x[4]
-            tau_ratio_3 = result.x[5]
+            sigma_sq_lep = result.x[1:4]
+            sigma_sq_up = result.x[4:7]
+            sigma_sq_down = result.x[7:10]
+            tau_ratio_2 = result.x[10]
+            tau_ratio_3 = result.x[11]
             # Update tau values with optimized ratios
             tau_1 = tau_0
             tau_2 = tau_0 * tau_ratio_2
@@ -383,9 +418,14 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
         if verbose:
             print(f"✅ Optimization complete:")
             print(f"   δg = {delta_g_opt:.6f} (modular weight calibration)")
-            print(f"   σ²_lep = {sigma_sq_lep:.6f} (lepton localization scale)")
-            print(f"   σ²_up = {sigma_sq_up:.6f} (up quark localization scale)")
-            print(f"   σ²_down = {sigma_sq_down:.6f} (down quark localization scale)")
+            if isinstance(sigma_sq_lep, (list, np.ndarray)):
+                print(f"   σ²_lep = [{sigma_sq_lep[0]:.3f}, {sigma_sq_lep[1]:.3f}, {sigma_sq_lep[2]:.3f}] (generation-dependent)")
+                print(f"   σ²_up = [{sigma_sq_up[0]:.3f}, {sigma_sq_up[1]:.3f}, {sigma_sq_up[2]:.3f}]")
+                print(f"   σ²_down = [{sigma_sq_down[0]:.3f}, {sigma_sq_down[1]:.3f}, {sigma_sq_down[2]:.3f}]")
+            else:
+                print(f"   σ²_lep = {sigma_sq_lep:.6f} (lepton localization scale)")
+                print(f"   σ²_up = {sigma_sq_up:.6f} (up quark localization scale)")
+                print(f"   σ²_down = {sigma_sq_down:.6f} (down quark localization scale)")
             if asymmetric_tori:
                 print(f"   τ₂/τ₀ = {tau_ratio_2:.6f} (second torus ratio)")
                 print(f"   τ₃/τ₀ = {tau_ratio_3:.6f} (third torus ratio)")
@@ -394,28 +434,33 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
     else:
         # Use default values
         delta_g_opt = 0.02
-        sigma_sq_lep = 0.5
-        sigma_sq_up = 0.5
-        sigma_sq_down = 0.5
+        sigma_sq_lep = [0.5, 0.5, 0.5]
+        sigma_sq_up = [0.5, 0.5, 0.5]
+        sigma_sq_down = [0.5, 0.5, 0.5]
 
     # Compute final parameters with optimized calibrations
     g_factors = {}
     A_factors = {}
 
-    for sector_name, sigma_sq in [
+    for sector_idx, (sector_name, sigma_sq_sector) in enumerate([
         ('leptons', sigma_sq_lep),
         ('up', sigma_sq_up),
         ('down', sigma_sq_down)
-    ]:
+    ]):
         sector_wrappings = wrapping_numbers[sector_name]
         weights = all_weights[sector_name]
 
         # Generation factors with optimized δg
         g_sector = np.array([1.0 + delta_g_opt*(w - weights[0]) for w in weights])
 
-        # Localization with sector-specific optimized σ²
-        A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq)
-                            for w in sector_wrappings])
+        # Localization with generation-specific optimized σ²
+        # Handle both scalar and array sigma_sq_sector
+        if isinstance(sigma_sq_sector, (list, np.ndarray)):
+            A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq_sector[i])
+                                for i, w in enumerate(sector_wrappings)])
+        else:
+            A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq_sector)
+                                for w in sector_wrappings])
 
         g_factors[sector_name] = g_sector
         A_factors[sector_name] = A_sector
@@ -426,7 +471,10 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             print(f"  Modular weights: {[f'{w:.3f}' for w in weights]}")
             print(f"  g_i: {g_sector}")
             print(f"  A_i: {A_sector}")
-            print(f"  σ² = {sigma_sq:.6f}")
+            if isinstance(sigma_sq_sector, (list, np.ndarray)):
+                print(f"  σ² = [{sigma_sq_sector[0]:.3f}, {sigma_sq_sector[1]:.3f}, {sigma_sq_sector[2]:.3f}]")
+            else:
+                print(f"  σ² = {sigma_sq_sector:.6f}")
             print()
 
     return (g_factors['leptons'], g_factors['up'], g_factors['down'],
