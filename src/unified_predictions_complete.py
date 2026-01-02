@@ -153,10 +153,11 @@ def fit_gauge_couplings(tau_0, verbose=True):
 
         return alpha_MZ
 
-    def objective(params):
-        """Minimize maximum relative error (minimax)"""
+    def objective_continuous(params):
+        """Objective for continuous g_s optimization with fixed integer k values"""
         try:
-            k_1, k_2, k_3, g_s = params
+            g_s = params[0]
+            k_1, k_2, k_3 = params[1], params[2], params[3]
 
             alpha_1_pred = gauge_coupling_at_MZ(k_1, g_s, tau_0,
                                                BETA_U1['b1'], BETA_U1['b2'])
@@ -173,27 +174,77 @@ def fit_gauge_couplings(tau_0, verbose=True):
         except:
             return 1e10
 
-    # Bounds: k_i positive integers, g_s reasonable range
-    bounds = [(1, 15), (1, 15), (1, 15), (0.1, 2.0)]
-
-    # Differential evolution for global search
-    result = differential_evolution(objective, bounds, maxiter=3000,
-                                   seed=42, atol=1e-10, tol=1e-10)
-
-    # Refine with L-BFGS-B
-    result = minimize(objective, result.x, method='L-BFGS-B', bounds=bounds,
-                     options={'maxiter': 10000, 'ftol': 1e-14})
-
-    k_gauge_cont = result.x[:3]
-    g_s_opt = result.x[3]
-
-    # Round k values to nearest integers
-    k_gauge = np.round(k_gauge_cont).astype(int)
+    # Grid search over integer k values, optimize g_s for each combination
+    best_error = 1e10
+    best_k = None
+    best_g_s = None
 
     if verbose:
-        print(f"  Optimized: g_s = {g_s_opt:.6f}")
+        print(f"  Searching over integer k values (smart search)...")
+
+    # Smart search: Start with differential evolution to find approximate region,
+    # then search integers nearby
+    def objective_float(params):
+        try:
+            k_1, k_2, k_3, g_s = params
+            alpha_1_pred = gauge_coupling_at_MZ(k_1, g_s, tau_0,
+                                               BETA_U1['b1'], BETA_U1['b2'])
+            alpha_2_pred = gauge_coupling_at_MZ(k_2, g_s, tau_0,
+                                               BETA_SU2['b1'], BETA_SU2['b2'])
+            alpha_3_pred = gauge_coupling_at_MZ(k_3, g_s, tau_0,
+                                               BETA_SU3['b1'], BETA_SU3['b2'])
+            err_1 = abs(alpha_1_pred - alpha_1_obs) / alpha_1_obs
+            err_2 = abs(alpha_2_pred - alpha_2_obs) / alpha_2_obs
+            err_3 = abs(alpha_3_pred - alpha_3_obs) / alpha_3_obs
+            return max(err_1, err_2, err_3)
+        except:
+            return 1e10
+
+    # Quick continuous optimization to find the region
+    bounds_float = [(1, 15), (1, 15), (1, 15), (0.1, 2.0)]
+    result_hint = differential_evolution(objective_float, bounds_float,
+                                        maxiter=1000, seed=42, workers=1)
+
+    # Extract approximate integer region (±3 around the hint)
+    k_hint = np.round(result_hint.x[:3]).astype(int)
+    search_radius = 3
+
+    k1_range = range(max(1, k_hint[0] - search_radius),
+                     min(16, k_hint[0] + search_radius + 1))
+    k2_range = range(max(1, k_hint[1] - search_radius),
+                     min(16, k_hint[1] + search_radius + 1))
+    k3_range = range(max(1, k_hint[2] - search_radius),
+                     min(16, k_hint[2] + search_radius + 1))
+
+    if verbose:
+        print(f"  Hint from continuous opt: k ≈ {k_hint}, searching nearby...")
+
+    # Refined integer search in local region
+    for k_1 in k1_range:
+        for k_2 in k2_range:
+            for k_3 in k3_range:
+                # For each k combination, optimize g_s
+                def objective_g_s_only(g_s_val):
+                    return objective_continuous([g_s_val, k_1, k_2, k_3])
+
+                result = minimize(objective_g_s_only, x0=[result_hint.x[3]],
+                                bounds=[(0.1, 2.0)], method='L-BFGS-B',
+                                options={'ftol': 1e-12})
+
+                error = result.fun
+
+                if error < best_error:
+                    best_error = error
+                    best_k = np.array([k_1, k_2, k_3])
+                    best_g_s = result.x[0]
+
+    k_gauge = best_k
+    g_s_opt = best_g_s
+
+    if verbose:
+        print(f"  Optimized (grid search over integers): g_s = {g_s_opt:.6f}")
         print(f"  Optimized: k = {k_gauge}")
-        print(f"  Maximum error: {result.fun*100:.2f}%")
+        print(f"  Maximum error: {best_error*100:.2f}%")
         print()
 
     return g_s_opt, k_gauge
@@ -500,11 +551,11 @@ else:
     g_up = np.array([1.00, 1.12996338, 1.01908896])
     g_down = np.array([1.00, 0.96185547, 1.00057316])
 
-    # String coupling (fitted for gauge couplings)
-    g_s = 0.361890
+    # String coupling (fitted for gauge couplings with integer grid search)
+    g_s = 0.441549
 
-    # Kac-Moody levels (fitted for gauge couplings)
-    k_gauge = np.array([7, 6, 6])
+    # Kac-Moody levels (fitted with proper integer optimization: 1.9% max error)
+    k_gauge = np.array([11, 9, 9])
 
     # Localization parameters (fitted for mass hierarchies)
     A_leptons = np.array([0.00, -0.72084622, -0.92315966])
