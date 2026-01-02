@@ -68,6 +68,10 @@ if __name__ == "__main__":
                         help='Refit only neutrino parameters (M_R, μ)')
     parser.add_argument('--fit-higgs', action='store_true',
                         help='Refit only Higgs parameters (v, λ_h)')
+    parser.add_argument('--geometric', action='store_true',
+                        help='Phase 2: Compute g_i and A_i from Kähler geometry (not fitted)')
+    parser.add_argument('--epsilon', type=float, nargs=3, default=[0.1, 0.1, 0.1],
+                        help='Blow-up parameters for Phase 2 geometry (3 values)')
     args = parser.parse_args()
 else:
     # Default args when imported - silence output
@@ -79,6 +83,8 @@ else:
         fit_ckm = False
         fit_neutrinos = False
         fit_higgs = False
+        geometric = False
+        epsilon = [0.1, 0.1, 0.1]
     args = DefaultArgs()
 
 if __name__ == "__main__":
@@ -130,6 +136,148 @@ def mass_with_localization(k_i, tau, A_i, g_s, eta_func):
     rg_factor = (M_Z / M_string)**(gamma_anom)
 
     return modular * localization * (1.0 + loop_corr) * rg_factor
+
+# ============================================================================
+# PHASE 2: GEOMETRIC CALCULATION OF g_i AND A_i FROM KÄHLER METRIC
+# ============================================================================
+
+def compute_kahler_metric(tau_1, tau_2, tau_3, epsilon):
+    """
+    Compute Kähler metric G_ij for blown-up T²×T²×T².
+
+    Volume: V = t₁t₂t₃ + ε₁t₁t₂ + ε₂t₁t₃ + ε₃t₂t₃
+    Kähler potential: K = -log(V)
+    Matter metric: G_ij = ∂²K/∂t_i∂t_j
+
+    Args:
+        tau_1, tau_2, tau_3: complex Kähler moduli
+        epsilon: [ε₁, ε₂, ε₃] blow-up parameters
+
+    Returns:
+        G: 3×3 matter metric matrix
+        G_inv: 3×3 inverse matter metric
+    """
+    t1, t2, t3 = tau_1.imag, tau_2.imag, tau_3.imag
+    eps1, eps2, eps3 = epsilon
+
+    # Volume and derivatives
+    V = t1*t2*t3 + eps1*t1*t2 + eps2*t1*t3 + eps3*t2*t3
+
+    dV = np.array([
+        t2*t3 + eps1*t2 + eps2*t3,
+        t1*t3 + eps1*t1 + eps3*t3,
+        t1*t2 + eps2*t1 + eps3*t2
+    ])
+
+    d2V = np.array([
+        [0,        t3 + eps1, t2 + eps2],
+        [t3 + eps1, 0,        t1 + eps3],
+        [t2 + eps2, t1 + eps3, 0       ]
+    ])
+
+    # Matter metric: G_ij = -d2V_ij/V + dV_i*dV_j/V²
+    G = np.zeros((3, 3))
+    for i in range(3):
+        for j in range(3):
+            G[i,j] = -d2V[i,j]/V + (dV[i]*dV[j])/(V**2)
+
+    G_inv = np.linalg.inv(G)
+
+    return G, G_inv
+
+def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False):
+    """
+    Compute g_i and A_i geometrically from D7-brane wrapping numbers.
+
+    Phase 2 approach:
+    1. g_i from modular weights: w = Σ(n²Im(τ) + m²/Im(τ))
+    2. A_i from wavefunction overlap via matter metric
+
+    Args:
+        tau_0: base modulus value
+        wrapping_numbers: dict with 'leptons', 'up', 'down'
+                         each containing 3 tuples of ((n₁,m₁), (n₂,m₂), (n₃,m₃))
+        epsilon: [ε₁, ε₂, ε₃] blow-up parameters
+
+    Returns:
+        g_lep, g_up, g_down: generation factors [3]
+        A_lep, A_up, A_down: localization parameters [3]
+    """
+    if verbose:
+        print("PHASE 2: COMPUTING g_i AND A_i FROM GEOMETRY")
+        print()
+
+    tau_1 = tau_0
+    tau_2 = tau_0
+    tau_3 = tau_0
+    tau_values = [tau_1, tau_2, tau_3]
+
+    # Compute matter metric
+    G, G_inv = compute_kahler_metric(tau_1, tau_2, tau_3, epsilon)
+
+    if verbose:
+        print(f"Matter metric G_ij:")
+        print(G)
+        print()
+
+    def modular_weight(wrapping):
+        """Compute modular weight from wrapping numbers."""
+        w = 0
+        for i, (n, m) in enumerate(wrapping):
+            tau = tau_values[i]
+            Im_tau = tau.imag
+            Re_tau = tau.real
+            w += n**2 * Im_tau + m**2 / Im_tau - 2*n*m*Re_tau
+        return w
+
+    def overlap_suppression(wrap1, wrap2, sigma_sq=0.5):
+        """Compute A_i from wavefunction overlap via matter metric."""
+        Delta_n = [wrap1[i][0] - wrap2[i][0] for i in range(3)]
+        Delta_m = [wrap1[i][1] - wrap2[i][1] for i in range(3)]
+
+        # d² = Σᵢⱼ G^{ij} (Δnᵢ Δnⱼ + Δmᵢ Δmⱼ)
+        d_sq = 0
+        for i in range(3):
+            for j in range(3):
+                d_sq += G_inv[i,j] * (Delta_n[i]*Delta_n[j] + Delta_m[i]*Delta_m[j])
+
+        A = -d_sq / (2 * sigma_sq)
+        return A
+
+    # Higgs brane (reference for overlaps)
+    higgs_wrapping = ((1,0), (1,0), (1,0))
+
+    # Compute for each sector
+    g_factors = {}
+    A_factors = {}
+
+    for sector_name in ['leptons', 'up', 'down']:
+        sector_wrappings = wrapping_numbers[sector_name]
+
+        # Modular weights
+        weights = [modular_weight(w) for w in sector_wrappings]
+
+        # Generation factors: g_i = 1 + δg*(w_i - w_1)
+        # Calibration δg determined to match surgical attack results
+        delta_g = 0.02  # From surgical attack optimization
+        g_sector = np.array([1.0 + delta_g*(w - weights[0]) for w in weights])
+
+        # Localization from overlap
+        A_sector = np.array([overlap_suppression(w, higgs_wrapping) for w in sector_wrappings])
+
+        g_factors[sector_name] = g_sector
+        A_factors[sector_name] = A_sector
+
+        if verbose:
+            print(f"{sector_name.capitalize()}:")
+            print(f"  Wrappings: {sector_wrappings}")
+            print(f"  Modular weights: {[f'{w:.3f}' for w in weights]}")
+            print(f"  g_i: {g_sector}")
+            print(f"  A_i: {A_sector}")
+            print()
+
+    return (g_factors['leptons'], g_factors['up'], g_factors['down'],
+            A_factors['leptons'], A_factors['up'], A_factors['down'])
 
 # ============================================================================
 # PARAMETER FITTING FUNCTIONS (optional, can use cached values for speed)
@@ -694,7 +842,78 @@ k_mass = np.array([8, 6, 4])
 # PARAMETER FITTING OR LOADING
 # ============================================================================
 
-if args.fit or args.fit_masses:
+if args.geometric:
+    # PHASE 2: Compute g_i and A_i from Kähler geometry
+    print("="*80)
+    print("PHASE 2 MODE: COMPUTING g_i AND A_i FROM KÄHLER GEOMETRY")
+    print("="*80)
+    print()
+
+    # Use cached gauge values
+    g_s = 0.441549
+    k_gauge = np.array([11, 9, 9])
+
+    # Define D7-brane wrapping numbers (from surgical attack v3)
+    wrapping_numbers = {
+        'leptons': [
+            ((1, 0), (1, 0), (1, 0)),  # Gen 1
+            ((1, 0), (1, 0), (1, 1)),  # Gen 2
+            ((1, 0), (1, 1), (1, 0)),  # Gen 3
+        ],
+        'up': [
+            ((1, 0), (1, 0), (1, 0)),  # Gen 1
+            ((1, 0), (1, 0), (2, 1)),  # Gen 2
+            ((1, 0), (1, 1), (1, 0)),  # Gen 3
+        ],
+        'down': [
+            ((1, 0), (1, 0), (1, 0)),  # Gen 1
+            ((1, 0), (1, 0), (0, 1)),  # Gen 2
+            ((1, 0), (1, 1), (1, 0)),  # Gen 3
+        ]
+    }
+
+    print(f"Blow-up parameters: ε = {args.epsilon}")
+    print()
+
+    # Compute geometrically
+    g_lep, g_up, g_down, A_leptons, A_up, A_down = compute_geometric_parameters(
+        tau_0, wrapping_numbers, args.epsilon, verbose=True
+    )
+
+    print("PHASE 2 GEOMETRIC RESULTS:")
+    print(f"  g_lep:  {g_lep}")
+    print(f"  g_up:   {g_up}")
+    print(f"  g_down: {g_down}")
+    print()
+    print(f"  A_lep:  {A_leptons}")
+    print(f"  A_up:   {A_up}")
+    print(f"  A_down: {A_down}")
+    print()
+
+    # Compare with fitted values
+    g_lep_fit = np.array([1.00, 1.10599770, 1.00816488])
+    g_up_fit = np.array([1.00, 1.12996338, 1.01908896])
+    g_down_fit = np.array([1.00, 0.96185547, 1.00057316])
+    A_leptons_fit = np.array([0.00, -0.72084622, -0.92315966])
+    A_up_fit = np.array([0.00, -0.87974875, -1.48332060])
+    A_down_fit = np.array([0.00, -0.33329575, -0.88288836])
+
+    print("COMPARISON WITH FITTED VALUES:")
+    for name, geom, fit in [
+        ('g_lep', g_lep, g_lep_fit),
+        ('g_up', g_up, g_up_fit),
+        ('g_down', g_down, g_down_fit),
+        ('A_lep', A_leptons, A_leptons_fit),
+        ('A_up', A_up, A_up_fit),
+        ('A_down', A_down, A_down_fit)
+    ]:
+        errors = np.abs((geom[1:] - fit[1:]) / fit[1:]) * 100
+        print(f"  {name}: errors = {[f'{e:.1f}%' for e in errors]}")
+    print()
+    print("="*80)
+    print()
+
+elif args.fit or args.fit_masses:
     # Refit all mass parameters
     print("REFITTING MASS PARAMETERS...")
     print()
