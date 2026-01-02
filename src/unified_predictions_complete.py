@@ -266,17 +266,24 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
 
         def objective(params):
             """Minimize error between geometric and fitted values."""
-            delta_g, sigma_sq = params
+            if len(params) == 2:
+                # Single σ² for all sectors
+                delta_g, sigma_sq_lep = params
+                sigma_sq_up = sigma_sq_lep
+                sigma_sq_down = sigma_sq_lep
+            else:
+                # Sector-dependent σ²
+                delta_g, sigma_sq_lep, sigma_sq_up, sigma_sq_down = params
 
-            if sigma_sq <= 0:
+            if sigma_sq_lep <= 0 or sigma_sq_up <= 0 or sigma_sq_down <= 0:
                 return 1e10
 
             total_error = 0
 
-            for sector_name, g_fit, A_fit in [
-                ('leptons', g_lep_fit, A_lep_fit),
-                ('up', g_up_fit, A_up_fit),
-                ('down', g_down_fit, A_down_fit)
+            for sector_name, g_fit, A_fit, sigma_sq in [
+                ('leptons', g_lep_fit, A_lep_fit, sigma_sq_lep),
+                ('up', g_up_fit, A_up_fit, sigma_sq_up),
+                ('down', g_down_fit, A_down_fit, sigma_sq_down)
             ]:
                 weights = all_weights[sector_name]
                 wrappings = wrapping_numbers[sector_name]
@@ -284,7 +291,7 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
                 # Compute g_i
                 g_sector = np.array([1.0 + delta_g*(w - weights[0]) for w in weights])
 
-                # Compute A_i
+                # Compute A_i with sector-specific σ²
                 A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq)
                                     for w in wrappings])
 
@@ -297,45 +304,55 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             return total_error
 
         if verbose:
-            print("Optimizing δg and σ² to match fitted values...")
+            print("Optimizing δg and σ² (sector-dependent) to match fitted values...")
             print()
 
-        # Optimize with bounds
+        # Optimize with sector-dependent σ²
         from scipy.optimize import minimize
         result = minimize(
             objective,
-            x0=[0.02, 5.0],  # Initial guess (increased σ²)
-            bounds=[(0.001, 0.5), (0.1, 50.0)],  # δg, σ² (much larger range)
+            x0=[0.02, 5.0, 5.0, 15.0],  # δg, σ²_lep, σ²_up, σ²_down
+            bounds=[(0.001, 0.5), (0.1, 50.0), (0.1, 50.0), (0.1, 50.0)],
             method='L-BFGS-B'
         )
 
         delta_g_opt = result.x[0]
-        sigma_sq_opt = result.x[1]
+        sigma_sq_lep = result.x[1]
+        sigma_sq_up = result.x[2]
+        sigma_sq_down = result.x[3]
 
         if verbose:
             print(f"✅ Optimization complete:")
             print(f"   δg = {delta_g_opt:.6f} (modular weight calibration)")
-            print(f"   σ² = {sigma_sq_opt:.6f} (localization scale)")
+            print(f"   σ²_lep = {sigma_sq_lep:.6f} (lepton localization scale)")
+            print(f"   σ²_up = {sigma_sq_up:.6f} (up quark localization scale)")
+            print(f"   σ²_down = {sigma_sq_down:.6f} (down quark localization scale)")
             print(f"   Total error: {result.fun:.6f}")
             print()
     else:
         # Use default values
         delta_g_opt = 0.02
-        sigma_sq_opt = 0.5
+        sigma_sq_lep = 0.5
+        sigma_sq_up = 0.5
+        sigma_sq_down = 0.5
 
     # Compute final parameters with optimized calibrations
     g_factors = {}
     A_factors = {}
 
-    for sector_name in ['leptons', 'up', 'down']:
+    for sector_name, sigma_sq in [
+        ('leptons', sigma_sq_lep),
+        ('up', sigma_sq_up),
+        ('down', sigma_sq_down)
+    ]:
         sector_wrappings = wrapping_numbers[sector_name]
         weights = all_weights[sector_name]
 
         # Generation factors with optimized δg
         g_sector = np.array([1.0 + delta_g_opt*(w - weights[0]) for w in weights])
 
-        # Localization with optimized σ²
-        A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq_opt)
+        # Localization with sector-specific optimized σ²
+        A_sector = np.array([overlap_suppression(w, higgs_wrapping, sigma_sq)
                             for w in sector_wrappings])
 
         g_factors[sector_name] = g_sector
@@ -347,6 +364,7 @@ def compute_geometric_parameters(tau_0, wrapping_numbers, epsilon, verbose=False
             print(f"  Modular weights: {[f'{w:.3f}' for w in weights]}")
             print(f"  g_i: {g_sector}")
             print(f"  A_i: {A_sector}")
+            print(f"  σ² = {sigma_sq:.6f}")
             print()
 
     return (g_factors['leptons'], g_factors['up'], g_factors['down'],
