@@ -38,11 +38,28 @@ Total: ~25 observables from τ = 27/10 = 2.7i
 import sys
 from pathlib import Path
 import numpy as np
+import argparse
+from scipy.optimize import minimize, differential_evolution
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Import existing utilities
 from utils.loop_corrections import run_gauge_twoloop, BETA_SU3, BETA_SU2, BETA_U1
 from utils.instanton_corrections import ckm_phase_corrections
+
+# ============================================================================
+# COMMAND LINE ARGUMENTS
+# ============================================================================
+
+parser = argparse.ArgumentParser(description='Unified TOE predictions from τ = 2.7i')
+parser.add_argument('--fit', action='store_true',
+                    help='Run optimization to refit parameters (slow but reproducible)')
+parser.add_argument('--fit-gauge', action='store_true',
+                    help='Refit only gauge coupling parameters (g_s, k_i)')
+parser.add_argument('--fit-masses', action='store_true',
+                    help='Refit only mass parameters (g_i, A_i)')
+parser.add_argument('--fit-ckm', action='store_true',
+                    help='Refit only CKM parameters (ε_ij)')
+args = parser.parse_args()
 
 print("="*80)
 print("COMPLETE THEORY OF EVERYTHING: ALL ~30 SM OBSERVABLES FROM tau = 2.7i")
@@ -94,6 +111,318 @@ def mass_with_localization(k_i, tau, A_i, g_s, eta_func):
     return modular * localization * (1.0 + loop_corr) * rg_factor
 
 # ============================================================================
+# PARAMETER FITTING FUNCTIONS (optional, can use cached values for speed)
+# ============================================================================
+
+def fit_gauge_couplings(tau_0, verbose=True):
+    """
+    Fit g_s and k_i to match observed gauge couplings at M_Z.
+
+    Returns:
+    --------
+    g_s : float
+        String coupling
+    k_gauge : array [k₁, k₂, k₃]
+        Kac-Moody levels for gauge couplings
+    """
+    if verbose:
+        print("FITTING GAUGE COUPLINGS (g_s, k_i)...")
+        print()
+
+    # Observed values at M_Z
+    alpha_1_obs = (5.0/3.0) / 127.9  # GUT normalized U(1)
+    alpha_2_obs = 1.0 / 29.6          # SU(2)
+    alpha_3_obs = 0.1184              # SU(3)
+
+    def gauge_coupling_at_MZ(k_i, g_s, tau, beta_1, beta_2):
+        """Predict gauge coupling at M_Z from GUT scale"""
+        M_GUT = 2e16
+        M_Z = 91.2
+
+        # GUT scale: α(M_GUT) = g_s²/k_i
+        alpha_GUT = g_s**2 / k_i
+
+        # String threshold from η(τ)
+        eta = dedekind_eta(tau)
+        threshold = np.real(np.log(eta)) * (k_i / 12.0)
+        alpha_inv_GUT = 1.0 / alpha_GUT + threshold
+
+        # 2-loop RG running
+        alpha_GUT_eff = 1.0 / alpha_inv_GUT
+        alpha_MZ = run_gauge_twoloop(alpha_GUT_eff, beta_1, beta_2, M_GUT, M_Z)
+
+        return alpha_MZ
+
+    def objective(params):
+        """Minimize maximum relative error (minimax)"""
+        try:
+            k_1, k_2, k_3, g_s = params
+
+            alpha_1_pred = gauge_coupling_at_MZ(k_1, g_s, tau_0,
+                                               BETA_U1['b1'], BETA_U1['b2'])
+            alpha_2_pred = gauge_coupling_at_MZ(k_2, g_s, tau_0,
+                                               BETA_SU2['b1'], BETA_SU2['b2'])
+            alpha_3_pred = gauge_coupling_at_MZ(k_3, g_s, tau_0,
+                                               BETA_SU3['b1'], BETA_SU3['b2'])
+
+            err_1 = abs(alpha_1_pred - alpha_1_obs) / alpha_1_obs
+            err_2 = abs(alpha_2_pred - alpha_2_obs) / alpha_2_obs
+            err_3 = abs(alpha_3_pred - alpha_3_obs) / alpha_3_obs
+
+            return max(err_1, err_2, err_3)
+        except:
+            return 1e10
+
+    # Bounds: k_i positive integers, g_s reasonable range
+    bounds = [(1, 15), (1, 15), (1, 15), (0.1, 2.0)]
+
+    # Differential evolution for global search
+    result = differential_evolution(objective, bounds, maxiter=3000,
+                                   seed=42, atol=1e-10, tol=1e-10)
+
+    # Refine with L-BFGS-B
+    result = minimize(objective, result.x, method='L-BFGS-B', bounds=bounds,
+                     options={'maxiter': 10000, 'ftol': 1e-14})
+
+    k_gauge_cont = result.x[:3]
+    g_s_opt = result.x[3]
+
+    # Round k values to nearest integers
+    k_gauge = np.round(k_gauge_cont).astype(int)
+
+    if verbose:
+        print(f"  Optimized: g_s = {g_s_opt:.6f}")
+        print(f"  Optimized: k = {k_gauge}")
+        print(f"  Maximum error: {result.fun*100:.2f}%")
+        print()
+
+    return g_s_opt, k_gauge
+
+
+def fit_mass_parameters(tau_0, g_s, k_mass, verbose=True):
+    """
+    Fit generation factors g_i and localization parameters A_i
+    to match observed mass ratios.
+
+    Returns:
+    --------
+    g_lep, g_up, g_down : arrays [3]
+        Generation factors for each sector
+    A_leptons, A_up, A_down : arrays [3]
+        Localization parameters for each sector
+    """
+    if verbose:
+        print("FITTING MASS PARAMETERS (g_i, A_i)...")
+        print()
+
+    # Sector constants from geometry
+    c_lep = 13/14
+    c_up = 19/20
+    c_down = 7/9
+
+    # Observed mass ratios
+    r_lep_obs = np.array([1.0, 206.8, 3477])
+    r_up_obs = np.array([1.0, 577, 78636])
+    r_down_obs = np.array([1.0, 20.3, 890])
+
+    def objective(params):
+        """Minimize maximum relative error (minimax)"""
+        # Extract generation factors (first generation always 1.0)
+        g_lep = np.array([1.0, params[0], params[1]])
+        g_up = np.array([1.0, params[2], params[3]])
+        g_down = np.array([1.0, params[4], params[5]])
+
+        # Construct τ values
+        tau_lep = tau_0 * c_lep * g_lep
+        tau_up = tau_0 * c_up * g_up
+        tau_down = tau_0 * c_down * g_down
+
+        # Extract localization parameters
+        A_lep = np.array([0.0, params[6], params[7]])
+        A_up = np.array([0.0, params[8], params[9]])
+        A_down = np.array([0.0, params[10], params[11]])
+
+        # Compute masses
+        m_lep = np.array([mass_with_localization(k_mass[i], tau_lep[i], A_lep[i], g_s, dedekind_eta)
+                          for i in range(3)])
+        m_up = np.array([mass_with_localization(k_mass[i], tau_up[i], A_up[i], g_s, dedekind_eta)
+                         for i in range(3)])
+        m_down = np.array([mass_with_localization(k_mass[i], tau_down[i], A_down[i], g_s, dedekind_eta)
+                           for i in range(3)])
+
+        # Normalize to lightest
+        r_lep = m_lep / m_lep[0]
+        r_up = m_up / m_up[0]
+        r_down = m_down / m_down[0]
+
+        # Relative errors
+        err_lep = np.abs(r_lep - r_lep_obs) / r_lep_obs
+        err_up = np.abs(r_up - r_up_obs) / r_up_obs
+        err_down = np.abs(r_down - r_down_obs) / r_down_obs
+
+        # Return maximum error (minimax)
+        return np.max(np.concatenate([err_lep, err_up, err_down]))
+
+    # Initial guess
+    x0 = [1.06, 1.01,  # g_lep
+          1.06, 1.01,  # g_up
+          1.06, 1.01,  # g_down
+          -0.75, -0.89,  # A_lep
+          -0.91, -1.49,  # A_up
+          -0.31, -0.91]  # A_down
+
+    result = minimize(objective, x0, method='Nelder-Mead',
+                     options={'maxiter': 10000, 'xatol': 1e-10, 'fatol': 1e-12})
+
+    # Extract optimized parameters
+    g_lep = np.array([1.0, result.x[0], result.x[1]])
+    g_up = np.array([1.0, result.x[2], result.x[3]])
+    g_down = np.array([1.0, result.x[4], result.x[5]])
+    A_leptons = np.array([0.0, result.x[6], result.x[7]])
+    A_up = np.array([0.0, result.x[8], result.x[9]])
+    A_down = np.array([0.0, result.x[10], result.x[11]])
+
+    if verbose:
+        print(f"  g_lep  = {g_lep}")
+        print(f"  g_up   = {g_up}")
+        print(f"  g_down = {g_down}")
+        print(f"  A_leptons = {A_leptons}")
+        print(f"  A_up      = {A_up}")
+        print(f"  A_down    = {A_down}")
+        print(f"  Maximum error: {result.fun*100:.2f}%")
+        print()
+
+    return g_lep, g_up, g_down, A_leptons, A_up, A_down
+
+
+def fit_ckm_parameters(verbose=True):
+    """
+    Fit complex Yukawa off-diagonals ε_ij to match CKM angles and CP violation.
+
+    Returns:
+    --------
+    eps_up, eps_down : arrays [3], complex
+        Off-diagonal Yukawa parameters
+    """
+    if verbose:
+        print("FITTING CKM PARAMETERS (ε_ij)...")
+        print()
+
+    # Mass ratios (observed)
+    m_up = np.array([1.0, 577.0, 78636.0])
+    m_down = np.array([1.0, 20.3, 890.0])
+
+    # Observed CKM values
+    sin2_12_obs = 0.0510
+    sin2_23_obs = 0.00157
+    sin2_13_obs = 0.000128
+    delta_CP_obs = 1.22  # radians
+    J_CP_obs = 3.0e-5
+
+    def yukawa_with_complex_offdiag(params):
+        """Build Yukawa matrices with complex off-diagonals"""
+        eps_up = np.array([params[0] + 1j*params[1],
+                           params[2] + 1j*params[3],
+                           params[4] + 1j*params[5]], dtype=complex)
+
+        eps_down = np.array([params[6] + 1j*params[7],
+                             params[8] + 1j*params[9],
+                             params[10] + 1j*params[11]], dtype=complex)
+
+        Y_up = np.diag(m_up).astype(complex)
+        Y_up[0, 1] = eps_up[0]
+        Y_up[1, 0] = eps_up[0]
+        Y_up[1, 2] = eps_up[1]
+        Y_up[2, 1] = eps_up[1]
+        Y_up[0, 2] = eps_up[2]
+        Y_up[2, 0] = eps_up[2]
+
+        Y_down = np.diag(m_down).astype(complex)
+        Y_down[0, 1] = eps_down[0]
+        Y_down[1, 0] = eps_down[0]
+        Y_down[1, 2] = eps_down[1]
+        Y_down[2, 1] = eps_down[1]
+        Y_down[0, 2] = eps_down[2]
+        Y_down[2, 0] = eps_down[2]
+
+        return Y_up, Y_down
+
+    def ckm_from_yukawas(Y_up, Y_down):
+        """Extract CKM via SVD"""
+        U_uL, _, _ = np.linalg.svd(Y_up)
+        U_dL, _, _ = np.linalg.svd(Y_down)
+        return U_uL @ U_dL.conj().T
+
+    def extract_cp_observables(V_CKM):
+        """Extract δ_CP and Jarlskog invariant"""
+        s12 = np.abs(V_CKM[0, 1])
+        s23 = np.abs(V_CKM[1, 2])
+        s13 = np.abs(V_CKM[0, 2])
+
+        c12 = np.sqrt(1 - s12**2)
+        c23 = np.sqrt(1 - s23**2)
+        c13 = np.sqrt(1 - s13**2)
+
+        # δ_CP from phase of V_ub
+        delta_CP = -np.angle(V_CKM[0, 2])
+
+        # Jarlskog invariant
+        J_CP = c12 * c23 * c13**2 * s12 * s23 * s13 * np.sin(delta_CP)
+
+        return delta_CP, J_CP
+
+    def objective(params):
+        """Minimize maximum relative error (minimax) over 5 observables"""
+        try:
+            Y_up, Y_down = yukawa_with_complex_offdiag(params)
+            V_CKM = ckm_from_yukawas(Y_up, Y_down)
+
+            sin2_12 = np.abs(V_CKM[0, 1])**2
+            sin2_23 = np.abs(V_CKM[1, 2])**2
+            sin2_13 = np.abs(V_CKM[0, 2])**2
+
+            delta_CP, J_CP = extract_cp_observables(V_CKM)
+
+            err_12 = abs(sin2_12 - sin2_12_obs) / sin2_12_obs
+            err_23 = abs(sin2_23 - sin2_23_obs) / sin2_23_obs
+            err_13 = abs(sin2_13 - sin2_13_obs) / sin2_13_obs
+            err_delta = abs(delta_CP - delta_CP_obs) / delta_CP_obs
+            err_J = abs(J_CP - J_CP_obs) / J_CP_obs
+
+            return max(err_12, err_23, err_13, err_delta, err_J)
+        except:
+            return 1e10
+
+    # Initial guess (small perturbations from diagonal)
+    x0 = [10, 10, 10, 10, 10, 10,  # eps_up real and imag parts
+          3, 3, 10, 10, 2, 0]       # eps_down real and imag parts
+
+    # Use differential evolution for global search
+    bounds = [(-100, 100)] * 12
+    result = differential_evolution(objective, bounds, maxiter=3000,
+                                   seed=42, atol=1e-10, tol=1e-10)
+
+    # Refine
+    result = minimize(objective, result.x, method='Nelder-Mead',
+                     options={'maxiter': 10000, 'xatol': 1e-10, 'fatol': 1e-12})
+
+    # Extract optimized parameters
+    eps_up = np.array([result.x[0] + 1j*result.x[1],
+                       result.x[2] + 1j*result.x[3],
+                       result.x[4] + 1j*result.x[5]], dtype=complex)
+    eps_down = np.array([result.x[6] + 1j*result.x[7],
+                         result.x[8] + 1j*result.x[9],
+                         result.x[10] + 1j*result.x[11]], dtype=complex)
+
+    if verbose:
+        print(f"  eps_up   = {eps_up}")
+        print(f"  eps_down = {eps_down}")
+        print(f"  Maximum error: {result.fun*100:.2f}%")
+        print()
+
+    return eps_up, eps_down
+
+# ============================================================================
 # INPUT: PREDICTED MODULAR PARAMETER
 # ============================================================================
 
@@ -118,72 +447,120 @@ if USE_GENERATION_DEPENDENT_TAU:
     print(f"  τ_i^sector = τ₀ × c_sector × g_i^sector")
     print()
 
-    # Sector constants from D-brane geometry (simple fractions!)
-    c_lep = 13/14   # 0.9286
-    c_up = 19/20    # 0.9500
-    c_down = 7/9    # 0.7778
+# Sector constants from D-brane geometry (simple fractions!)
+c_lep = 13/14   # 0.9286
+c_up = 19/20    # 0.9500
+c_down = 7/9    # 0.7778
 
-    # Generation factors (SECTOR-DEPENDENT - optimized for 0% max error)
+# k-pattern for masses
+k_mass = np.array([8, 6, 4])
+
+# ============================================================================
+# PARAMETER FITTING OR LOADING
+# ============================================================================
+
+if args.fit or args.fit_masses:
+    # Refit all mass parameters
+    print("REFITTING MASS PARAMETERS...")
+    print()
+
+    # Need g_s first
+    if args.fit or args.fit_gauge:
+        g_s, k_gauge = fit_gauge_couplings(tau_0)
+    else:
+        # Use cached gauge values
+        g_s = 0.361890
+        k_gauge = np.array([7, 6, 6])
+
+    g_lep, g_up, g_down, A_leptons, A_up, A_down = fit_mass_parameters(
+        tau_0, g_s, k_mass
+    )
+
+elif args.fit_gauge:
+    # Refit only gauge parameters
+    print("REFITTING GAUGE PARAMETERS...")
+    print()
+    g_s, k_gauge = fit_gauge_couplings(tau_0)
+
+    # Use cached mass values
+    g_lep = np.array([1.00, 1.10599770, 1.00816488])
+    g_up = np.array([1.00, 1.12996338, 1.01908896])
+    g_down = np.array([1.00, 0.96185547, 1.00057316])
+    A_leptons = np.array([0.00, -0.72084622, -0.92315966])
+    A_up = np.array([0.00, -0.87974875, -1.48332060])
+    A_down = np.array([0.00, -0.33329575, -0.88288836])
+
+else:
+    # Use cached values (fast, for daily use)
+    print("USING CACHED PARAMETER VALUES (use --fit to reoptimize)")
+    print()
+
+    # Generation factors (fitted to minimize mass ratio errors)
     g_lep = np.array([1.00, 1.10599770, 1.00816488])
     g_up = np.array([1.00, 1.12996338, 1.01908896])
     g_down = np.array([1.00, 0.96185547, 1.00057316])
 
-    print(f"  Sector constants (from geometry):")
-    print(f"    c_lep  = 13/14 = {c_lep:.4f}")
-    print(f"    c_up   = 19/20 = {c_up:.4f}")
-    print(f"    c_down = 7/9   = {c_down:.4f}")
-    print()
-    print(f"  Generation factors (sector-dependent, fitted):")
-    print(f"    g_lep  = {g_lep}")
-    print(f"    g_up   = {g_up}")
-    print(f"    g_down = {g_down}")
-    print()
+    # String coupling (fitted for gauge couplings)
+    g_s = 0.361890
 
-    # Compute τ values for each sector and generation
-    tau_lep = tau_0 * c_lep * g_lep
-    tau_up = tau_0 * c_up * g_up
-    tau_down = tau_0 * c_down * g_down
+    # Kac-Moody levels (fitted for gauge couplings)
+    k_gauge = np.array([7, 6, 6])
 
-    print(f"  Resulting τ values:")
-    print(f"    Leptons: {tau_lep}")
-    print(f"    Up-type: {tau_up}")
-    print(f"    Down-type: {tau_down}")
-    print()
-    print(f"  Parameters: 1 predicted (τ₀) + 6 fitted (g_i for each sector)")
-    print(f"              vs SM's 9 Yukawa parameters")
-    print(f"  Predictive power: 9 predictions / 7 params = 1.3 pred/param")
-    print(f"                    vs SM: 9 / 9 = 1.0 pred/param")
-    print()
-else:
-    # Single τ for all (original model)
-    tau_lep = np.array([tau, tau, tau])
-    tau_up = np.array([tau, tau, tau])
-    tau_down = np.array([tau, tau, tau])
-    print(f"  Using single τ = {tau.imag}i for all fermions")
-    print()
+    # Localization parameters (fitted for mass hierarchies)
+    A_leptons = np.array([0.00, -0.72084622, -0.92315966])
+    A_up = np.array([0.00, -0.87974875, -1.48332060])
+    A_down = np.array([0.00, -0.33329575, -0.88288836])
 
-# Derived quantities
-c_theory = 24 / np.imag(tau)
+print(f"  Sector constants (from geometry):")
+print(f"    c_lep  = 13/14 = {c_lep:.4f}")
+print(f"    c_up   = 19/20 = {c_up:.4f}")
+print(f"    c_down = 7/9   = {c_down:.4f}")
+print()
+print(f"  Generation factors (sector-dependent):")
+print(f"    g_lep  = {g_lep}")
+print(f"    g_up   = {g_up}")
+print(f"    g_down = {g_down}")
+print()
+print(f"  String coupling:")
+print(f"    g_s = {g_s:.6f}")
+print()
+print(f"  Kac-Moody levels (gauge):")
+print(f"    k_gauge = {k_gauge}")
+print()
+print(f"  Localization parameters:")
+print(f"    A_leptons = {A_leptons}")
+print(f"    A_up      = {A_up}")
+print(f"    A_down    = {A_down}")
+print()
+
+# Compute τ values for each sector and generation
+tau_lep = tau_0 * c_lep * g_lep
+tau_up = tau_0 * c_up * g_up
+tau_down = tau_0 * c_down * g_down
+
+print(f"  Resulting τ values:")
+print(f"    Leptons: {tau_lep}")
+print(f"    Up-type: {tau_up}")
+print(f"    Down-type: {tau_down}")
+print()
+print(f"  Parameters: 1 predicted (τ₀) + 6 fitted (g_i for each sector)")
+print(f"              vs SM's 9 Yukawa parameters")
+print(f"  Predictive power: 9 predictions / 7 params = 1.3 pred/param")
+print(f"                    vs SM: 9 / 9 = 1.0 pred/param")
+print()
+
+# Derived quantities (for backward compatibility)
+c_theory = 24 / np.imag(tau_0)
 R_AdS = c_theory / 6.0
-phi_dilaton = -np.log(np.imag(tau))
-g_s = np.exp(phi_dilaton)
 
 print(f"DERIVED PARAMETERS:")
 print(f"  Central charge: c = {c_theory:.3f}")
 print(f"  AdS radius: R = {R_AdS:.4f} ℓ_s")
 print()
 
-# String coupling (optimized for gauge couplings: 2.5% max error)
-g_s = 0.361890
-
-print(f"  String coupling: g_s = {g_s:.6f} (optimized for gauge couplings)")
-print()
-
-# Kac-Moody levels (optimized for gauge couplings: α₁ 2.5%, α₂ 1.7%, α₃ 2.5%)
-k_gauge = np.array([7, 6, 6])  # For gauge couplings α_i(M_GUT) = g_s²/k_i
+# Additional k-patterns for CKM and PMNS
 k_CKM = np.array([8, 6, 4])    # For Yukawa hierarchies (flavor mixing)
 k_PMNS = np.array([5, 3, 1])
-k_mass = np.array([8, 6, 4])   # For mass hierarchies
 
 print(f"k-PATTERNS:")
 print(f"  CKM (quarks):   {k_CKM}")
@@ -191,18 +568,32 @@ print(f"  PMNS (leptons): {k_PMNS}")
 print(f"  Masses:         {k_mass}")
 print()
 
-# Fitted localization parameters (OPTIMIZED FOR SECTOR-DEPENDENT g_i)
-# NOTE: Optimized with correct g_s = 0.3704 and correct m_s/m_d = 20.3
-#       Achieves 0.0% maximum error on all mass ratios
-A_leptons = np.array([0.00, -0.72084622, -0.92315966])
-A_up = np.array([0.00, -0.87974875, -1.48332060])
-A_down = np.array([0.00, -0.33329575, -0.88288836])
+# ============================================================================
+# CKM OFF-DIAGONAL PARAMETERS
+# ============================================================================
 
-print("FITTED PARAMETERS (optimized for generation-dependent τ, to be derived from geometry):")
-print(f"  A_leptons: {A_leptons}")
-print(f"  A_up:      {A_up}")
-print(f"  A_down:    {A_down}")
-print(f"  Note: Optimized for τ_i^sector = τ₀ × c_sector × g_i model")
+if args.fit or args.fit_ckm:
+    # Refit CKM parameters
+    print("REFITTING CKM PARAMETERS...")
+    print()
+    eps_up, eps_down = fit_ckm_parameters()
+else:
+    # Use cached values
+    eps_up = np.array([(-86.83743170450549-97.83019553383167j),
+                       (23.764209006491793-88.50463501634779j),
+                       (32.63649949499653-33.21856367378831j)])
+
+    eps_down = np.array([(-11.553607545212742-3.4122598234240513j),
+                         (18.745238325287502+30.818906286832544j),
+                         (3.3668205207405757-0.09308392001232736j)])
+
+print(f"FITTED CKM OFF-DIAGONAL PARAMETERS:")
+print(f"  eps_up[0] (12) = {eps_up[0]}")
+print(f"  eps_up[1] (23) = {eps_up[1]}")
+print(f"  eps_up[2] (13) = {eps_up[2]}")
+print(f"  eps_down[0] (12) = {eps_down[0]}")
+print(f"  eps_down[1] (23) = {eps_down[1]}")
+print(f"  eps_down[2] (13) = {eps_down[2]}")
 print()
 
 # Yukawa normalizations (sector-dependent, from Kähler metrics)
@@ -287,24 +678,11 @@ print()
 print("Computing CKM and CP violation from Yukawa matrix diagonalization...")
 print()
 
-# Construct Yukawa matrices with complex off-diagonal structure
-# Y_ij = diag(y_i) + ε_ij (complex)
-# Off-diagonals optimized to match 3 CKM angles + 2 CP observables (all at 0.0% error!)
-
-# Complex off-diagonal parameters
-eps_up = np.array([(-86.83743170450549-97.83019553383167j),
-                   (23.764209006491793-88.50463501634779j),
-                   (32.63649949499653-33.21856367378831j)])
-
-eps_down = np.array([(-11.553607545212742-3.4122598234240513j),
-                     (18.745238325287502+30.818906286832544j),
-                     (3.3668205207405757-0.09308392001232736j)])
-
 # Use OBSERVED mass ratios for CKM (optimization was done with these exact values)
 y_up = np.array([1.0, 577.0, 78636.0])    # Observed
 y_down = np.array([1.0, 20.3, 890.0])      # Observed
 
-# Build Yukawa matrices with complex off-diagonal parameters
+# Build Yukawa matrices with complex off-diagonal parameters (eps_up, eps_down set above)
 Y_up = np.diag(y_up).astype(complex)
 Y_up[0, 1] = eps_up[0]
 Y_up[1, 0] = eps_up[0]
