@@ -799,12 +799,12 @@ def optimize_geometric_ckm(wrapping_up, wrapping_down, tau_values, verbose=True)
     if verbose:
         print("Optimizing geometric CKM parameters (with instanton corrections)...")
 
-    # Bounds: σ ∈ [1, 10], α_ij reasonable mixing scales, λ_inst ∈ [0.1, 100]
-    bounds = [(1.0, 10.0),      # σ_overlap
-              (0.15, 0.30),     # α_12 (Cabibbo scale)
-              (0.02, 0.08),     # α_23 (V_cb scale)
-              (0.001, 0.01),    # α_13 (V_ub scale)
-              (0.1, 100.0)]     # λ_inst (instanton strength)
+    # Bounds: wider ranges since previous optimization hit bounds
+    bounds = [(1.0, 20.0),      # σ_overlap (was 10, optimizer hit 9.7)
+              (0.15, 0.35),     # α_12 (Cabibbo scale, slightly wider)
+              (0.02, 0.10),     # α_23 (V_cb scale, slightly wider)
+              (0.001, 0.015),   # α_13 (V_ub scale, slightly wider)
+              (0.1, 500.0)]     # λ_inst (was 100, optimizer hit upper bound)
 
     result = differential_evolution(objective, bounds, seed=42, maxiter=400,
                                    popsize=15, atol=1e-6, tol=1e-6)
