@@ -1,7 +1,7 @@
 # Phase 2: Generation Factor Absorption Breakthrough
 
-**Date**: January 3, 2025  
-**Achievement**: 90% Phase 2 completion (27/30 parameters derived)  
+**Date**: January 3, 2025
+**Achievement**: 90% Phase 2 completion (27/30 parameters derived)
 **Key Insight**: Parameter elimination via reparametrization
 
 ---
@@ -219,7 +219,7 @@ def mass_with_localization(M_string, tau, k, A):
 
 def compute_A_prime(tau_old, tau_new, A_old, k):
     """Transform A → A' to absorb g_i effect"""
-    return A_old + k * np.log(np.abs(dedekind_eta(tau_old)) / 
+    return A_old + k * np.log(np.abs(dedekind_eta(tau_old)) /
                                np.abs(dedekind_eta(tau_new)))
 ```
 
@@ -485,5 +485,5 @@ The g_i absorption demonstrates a powerful principle: **Not all fitted parameter
 - `src/unified_predictions_complete.py` (lines 1520-1575, 2403-2425)
 - `GEOMETRIC_CKM_STATUS.md` (lines 1-20, 180-285, 310-330)
 
-**Status**: ✅ Complete and integrated  
+**Status**: ✅ Complete and integrated
 **Commit**: "Absorb generation factors g_i into localization A_i via reparametrization"
