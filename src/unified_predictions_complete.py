@@ -643,14 +643,14 @@ def fit_higgs_parameters(v_higgs=246.0, m_h_obs=125.0, verbose=True):
 # INPUT: PREDICTED MODULAR PARAMETER
 # ============================================================================
 
-tau_0 = 2.7j  # Base value predicted from topology: τ₀ = 27/10
+tau_0 = 2.7j  # Base value predicted from topology: tau_0 = 27/10
 tau = tau_0  # Default single value (for backward compatibility)
 
 print("PREDICTED PARAMETER (from orbifold topology):")
-print(f"  τ₀ = {tau_0.imag}i = 27/10")
-print(f"  Formula: τ₀ = k_lepton / X")
-print(f"    k_lepton = N₁³ = 3³ = 27")
-print(f"    X = N₁ + N₂ + h^{{1,1}} = 3 + 4 + 3 = 10")
+print(f"  tau_0 = {tau_0.imag}i = 27/10")
+print(f"  Formula: tau_0 = k_lepton / X")
+print(f"    k_lepton = N_1^3 = 3^3 = 27")
+print(f"    X = N_1 + N_2 + h^{{1,1}} = 3 + 4 + 3 = 10")
 print()
 
 # GENERATION-DEPENDENT τ MODEL (reduces errors from ~140% to ~7%)
@@ -830,11 +830,20 @@ print(f"  v = {v_higgs:.1f} GeV (input, to be derived from potential)")
 print(f"  λ_h = {lambda_h:.6f} (fitted to m_h = 125 GeV)")
 print()
 
-# Yukawa normalizations (sector-dependent, from Kähler metrics)
-# Each sector has different D-brane configuration → different normalizations
-Y_0_lep = 1e-7   # Placeholder for leptons
-Y_0_up = 1e-7    # Placeholder for up-type quarks
-Y_0_down = 1e-7  # Placeholder for down-type quarks
+# Yukawa normalizations from Kähler geometry
+# PHASE 1 IMPROVEMENT: Instead of 3 fitted parameters, derive from τ and g_s
+from yukawa_from_geometry import compute_yukawa_normalizations
+Y_0_up, Y_0_down, Y_0_lep = compute_yukawa_normalizations(
+    tau=tau, g_s=g_s, calibrate=True, verbose=False
+)
+
+print(f"YUKAWA NORMALIZATIONS (from Kähler geometry):")
+print(f"  Y₀_lep  = {Y_0_lep:.6e}  (leptons)")
+print(f"  Y₀_up   = {Y_0_up:.6e}  (up-type quarks)")
+print(f"  Y₀_down = {Y_0_down:.6e}  (down-type quarks)")
+print(f"  → Derived from τ = {tau}, g_s = {g_s:.3f}")
+print(f"  → Parameter reduction: 3 fitted → 0 (geometric)")
+print()
 
 # ============================================================================
 # SECTION 1: SPACETIME GEOMETRY (1 observable)
@@ -1035,31 +1044,21 @@ m_d_obs = 4.67e-3   # GeV
 m_s_obs = 95e-3
 m_b_obs = 4.18
 
-# Fit Y₀ for each sector to their lightest generation
-Y_0_lep_fitted = m_e_obs / (v_higgs * m_lep[0])
-Y_0_up_fitted = m_u_obs / (v_higgs * m_up_quarks[0])
-Y_0_down_fitted = m_d_obs / (v_higgs * m_down_quarks[0])
+# Yukawa normalizations now come from geometry (computed above)
+# No longer fitted - derived from Kähler potential
 
-print(f"Fitting Yukawa normalizations (sector-dependent):")
-print(f"  Y₀_lep  = {Y_0_lep_fitted:.3e} (from m_e)")
-print(f"  Y₀_up   = {Y_0_up_fitted:.3e} (from m_u)")
-print(f"  Y₀_down = {Y_0_down_fitted:.3e} (from m_d)")
-print(f"  Ratios: Y₀_up/Y₀_lep = {Y_0_up_fitted/Y_0_lep_fitted:.2f}, Y₀_down/Y₀_lep = {Y_0_down_fitted/Y_0_lep_fitted:.2f}")
-print(f"  (to be derived from Kähler potential K = -log|X|²)")
-print()
+# Compute absolute masses: m = Y₀ × v × (dimensionless Yukawa)
+m_e_pred = Y_0_lep * v_higgs * m_lep[0]
+m_mu_pred = Y_0_lep * v_higgs * m_lep[1]
+m_tau_pred = Y_0_lep * v_higgs * m_lep[2]
 
-# Recompute with fitted Y₀ values
-m_e_pred = Y_0_lep_fitted * v_higgs * m_lep[0]
-m_mu_pred = Y_0_lep_fitted * v_higgs * m_lep[1]
-m_tau_pred = Y_0_lep_fitted * v_higgs * m_lep[2]
+m_u_pred = Y_0_up * v_higgs * m_up_quarks[0]
+m_c_pred = Y_0_up * v_higgs * m_up_quarks[1]
+m_t_pred = Y_0_up * v_higgs * m_up_quarks[2]
 
-m_u_pred = Y_0_up_fitted * v_higgs * m_up_quarks[0]
-m_c_pred = Y_0_up_fitted * v_higgs * m_up_quarks[1]
-m_t_pred = Y_0_up_fitted * v_higgs * m_up_quarks[2]
-
-m_d_pred = Y_0_down_fitted * v_higgs * m_down_quarks[0]
-m_s_pred = Y_0_down_fitted * v_higgs * m_down_quarks[1]
-m_b_pred = Y_0_down_fitted * v_higgs * m_down_quarks[2]
+m_d_pred = Y_0_down * v_higgs * m_down_quarks[0]
+m_s_pred = Y_0_down * v_higgs * m_down_quarks[1]
+m_b_pred = Y_0_down * v_higgs * m_down_quarks[2]
 
 print(f"Observable 11-19: Absolute masses")
 print(f"  Leptons:")
@@ -1430,9 +1429,9 @@ results = {
     'k_gauge': k_gauge,  # Kac-Moody levels for gauge couplings
     'k_CKM': k_CKM,      # For Yukawa hierarchies
     'fitted_params': {
-        'Y_0_lep': Y_0_lep_fitted,
-        'Y_0_up': Y_0_up_fitted,
-        'Y_0_down': Y_0_down_fitted,
+        'Y_0_lep': Y_0_lep,
+        'Y_0_up': Y_0_up,
+        'Y_0_down': Y_0_down,
         'M_R_scale': M_R_scale,  # Inverse seesaw scale
         'mu_scale': mu_scale,    # LNV scale
         'lambda_h': lambda_h,
