@@ -35,9 +35,6 @@ desktop.ini
 *.bak
 temp/
 
-# Archive directory (old code)
-archive/
-
 # Large data files
 *.hdf5
 *.h5

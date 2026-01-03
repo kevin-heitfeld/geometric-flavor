@@ -1,0 +1,17 @@
+{
+  "n_clusters": 2,
+  "silhouette_score": 0.3037376216016011,
+  "success_criteria": {
+    "exactly_3_patterns": false,
+    "good_clustering": true,
+    "error_gen2_ok": false,
+    "error_gen3_ok": false
+  },
+  "all_pass": false,
+  "mass_ratios": [
+    1.0,
+    2.028829559790543
+  ],
+  "error_gen2": 0.9901988910155046,
+  "error_gen3": 1.0
+}

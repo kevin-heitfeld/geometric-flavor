@@ -1,0 +1,25 @@
+{
+  "theory": "Hierarchical Network Renormalization",
+  "small_network": {
+    "passed": true,
+    "ratios": [
+      1.0,
+      16.444646771097045,
+      66.68633104092511
+    ]
+  },
+  "large_network": {
+    "passed": true,
+    "ratios": [
+      1.0,
+      22.386377797184768,
+      54.59815003314425
+    ]
+  },
+  "target": [
+    1,
+    207,
+    3477
+  ],
+  "mechanism": "scale_dependent_persistence"
+}

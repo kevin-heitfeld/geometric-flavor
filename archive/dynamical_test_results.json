@@ -1,0 +1,14 @@
+{
+  "approach": "dynamical_relaxation",
+  "passed": false,
+  "ratios": [
+    1.0,
+    2.8979754212534905,
+    5.74209181347437
+  ],
+  "target": [
+    1,
+    207,
+    3477
+  ]
+}

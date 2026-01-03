@@ -1,0 +1,22 @@
+{
+  "Spectral Dimension": {
+    "status": "FAIL",
+    "result": "-0.1991828933663096"
+  },
+  "Mass Ratios": {
+    "status": "FAIL",
+    "result": "[1.         0.09868742        nan]"
+  },
+  "Koide Relation": {
+    "status": "PASS",
+    "result": "nan"
+  },
+  "Scrambling Time": {
+    "status": "PASS",
+    "result": "[(100, 4, 0.004276752471923828), (500, 6, 0.08322834968566895), (2000, 7, 1.4296586513519287), (10000, 8, 41.899959564208984)]"
+  },
+  "Area Law": {
+    "status": "PASS",
+    "result": "3.020566134361336"
+  }
+}

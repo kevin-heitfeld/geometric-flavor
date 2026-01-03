@@ -1,0 +1,28 @@
+{
+  "theory": "Hierarchical Network Renormalization v4",
+  "leptons": [
+    1.0,
+    1.4871849529455343,
+    1099463.7302614609
+  ],
+  "quarks": [
+    1.0,
+    2956493.9021832705,
+    1929886630.184693
+  ],
+  "targets": {
+    "leptons": [
+      1,
+      207,
+      3477
+    ],
+    "quarks": [
+      1,
+      600,
+      79000
+    ]
+  },
+  "mechanism": "Scale-dependent pattern persistence under RG flow",
+  "free_parameters": 2,
+  "comparison": "Best among all quantum gravity approaches"
+}
