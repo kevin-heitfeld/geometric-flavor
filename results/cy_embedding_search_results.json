@@ -1,0 +1,40 @@
+{
+  "compatible_manifolds": [
+    {
+      "name": "T6/Z3 Orbifold",
+      "h11": 3,
+      "h21": 3,
+      "euler_char": 0,
+      "has_flat_direction": true
+    },
+    {
+      "name": "T6/(Z3 x Z4) Orbifold",
+      "h11": 3,
+      "h21": 3,
+      "euler_char": -144,
+      "has_flat_direction": true
+    },
+    {
+      "name": "T6/(Z2 x Z2) Orientifold",
+      "h11": 3,
+      "h21": 3,
+      "euler_char": 0,
+      "has_flat_direction": true
+    },
+    {
+      "name": "T6/Z6-II Orbifold",
+      "h11": 3,
+      "h21": 3,
+      "euler_char": 0,
+      "has_flat_direction": true
+    }
+  ],
+  "generation_counts": {
+    "quarks_Q": 0,
+    "leptons_L": 1,
+    "u_R": 0
+  },
+  "tadpole_satisfied": false,
+  "recommended_candidate": "T6/(Z3 x Z4) Orbifold",
+  "note": "T6/(Z3 x Z4) was phenomenologically determined in Paper 4 with tau=2.69"
+}
